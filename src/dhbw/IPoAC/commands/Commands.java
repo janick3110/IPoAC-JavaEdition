@@ -1,6 +1,9 @@
 package dhbw.IPoAC.commands;
 
+import dhbw.IPoAC.Birds.Bird;
 import dhbw.IPoAC.Birds.Pigeon;
+import dhbw.IPoAC.Medium.FloppyDisk;
+import dhbw.IPoAC.Medium.Medium;
 import dhbw.IPoAC.Player.Player;
 
 import java.util.ArrayList;
@@ -27,23 +30,38 @@ public class Commands {
     }
 
     public void buy(String fullCommand, Player player){
-        if(fullCommand.contains("PIGEON")){
-            if (player.getHabitat().isEnoughSpace()){
-                player.getHabitat().AddBirdToHabitat(new Pigeon());
+        if (fullCommand.contains("PIGEON")) {
+            if (player.getHabitat().isEnoughSpace()) {
+                Pigeon newBird = new Pigeon();
+                player.getHabitat().AddBirdToHabitat(newBird);
+                player.moneyTransactions(newBird.getCosts());
             }
+        } else if (fullCommand.contains("FLOPPY DISK")) {
+            addMediumToPlayer(player, new FloppyDisk());
+        } else System.out.println("Please enter a valid command");
 
-        } else {
-            System.out.println("Please enter a valid command");
+    }
+
+    public void send(Player player) {
+        for (Bird bird : player.getHabitat().getBirds()
+        ) {
+            bird.loadBird(player);
         }
     }
 
-    public void increase(String fullCommand, Player player){
-        if (fullCommand.contains("HABITAT SIZE")){
+    public void increase(String fullCommand, Player player) {
+        if (fullCommand.contains("HABITAT SIZE")) {
             player.getHabitat().IncreaseSizeOfHabitat();
         } else System.out.println("Please enter valid command");
     }
 
-    public void nextDay(Player player){
+    public void nextDay(Player player) {
         player.NextDay();
+    }
+
+    private void addMediumToPlayer(Player player, Medium medium) {
+        player.getAvaliableMedia().add(medium);
+        System.out.println("Neues Medium " + medium.getClass().getName() + " hinzugefügt");
+        player.moneyTransactions(medium.getCost());
     }
 }

@@ -28,11 +28,13 @@ public class Main {
                 commands.buy(s.toUpperCase(), player);
             } else if(s.toUpperCase().contains("UPGRADE")){
                 commands.increase(s.toUpperCase(), player);
-            } else if (s.toUpperCase().contains("NEXT DAY")){
+            } else if (s.toUpperCase().contains("NEXT DAY")) {
                 commands.nextDay(player);
+            } else if (s.toUpperCase().contains("SEND")) {
+                commands.send(player);
             }
 
-            if (s.toUpperCase().equals("EXIT")){
+            if (s.equalsIgnoreCase("EXIT")) {
                 break;
             }
             // process the line

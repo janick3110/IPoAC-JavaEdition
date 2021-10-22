@@ -10,11 +10,12 @@ public class Commands {
 
     private List<String> listOfCommands = new ArrayList<>();
 
-    public void SetUpList(){
+    public void setUpList(){
         listOfCommands.add("SEND");
         listOfCommands.add("UPGRADE");
         listOfCommands.add("BUY");
         listOfCommands.add("STATS");
+        listOfCommands.add("NEXT DAY");
     }
 
     public List<String> getListOfCommands() {
@@ -25,15 +26,24 @@ public class Commands {
         this.listOfCommands = listOfCommands;
     }
 
-    public void Buy(String fullCommand, Player player){
+    public void buy(String fullCommand, Player player){
         if(fullCommand.contains("PIGEON")){
             if (player.getHabitat().isEnoughSpace()){
-                System.out.println("Pigeon was added");
-                player.getHabitat().getBirds().add(new Pigeon());
+                player.getHabitat().AddBirdToHabitat(new Pigeon());
             }
 
         } else {
             System.out.println("Please enter a valid command");
         }
+    }
+
+    public void increase(String fullCommand, Player player){
+        if (fullCommand.contains("HABITAT SIZE")){
+            player.getHabitat().IncreaseSizeOfHabitat();
+        } else System.out.println("Please enter valid command");
+    }
+
+    public void nextDay(Player player){
+        player.NextDay();
     }
 }

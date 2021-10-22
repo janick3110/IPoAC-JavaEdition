@@ -24,6 +24,16 @@ public class Habitat {
         } else return false;
     }
 
+    public void AddBirdToHabitat(Bird bird){
+        birds.add(bird);
+        System.out.println("Ein Vogel der Art " + bird.getClass().getName() + " wurde hinzugefügt");
+    }
+
+    public void IncreaseSizeOfHabitat(){
+        avaliableNests++;
+        System.out.println("Die Größe des Nests wurde auf " + avaliableNests + " erhöht");
+    }
+
     public int getAvaliableNests() {
         return avaliableNests;
     }

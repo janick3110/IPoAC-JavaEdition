@@ -7,6 +7,16 @@ public class Medium {
     private float weight;
     private float cost;
     private boolean isAvaliable;
+    private float data;
+
+
+    public float getData() {
+        return data;
+    }
+
+    public void setData(float data) {
+        this.data = data;
+    }
 
     public float getCost() {
         return cost;

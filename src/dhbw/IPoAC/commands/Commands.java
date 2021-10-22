@@ -32,7 +32,7 @@ public class Commands {
     public void buy(String fullCommand, Player player){
         if (fullCommand.contains("PIGEON")) {
             if (player.getHabitat().isEnoughSpace()) {
-                Pigeon newBird = new Pigeon();
+                Pigeon newBird = new Pigeon(player);
                 player.getHabitat().AddBirdToHabitat(newBird);
                 player.moneyTransactions(newBird.getCosts());
             }
@@ -55,8 +55,25 @@ public class Commands {
         } else System.out.println("Please enter valid command");
     }
 
+    public void stats(Player player) {
+        System.out.println(player.getAmountDataTransmitted() + "GB of data transmitted");
+        System.out.println(player.getHabitat().getAvaliableNests() + " nest(s) are/is avaliable");
+        System.out.println(player.getHabitat().getBirds().size() + " bird(s) exist");
+        System.out.println(player.getAvaliableMedia().size() + " storage media are/is avaliable");
+
+    }
+
     public void nextDay(Player player) {
         player.NextDay();
+
+        for (Bird birds : player.getHabitat().getBirds()
+        ) {
+            if (!birds.isHome() && birds.getEnergy() >= 100) {
+                birds.fly(player);
+            } else if (birds.isHome() && birds.getEnergy() < 100) {
+                birds.rest(player.getHabitat().getRelaxingFactor());
+            }
+        }
     }
 
     private void addMediumToPlayer(Player player, Medium medium) {

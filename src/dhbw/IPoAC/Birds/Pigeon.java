@@ -1,8 +1,10 @@
 package dhbw.IPoAC.Birds;
 
-public class Pigeon extends Bird{
+import dhbw.IPoAC.Player.Player;
 
-    public Pigeon(){
-        super("Pigeon", 0, 0, 10, 10);
+public class Pigeon extends Bird {
+
+    public Pigeon(Player player) {
+        super("Pigeon", 0, 0, 10, 10, player);
     }
 }

@@ -11,6 +11,15 @@ public class Player {
     private List<Medium> avaliableMedia = new ArrayList<>();
     private int day;
     private float money = 1000;
+    private float amountDataTransmitted = 0;
+
+    public float getAmountDataTransmitted() {
+        return amountDataTransmitted;
+    }
+
+    public void setAmountDataTransmitted(float amountDataTransmitted) {
+        this.amountDataTransmitted = amountDataTransmitted;
+    }
 
     public void moneyTransactions(float transaction) {
         money += transaction;

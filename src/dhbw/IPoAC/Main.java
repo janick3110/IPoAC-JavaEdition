@@ -32,6 +32,8 @@ public class Main {
                 commands.nextDay(player);
             } else if (s.toUpperCase().contains("SEND")) {
                 commands.send(player);
+            } else if (s.toUpperCase().contains("STATS")) {
+                commands.stats(player);
             }
 
             if (s.equalsIgnoreCase("EXIT")) {

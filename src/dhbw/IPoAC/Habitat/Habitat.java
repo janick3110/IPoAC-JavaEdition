@@ -9,6 +9,15 @@ public class Habitat {
 
     private List<Bird> birds = new ArrayList<>();
     private int avaliableNests = 10;
+    private int relaxingFactor = 5;
+
+    public int getRelaxingFactor() {
+        return relaxingFactor;
+    }
+
+    public void setRelaxingFactor(int relaxingFactor) {
+        this.relaxingFactor = relaxingFactor;
+    }
 
     public List<Bird> getBirds() {
         return birds;
@@ -18,10 +27,8 @@ public class Habitat {
         this.birds = birds;
     }
 
-    public boolean isEnoughSpace(){
-        if (getAvaliableNests() >= getBirds().size() + 1){
-            return true;
-        } else return false;
+    public boolean isEnoughSpace() {
+        return getAvaliableNests() >= getBirds().size() + 1;
     }
 
     public void AddBirdToHabitat(Bird bird){

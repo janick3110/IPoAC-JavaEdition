@@ -1,4 +1,4 @@
-package dhbw.IPoAC.Medium;
+package dhbw.IPoAC.medium;
 
 public class Medium {
 

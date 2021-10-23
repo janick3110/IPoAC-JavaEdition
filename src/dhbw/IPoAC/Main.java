@@ -1,8 +1,8 @@
 package dhbw.IPoAC;
 
-import dhbw.IPoAC.Events.Event;
-import dhbw.IPoAC.Player.Player;
 import dhbw.IPoAC.commands.Commands;
+import dhbw.IPoAC.events.Event;
+import dhbw.IPoAC.player.Player;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -47,7 +47,7 @@ public class Main {
 
             //Do Events
             Random random = new Random();
-            event.DoSomethingGoodOrBad(random.nextInt(100), player);
+            event.doSomethingGoodOrBad(random.nextInt(100), player);
 
         }
 

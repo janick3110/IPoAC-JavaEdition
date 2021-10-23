@@ -1,10 +1,10 @@
 package dhbw.IPoAC.commands;
 
-import dhbw.IPoAC.Birds.Bird;
-import dhbw.IPoAC.Birds.Pigeon;
-import dhbw.IPoAC.Medium.FloppyDisk;
-import dhbw.IPoAC.Medium.Medium;
-import dhbw.IPoAC.Player.Player;
+import dhbw.IPoAC.birds.Bird;
+import dhbw.IPoAC.birds.Pigeon;
+import dhbw.IPoAC.medium.FloppyDisk;
+import dhbw.IPoAC.medium.Medium;
+import dhbw.IPoAC.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +70,7 @@ public class Commands {
             bird = birdsOfPlayer.get(0);
             bird.fly(player);
             if (!bird.isHome()) {
-
-
+                bird.rest(player.getHabitat().getRelaxingFactor());
             } else if (bird.isHome() && bird.getEnergy() < 100) {
                 bird.rest(player.getHabitat().getRelaxingFactor());
             }

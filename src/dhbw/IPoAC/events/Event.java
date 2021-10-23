@@ -1,12 +1,12 @@
-package dhbw.IPoAC.Events;
+package dhbw.IPoAC.events;
 
-import dhbw.IPoAC.Player.Player;
+import dhbw.IPoAC.player.Player;
 
 import java.util.Random;
 
 public class Event {
 
-    public void DoSomethingGoodOrBad(int selector, Player player) {
+    public void doSomethingGoodOrBad(int selector, Player player) {
         switch (selector) {
             case 0: {
                 Random r = new Random();
@@ -20,6 +20,8 @@ public class Event {
                 player.moneyTransactions(-50);
                 break;
             }
+            default:
+                break;
         }
     }
 }

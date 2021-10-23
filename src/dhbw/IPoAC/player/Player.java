@@ -1,7 +1,7 @@
-package dhbw.IPoAC.Player;
+package dhbw.IPoAC.player;
 
-import dhbw.IPoAC.Habitat.Habitat;
-import dhbw.IPoAC.Medium.Medium;
+import dhbw.IPoAC.habitat.Habitat;
+import dhbw.IPoAC.medium.Medium;
 
 import java.util.ArrayList;
 import java.util.List;

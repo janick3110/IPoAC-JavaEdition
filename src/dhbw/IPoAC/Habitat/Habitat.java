@@ -3,7 +3,9 @@ package dhbw.IPoAC.Habitat;
 import dhbw.IPoAC.Birds.Bird;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Habitat {
 
@@ -13,7 +15,11 @@ public class Habitat {
     private int amountOfChargingStations = 0;
     private int costOfChargingStation = 500;
     private int dailyCost;
+    private final Map<String, Bird> mapNameToBird = new HashMap<>();
 
+    public Map<String, Bird> getMapNameToBird() {
+        return mapNameToBird;
+    }
 
     public int getAmountOfChargingStations() {
         return amountOfChargingStations;
@@ -46,6 +52,7 @@ public class Habitat {
 
     public void AddBirdToHabitat(Bird bird){
         birds.add(bird);
+        mapNameToBird.put(bird.getNameOfBird(), bird);
         System.out.println("A bird of type " + bird.getTypes() + " called " + bird.getNameOfBird() + " was added to the habitat");
     }
 

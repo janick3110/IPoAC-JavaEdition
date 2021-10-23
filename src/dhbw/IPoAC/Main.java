@@ -32,6 +32,10 @@ public class Main {
                 commands.stats(player);
             } else if (s.toUpperCase().contains("HELP")) {
                 commands.help();
+            } else if (s.toUpperCase().contains("RELEASE")) {
+                commands.releaseBird(s, player);
+            } else if (s.toUpperCase().contains("LIST")) {
+                commands.listAllBirds(player);
             }
             //Exit game
             if (s.equalsIgnoreCase("EXIT")) {

@@ -6,6 +6,9 @@ import dhbw.IPoAC.Medium.FloppyDisk;
 import dhbw.IPoAC.Medium.Medium;
 import dhbw.IPoAC.Player.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Commands {
 
@@ -53,16 +56,30 @@ public class Commands {
     public void nextDay(Player player) {
         player.NextDay();
 
-        for (Bird birds : player.getHabitat().getBirds()
+
+        List<Bird> birdsOfPlayer = new ArrayList<>();
+
+        for (Bird b : player.getHabitat().getBirds()
         ) {
-            if (!birds.isHome() && birds.getEnergy() >= 100) {
-                birds.fly(player);
-            } else if (birds.isHome() && birds.getEnergy() < 100) {
-                birds.rest(player.getHabitat().getRelaxingFactor());
+            birdsOfPlayer.add(b);
+        }
+
+        int length = birdsOfPlayer.size();
+        Bird bird;
+        for (int i = 0; i < length; i++) {
+            bird = birdsOfPlayer.get(0);
+            bird.fly(player);
+            if (!bird.isHome()) {
+
+
+            } else if (bird.isHome() && bird.getEnergy() < 100) {
+                bird.rest(player.getHabitat().getRelaxingFactor());
             }
 
-            birds.IncreaseAge();
+            bird.IncreaseAge();
+            birdsOfPlayer.remove(0);
         }
+
     }
 
     public void help() {
@@ -76,9 +93,33 @@ public class Commands {
         System.out.println("SEND            #Start all avaliable birds");
         System.out.println("STATS           #Display your stats");
         System.out.println("NEXT DAY        #Start new day");
+        System.out.println("LIST            #List all your birds");
+        System.out.println("RELEASE <NAME>  #Release a bird with the name <NAME>");
         System.out.println("EXIT            #End game");
         System.out.println("##############################################");
 
+    }
+
+    public void releaseBird(String fullCommand, Player player) {
+        String nameToDelete = fullCommand.substring(8);
+        Bird birdToRelease;
+        for (Bird bird : player.getHabitat().getBirds()
+        ) {
+            if (bird.getNameOfBird().equals(nameToDelete)) {
+                birdToRelease = player.getHabitat().getMapNameToBird().get(nameToDelete);
+                player.getHabitat().getBirds().remove(birdToRelease);
+                System.out.println(birdToRelease.getNameOfBird() + " was released into freedom! Fare well my friend!");
+                break;
+            }
+        }
+    }
+
+    public void listAllBirds(Player player) {
+        System.out.println("These birds are currently yours:");
+        for (Bird b : player.getHabitat().getBirds()
+        ) {
+            System.out.println("Name: " + b.getNameOfBird() + "   Type: " + b.getTypes() + "   Age: " + b.getAge() + "days   Is home: " + b.isHome());
+        }
     }
 
     private void addMediumToPlayer(Player player, Medium medium) {

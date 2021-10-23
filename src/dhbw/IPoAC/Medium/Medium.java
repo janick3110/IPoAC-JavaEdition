@@ -28,11 +28,12 @@ public class Medium {
         this.cost = cost;
     }
 
-    public Medium(String name, float writingSpeed, float weightOfObject, float cost) {
+    public Medium(String name, float writingSpeed, float weightOfObject, float cost, float data) {
         nameOfMedium = name;
         speedOfWriting = writingSpeed;
         weight = weightOfObject;
         this.cost = -cost;
+        this.data = data;
     }
 
     public float getWeight() {

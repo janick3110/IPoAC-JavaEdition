@@ -1,8 +1,8 @@
-package dhbw.IPoAC;
+package dhbw.ipoac;
 
-import dhbw.IPoAC.commands.Commands;
-import dhbw.IPoAC.events.Event;
-import dhbw.IPoAC.player.Player;
+import dhbw.ipoac.commands.Commands;
+import dhbw.ipoac.events.Event;
+import dhbw.ipoac.player.Player;
 
 import java.util.Random;
 import java.util.Scanner;

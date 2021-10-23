@@ -1,7 +1,7 @@
-package dhbw.IPoAC.birds;
+package dhbw.ipoac.birds;
 
-import dhbw.IPoAC.medium.Medium;
-import dhbw.IPoAC.player.Player;
+import dhbw.ipoac.medium.Medium;
+import dhbw.ipoac.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;

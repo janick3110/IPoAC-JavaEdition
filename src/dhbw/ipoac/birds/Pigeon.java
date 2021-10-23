@@ -1,6 +1,6 @@
-package dhbw.IPoAC.birds;
+package dhbw.ipoac.birds;
 
-import dhbw.IPoAC.player.Player;
+import dhbw.ipoac.player.Player;
 
 public class Pigeon extends Bird {
 

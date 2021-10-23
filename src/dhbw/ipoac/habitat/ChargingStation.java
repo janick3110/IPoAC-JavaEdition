@@ -1,4 +1,4 @@
-package dhbw.IPoAC.habitat;
+package dhbw.ipoac.habitat;
 
 public class ChargingStation {
 }

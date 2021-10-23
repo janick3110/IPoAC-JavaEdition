@@ -1,10 +1,10 @@
-package dhbw.IPoAC.commands;
+package dhbw.ipoac.commands;
 
-import dhbw.IPoAC.birds.Bird;
-import dhbw.IPoAC.birds.Pigeon;
-import dhbw.IPoAC.medium.FloppyDisk;
-import dhbw.IPoAC.medium.Medium;
-import dhbw.IPoAC.player.Player;
+import dhbw.ipoac.birds.Bird;
+import dhbw.ipoac.birds.Pigeon;
+import dhbw.ipoac.medium.FloppyDisk;
+import dhbw.ipoac.medium.Medium;
+import dhbw.ipoac.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;

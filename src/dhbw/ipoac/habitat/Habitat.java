@@ -1,6 +1,6 @@
-package dhbw.IPoAC.habitat;
+package dhbw.ipoac.habitat;
 
-import dhbw.IPoAC.birds.Bird;
+import dhbw.ipoac.birds.Bird;
 
 import java.util.ArrayList;
 import java.util.HashMap;

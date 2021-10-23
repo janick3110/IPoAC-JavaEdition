@@ -1,6 +1,6 @@
-package dhbw.IPoAC.events;
+package dhbw.ipoac.events;
 
-import dhbw.IPoAC.player.Player;
+import dhbw.ipoac.player.Player;
 
 import java.util.Random;
 

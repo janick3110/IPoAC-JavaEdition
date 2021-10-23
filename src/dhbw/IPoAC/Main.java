@@ -8,25 +8,21 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
         Commands commands = new Commands();
         Player player = new Player();
         Scanner in = new Scanner(System.in);
-
-        commands.setUpList();
-
-        for (int i = 0; i < commands.getListOfCommands().size();i++){
-            System.out.println(commands.getListOfCommands().get(i));
-        }
+        System.out.println("IPoAC Tycoon");
+        System.out.println("Enter <HELP> for a list of avaliable commands");
 
         String s = "";
 
         while (in.hasNextLine()) {
             s = in.nextLine();
-
-            if(s.toUpperCase().contains("BUY")){
+            // Decode commands and main loop of the game
+            if (s.toUpperCase().contains("BUY")) {
                 commands.buy(s.toUpperCase(), player);
-            } else if(s.toUpperCase().contains("UPGRADE")){
+            } else if (s.toUpperCase().contains("UPGRADE")) {
                 commands.increase(s.toUpperCase(), player);
             } else if (s.toUpperCase().contains("NEXT DAY")) {
                 commands.nextDay(player);
@@ -34,8 +30,10 @@ public class Main {
                 commands.send(player);
             } else if (s.toUpperCase().contains("STATS")) {
                 commands.stats(player);
+            } else if (s.toUpperCase().contains("HELP")) {
+                commands.help();
             }
-
+            //Exit game
             if (s.equalsIgnoreCase("EXIT")) {
                 break;
             }

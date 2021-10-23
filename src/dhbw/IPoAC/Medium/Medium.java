@@ -6,9 +6,11 @@ public class Medium {
     private final float speedOfWriting;
     private float weight;
     private float cost;
-    private boolean isAvaliable;
     private float data;
 
+    public String getNameOfMedium() {
+        return nameOfMedium;
+    }
 
     public float getData() {
         return data;
@@ -31,7 +33,6 @@ public class Medium {
         speedOfWriting = writingSpeed;
         weight = weightOfObject;
         this.cost = -cost;
-        isAvaliable = true;
     }
 
     public float getWeight() {
@@ -42,11 +43,5 @@ public class Medium {
         this.weight = weight;
     }
 
-    public boolean isAvaliable() {
-        return isAvaliable;
-    }
 
-    public void setAvaliable(boolean avaliable) {
-        isAvaliable = avaliable;
-    }
 }

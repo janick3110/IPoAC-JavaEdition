@@ -7,24 +7,37 @@ import java.util.List;
 
 public class Habitat {
 
-    private List<Bird> birds = new ArrayList<>();
+    private final List<Bird> birds = new ArrayList<>();
     private int avaliableNests = 10;
-    private int relaxingFactor = 5;
+    private final int relaxingFactor = 5;
+    private int amountOfChargingStations = 0;
+    private int costOfChargingStation = 500;
+    private int dailyCost;
+
+
+    public int getAmountOfChargingStations() {
+        return amountOfChargingStations;
+    }
+
+    public int getCostOfChargingStation() {
+        return costOfChargingStation;
+    }
+
+    public void setCostOfChargingStation(int costOfChargingStation) {
+        this.costOfChargingStation = costOfChargingStation;
+    }
 
     public int getRelaxingFactor() {
         return relaxingFactor;
     }
 
-    public void setRelaxingFactor(int relaxingFactor) {
-        this.relaxingFactor = relaxingFactor;
+    public void increaseChargingStations() {
+        amountOfChargingStations++;
+        costOfChargingStation = (int) (costOfChargingStation * 1.2f);
     }
 
     public List<Bird> getBirds() {
         return birds;
-    }
-
-    public void setBirds(List<Bird> birds) {
-        this.birds = birds;
     }
 
     public boolean isEnoughSpace() {
@@ -33,19 +46,16 @@ public class Habitat {
 
     public void AddBirdToHabitat(Bird bird){
         birds.add(bird);
-        System.out.println("Ein Vogel der Art " + bird.getClass().getName() + " wurde hinzugefügt");
+        System.out.println("A bird of type " + bird.getTypes() + " called " + bird.getNameOfBird() + " was added to the habitat");
     }
 
     public void IncreaseSizeOfHabitat(){
         avaliableNests++;
-        System.out.println("Die Größe des Nests wurde auf " + avaliableNests + " erhöht");
+        System.out.println("The amount of avaliable nests has been increased to " + avaliableNests);
     }
 
     public int getAvaliableNests() {
         return avaliableNests;
     }
 
-    public void setAvaliableNests(int avaliableNests) {
-        this.avaliableNests = avaliableNests;
-    }
 }

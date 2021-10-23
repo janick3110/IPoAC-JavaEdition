@@ -1,16 +1,19 @@
 package dhbw.IPoAC;
 
+import dhbw.IPoAC.Events.Event;
 import dhbw.IPoAC.Player.Player;
 import dhbw.IPoAC.commands.Commands;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        // write your code here
         Commands commands = new Commands();
         Player player = new Player();
+        Event event = new Event();
+
         Scanner in = new Scanner(System.in);
         System.out.println("IPoAC Tycoon");
         System.out.println("Enter <HELP> for a list of avaliable commands");
@@ -41,7 +44,11 @@ public class Main {
             if (s.equalsIgnoreCase("EXIT")) {
                 break;
             }
-            // process the line
+
+            //Do Events
+            Random random = new Random();
+            event.DoSomethingGoodOrBad(random.nextInt(100), player);
+
         }
 
     }

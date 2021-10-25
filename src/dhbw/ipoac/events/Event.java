@@ -20,6 +20,13 @@ public class Event {
                 player.moneyTransactions(-50);
                 break;
             }
+            case 3: {
+                Random r = new Random();
+                int damage = r.nextInt(3 - 1) + 1;
+                System.out.println("You had a little fire in your habitat. " + damage + " nests were destroyed");
+                player.moneyTransactions(-50);
+                break;
+            }
             default:
                 break;
         }

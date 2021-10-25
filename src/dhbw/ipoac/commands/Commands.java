@@ -1,7 +1,7 @@
 package dhbw.ipoac.commands;
 
-import dhbw.ipoac.birds.Bird;
-import dhbw.ipoac.birds.Pigeon;
+import dhbw.ipoac.animals.birds.BirdOld;
+import dhbw.ipoac.animals.birds.Pigeon;
 import dhbw.ipoac.medium.FloppyDisk;
 import dhbw.ipoac.medium.Medium;
 import dhbw.ipoac.player.Player;
@@ -30,17 +30,23 @@ public class Commands {
     }
 
     public void send(Player player) {
-        for (Bird bird : player.getHabitat().getBirds()
+        for (BirdOld birdOld : player.getHabitat().getBirds()
         ) {
-            if (bird.isHome()) {
-                bird.loadBird(player);
+            if (birdOld.isHome()) {
+                birdOld.loadBird(player);
             }
         }
     }
 
     public void increase(String fullCommand, Player player) {
         if (fullCommand.contains("HABITAT SIZE")) {
-            player.getHabitat().IncreaseSizeOfHabitat();
+            if (player.getMoney() - player.getHabitat().getCostOfNewNest() >= 0) {
+                player.moneyTransactions(-player.getHabitat().getCostOfNewNest());
+                player.getHabitat().IncreaseSizeOfHabitat();
+            } else
+                System.out.println("Not enough money. " + player.getHabitat().getCostOfNewNest() + " is required,  " + player.getMoney() + " is avaliable");
+
+
         } else System.out.println("Please enter valid command");
     }
 
@@ -57,25 +63,25 @@ public class Commands {
         player.NextDay();
 
 
-        List<Bird> birdsOfPlayer = new ArrayList<>();
+        List<BirdOld> birdsOfPlayer = new ArrayList<>();
 
-        for (Bird b : player.getHabitat().getBirds()
+        for (BirdOld b : player.getHabitat().getBirds()
         ) {
             birdsOfPlayer.add(b);
         }
 
         int length = birdsOfPlayer.size();
-        Bird bird;
+        BirdOld birdOld;
         for (int i = 0; i < length; i++) {
-            bird = birdsOfPlayer.get(0);
-            bird.fly(player);
-            if (!bird.isHome()) {
-                bird.rest(player.getHabitat().getRelaxingFactor());
-            } else if (bird.isHome() && bird.getEnergy() < 100) {
-                bird.rest(player.getHabitat().getRelaxingFactor());
+            birdOld = birdsOfPlayer.get(0);
+            birdOld.fly(player);
+            if (!birdOld.isHome()) {
+                birdOld.rest(player.getHabitat().getRelaxingFactor());
+            } else if (birdOld.isHome() && birdOld.getEnergy() < 100) {
+                birdOld.rest(player.getHabitat().getRelaxingFactor());
             }
 
-            bird.IncreaseAge();
+            birdOld.IncreaseAge();
             birdsOfPlayer.remove(0);
         }
 
@@ -101,13 +107,13 @@ public class Commands {
 
     public void releaseBird(String fullCommand, Player player) {
         String nameToDelete = fullCommand.substring(8);
-        Bird birdToRelease;
-        for (Bird bird : player.getHabitat().getBirds()
+        BirdOld birdOldToRelease;
+        for (BirdOld birdOld : player.getHabitat().getBirds()
         ) {
-            if (bird.getNameOfBird().equals(nameToDelete)) {
-                birdToRelease = player.getHabitat().getMapNameToBird().get(nameToDelete);
-                player.getHabitat().getBirds().remove(birdToRelease);
-                System.out.println(birdToRelease.getNameOfBird() + " was released into freedom! Fare well my friend!");
+            if (birdOld.getNameOfBird().equals(nameToDelete)) {
+                birdOldToRelease = player.getHabitat().getMapNameToBird().get(nameToDelete);
+                player.getHabitat().getBirds().remove(birdOldToRelease);
+                System.out.println(birdOldToRelease.getNameOfBird() + " was released into freedom! Fare well my friend!");
                 break;
             }
         }
@@ -115,7 +121,7 @@ public class Commands {
 
     public void listAllBirds(Player player) {
         System.out.println("These birds are currently yours:");
-        for (Bird b : player.getHabitat().getBirds()
+        for (BirdOld b : player.getHabitat().getBirds()
         ) {
             System.out.println("Name: " + b.getNameOfBird() + "   Type: " + b.getTypes() + "   Age: " + b.getAge() + "days   Is home: " + b.isHome());
         }
@@ -127,10 +133,10 @@ public class Commands {
         player.moneyTransactions(medium.getCost());
     }
 
-    private void addBirdToHabitat(Player player, Bird bird) {
+    private void addBirdToHabitat(Player player, BirdOld birdOld) {
         if (player.getHabitat().isEnoughSpace()) {
-            player.getHabitat().AddBirdToHabitat(bird);
-            player.moneyTransactions(bird.getCosts());
+            player.getHabitat().AddBirdToHabitat(birdOld);
+            player.moneyTransactions(birdOld.getCosts());
         }
     }
 }

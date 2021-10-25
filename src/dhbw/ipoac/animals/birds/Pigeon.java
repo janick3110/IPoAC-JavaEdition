@@ -1,8 +1,8 @@
-package dhbw.ipoac.birds;
+package dhbw.ipoac.animals.birds;
 
 import dhbw.ipoac.player.Player;
 
-public class Pigeon extends Bird {
+public class Pigeon extends BirdOld {
 
     public Pigeon(Player player) {
         super("Pigeon", 0.3f, 1, 10, 10, player, 100);

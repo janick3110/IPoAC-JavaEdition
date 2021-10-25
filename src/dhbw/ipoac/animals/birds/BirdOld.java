@@ -1,4 +1,4 @@
-package dhbw.ipoac.birds;
+package dhbw.ipoac.animals.birds;
 
 import dhbw.ipoac.medium.Medium;
 import dhbw.ipoac.player.Player;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Bird {
+public class BirdOld {
 
 
     private final String types; //type of bird
@@ -42,7 +42,7 @@ public class Bird {
         return costs;
     }
 
-    public Bird(String typus, float maxWeight, float probabilityOfDeath, float costs, float percentPerDay, Player player, int maxAge) {
+    public BirdOld(String typus, float maxWeight, float probabilityOfDeath, float costs, float percentPerDay, Player player, int maxAge) {
         System.out.println("Name your bird:");
         Scanner in = new Scanner(System.in);
 
@@ -173,7 +173,7 @@ public class Bird {
     }
 
     //Let birds die, if it's on the flight they lose all drives
-    private void killBird() {
+    public void killBird() {
         packaging.clear();
         player.getHabitat().getBirds().remove(this);
         player.getHabitat().getMapNameToBird().remove(nameOfBird, this);

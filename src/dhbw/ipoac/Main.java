@@ -13,7 +13,8 @@ public class Main {
         Commands commands = new Commands();
         Player player = new Player();
         Event event = new Event();
-
+        //var b = new Bird(player, 100,100,100, "Pigeon", 10);
+        //b.killAnimal();
         Scanner in = new Scanner(System.in);
         System.out.println("IPoAC Tycoon");
         System.out.println("Enter <HELP> for a list of avaliable commands");

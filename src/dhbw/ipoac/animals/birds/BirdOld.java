@@ -20,11 +20,12 @@ public class BirdOld {
     private final float costs; //costs for buying type of bird
     private boolean isHome; //is bird at home?
     private float percentage = 0; //actual percent of distance flown
-    private String nameOfBird = ""; // birds can have names :)
+    private String nameOfAnimal = ""; // birds can have names :)
     private int age; //current age of birds
     private final int maxAge; //max age, after that birds die
     private final Player player; //the player they belong to
     private boolean hasArrived = false; //has the bird arrived?
+
     public String getTypes() {
         return types;
     }
@@ -33,8 +34,8 @@ public class BirdOld {
         return isHome;
     }
 
-    public String getNameOfBird() {
-        return nameOfBird;
+    public String getNameOfAnimal() {
+        return nameOfAnimal;
     }
 
 
@@ -47,10 +48,10 @@ public class BirdOld {
         Scanner in = new Scanner(System.in);
 
         //Name can be given only one time
-        nameOfBird = in.nextLine();
-        while (player.getHabitat().getMapNameToBird().containsKey(nameOfBird)) {
+        nameOfAnimal = in.nextLine();
+        while (player.checkForDoubleNames(nameOfAnimal)) {
             System.out.println("Name was already chosen. Please enter a new name:");
-            nameOfBird = in.nextLine();
+            nameOfAnimal = in.nextLine();
         }
 
         types = typus;
@@ -73,7 +74,7 @@ public class BirdOld {
         for (int i = 0; i < allMedia.size(); i++) {
             if (allMedia.get(i).getWeight() + currentWeight <= maxWeight) {
                 currentWeight += allMedia.get(i).getWeight();
-                System.out.println("Bird " + nameOfBird + " was loaded with " + allMedia.get(i).getNameOfMedium());
+                System.out.println("Bird " + nameOfAnimal + " was loaded with " + allMedia.get(i).getNameOfMedium());
                 packaging.add(allMedia.get(i));
             }
         }
@@ -99,7 +100,7 @@ public class BirdOld {
             player.getAvaliableMedia().add(m);
         }
         packaging.clear();
-        System.out.println(nameOfBird + " has returned!");
+        System.out.println(nameOfAnimal + " has returned!");
     }
 
     //Birds can fly
@@ -108,16 +109,13 @@ public class BirdOld {
         percentage += percentPerDay;
 
         if (hasArrived) {
-            System.out.println(getNameOfBird() + " has already moved " + getPercentage() + " on his way back home!");
+            System.out.println(getNameOfAnimal() + " has already moved " + getPercentage() + " on his way back home!");
         } else {
-            System.out.println(getNameOfBird() + " has already moved " + getPercentage() + " on his way to the destination!");
+            System.out.println(getNameOfAnimal() + " has already moved " + getPercentage() + " on his way to the destination!");
         }
 
         Random r = new Random();
 
-        if (r.nextFloat() < liklihoodOfDying) {
-            killBird();
-        }
 
         if (!hasArrived && percentage >= 100) {
 
@@ -145,9 +143,6 @@ public class BirdOld {
 
         Random r = new Random();
 
-        if (r.nextFloat() < liklihoodOfDying) {
-            killBird();
-        }
     }
 
     public float getPercentage() {
@@ -165,21 +160,12 @@ public class BirdOld {
         if (age > maxAge) {
             Random r = new Random();
             //there is a range where they can die
-            // TODO: 23.10.2021 Change mathematical function
-            if (r.nextFloat() > 0.5f * ((1 / (age - maxAge))) * 5) {
-                killBird();
-            }
+
         }
     }
 
     //Let birds die, if it's on the flight they lose all drives
-    public void killBird() {
-        packaging.clear();
-        player.getHabitat().getBirds().remove(this);
-        player.getHabitat().getMapNameToBird().remove(nameOfBird, this);
-        System.out.println("Your bird " + nameOfBird + " has died!");
 
-    }
 
     //birds need to rest at home
     public void rest(int relaxingFactor) {

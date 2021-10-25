@@ -3,6 +3,7 @@ package dhbw.ipoac;
 import dhbw.ipoac.commands.Commands;
 import dhbw.ipoac.events.Event;
 import dhbw.ipoac.player.Player;
+import dhbw.ipoac.transportationdevice.Backpack;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -15,8 +16,9 @@ public class Main {
         Event event = new Event();
         //var b = new Bird(player, 100,100,100, "Pigeon", 10);
         //b.killAnimal();
+        var t = new Backpack(player, 1, 1, 1);
         Scanner in = new Scanner(System.in);
-        System.out.println("IPoAC Tycoon");
+        System.out.println("IP over Animal Transport - Tycoon");
         System.out.println("Enter <HELP> for a list of avaliable commands");
 
         String s = "";
@@ -31,7 +33,7 @@ public class Main {
             } else if (s.toUpperCase().contains("NEXT DAY")) {
                 commands.nextDay(player);
             } else if (s.toUpperCase().contains("SEND")) {
-                commands.send(player);
+                commands.send(s, player);
             } else if (s.toUpperCase().contains("STATS")) {
                 commands.stats(player);
             } else if (s.toUpperCase().contains("HELP")) {
@@ -39,7 +41,7 @@ public class Main {
             } else if (s.toUpperCase().contains("RELEASE")) {
                 commands.releaseBird(s, player);
             } else if (s.toUpperCase().contains("LIST")) {
-                commands.listAllBirds(player);
+                commands.listAllObjectsOfAType(player);
             }
             //Exit game
             if (s.equalsIgnoreCase("EXIT")) {

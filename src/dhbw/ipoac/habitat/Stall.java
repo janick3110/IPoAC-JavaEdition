@@ -4,6 +4,6 @@ import dhbw.ipoac.player.Player;
 
 public class Stall extends Habitat {
     public Stall(Player player) {
-        super(player, 1, 1, 1, "Stall");
+        super(player, 10, 25, 1, "Stall", 100);
     }
 }

@@ -2,7 +2,6 @@ package dhbw.ipoac.animals;
 
 import dhbw.ipoac.animals.birds.Bird;
 import dhbw.ipoac.animals.mammals.Mammal;
-import dhbw.ipoac.habitat.Habitat;
 import dhbw.ipoac.player.Player;
 
 import java.util.Random;
@@ -21,6 +20,7 @@ public class Animal {
     protected float maxWeight;
     protected Player player;
     protected float deathProbability;
+    protected float percentageMoved = 0;
 
 
     public Animal(Player player, int maxAge, int speed, int cost, String type, float maxWeight, float deathProbability) {
@@ -33,7 +33,7 @@ public class Animal {
         this.deathProbability = deathProbability;
 
         energy = 100;
-        age = 0;
+        age = 1;
         home = true;
         delivering = false;
 
@@ -70,12 +70,35 @@ public class Animal {
         }
     }
 
-    public void SellAnimal(Player player) {
-        for (Habitat h : player.getHabitats()
-        ) {
+    public void MoveAnimal() {
+        percentageMoved += speed;
 
+        if (percentageMoved >= 100 && delivering) {
+            delivering = false;
+            percentageMoved = 0;
+            if (this instanceof Bird) {
+                player.unloadData(((Bird) this).getBag().calculateData());
+            } else if (this instanceof Mammal) {
+                player.unloadData(((Mammal) this).getBackpack().calculateData());
+            }
+        } else if (percentageMoved >= 100 && !delivering) {
+            home = true;
+            energy -= speed;
+            if (this instanceof Bird) {
+                ((Bird) this).getBag().unloadData();
+            } else if (this instanceof Mammal) {
+                ((Mammal) this).getBackpack().unloadData();
+            }
         }
     }
+
+
+    public int calculateValueOfAnimal() {
+        if (age < maxAge) {
+            return (1 / age / maxAge) * cost;
+        } else return 0;
+    }
+
 
     public float getDeathProbability() {
         return deathProbability;

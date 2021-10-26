@@ -11,6 +11,8 @@ import dhbw.ipoac.habitat.Stall;
 import dhbw.ipoac.medium.FloppyDisk;
 import dhbw.ipoac.medium.Medium;
 import dhbw.ipoac.player.Player;
+import dhbw.ipoac.transportationdevice.Bag;
+import dhbw.ipoac.transportationdevice.Cart;
 import dhbw.ipoac.transportationdevice.TransportDevice;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class Commands {
         } else if (fullCommand.contains("OX")) {
             determineHabitat(player, new Ox(player));
         } else if (fullCommand.contains("FLOPPY DISK")) {
-            addMediumToPlayer(player, new FloppyDisk());
+            addMediumToPlayer(player, new FloppyDisk(player));
 //        } else if (fullCommand.contains("CHARGING STATION")) {
 //            if (player.getMoney() - player.getHabitat().getCostOfChargingStation() > 0) {
 //                player.moneyTransactions(player.getHabitat().getCostOfChargingStation());
@@ -39,6 +41,10 @@ public class Commands {
             Stall stall = new Stall(player);
             player.getHabitats().add(stall);
             System.out.println("New stall was added to your inventory. ID: " + stall.getNameOfHabitat());
+            player.moneyTransactions(-stall.getCost());
+        } else if (fullCommand.contains("BAG")) {
+            Bag bag = new Bag(player);
+            player.getTransportDict().put(bag.getUuid(), bag);
         } else System.out.println("Please enter a valid command");
 
     }
@@ -67,6 +73,23 @@ public class Commands {
         }
     }
 
+    public void putCartBeforeAnimals(Player player, String command) {
+        if (player.getTransportDict().containsKey(command.substring(16))) {
+            if (player.getTransportDict().get(command.substring(16)) instanceof Cart) {
+                int maxAnimals = ((Cart) player.getTransportDict().get(command.substring(16))).getAnimalCount();
+                int counter = 0;
+                List<Mammal> listAnimals = new ArrayList<>();
+                for (Animal a : player.getAllAnimals()
+                ) {
+                    if (a instanceof Mammal && counter < maxAnimals) {
+                        listAnimals.add((Mammal) a);
+                    }
+                }
+                ((Cart) player.getTransportDict().get(command.substring(10))).putAnimalsInFront(listAnimals);
+            }
+        }
+    }
+
     public void increase(String fullCommand, Player player) {
         if (fullCommand.contains("HABITAT SIZE")) {
             String searchString = fullCommand.substring(21);
@@ -83,6 +106,7 @@ public class Commands {
     }
 
     public void stats(Player player) {
+        System.out.println("##############################STATS##############################");
         System.out.println(player.getAmountDataTransmitted() + "GB of data transmitted");
         int placesInBirdHouse = 0;
         int placesInStall = 0;
@@ -105,7 +129,7 @@ public class Commands {
         System.out.println(chargingStations + " charging stations are available");
         System.out.println(animalCounter + " animal(s) exist");
         System.out.println(player.getAvaliableMedia().size() + " storage media are/is available");
-
+        System.out.println("#################################################################");
     }
 
     public void nextDay(Player player) {
@@ -144,9 +168,6 @@ public class Commands {
 
     }
 
-    public void releaseBird(String fullCommand, Player player) {
-        //Obsolete
-    }
 
     public void listAllObjectsOfAType(Player player) {
         System.out.println("These objects are currently yours:");
@@ -158,7 +179,8 @@ public class Commands {
             for (Animal a : h.getAnimalsInHabitat()
             ) {
                 System.out.println("Name: " + a.getName() + "   Type: "
-                        + a.getType() + "   Age: " + a.getAge() + "days   Is home: " + a.isHome());
+                        + a.getType() + "   Age: " + a.getAge() + "days   Is home: "
+                        + a.isHome() + " Energy: " + a.getEnergy());
             }
         }
         System.out.println("\nYour transportation devices");
@@ -200,5 +222,38 @@ public class Commands {
         }
         System.out.println(animal.getType() + " couldn't be bought. There is no place either because " +
                 "all your habitats are full or there is no existing " + habitat.getType());
+    }
+
+    public void sellObject(Player player, String command) {
+        if (command.toUpperCase().contains("HABITAT")) {
+            String search = command.substring(13);
+            for (Habitat h : player.getHabitats()
+            ) {
+                if (h.getNameOfHabitat().equals(search)) {
+                    player.getHabitatDict().remove(search);
+                    player.getHabitats().remove(h);
+                    player.moneyTransactions(h.getCostOfNewNest() / 1.2f);
+                    return;
+                }
+
+            }
+            System.out.println("No habitat with that name is found");
+        } else if (command.toUpperCase().contains("ANIMAL")) {
+            for (Habitat h : player.getHabitats()
+            ) {
+                for (Animal a : h.getAnimals()
+                ) {
+                    if (a.getName().equals(command.substring(12))) {
+                        player.moneyTransactions(a.calculateValueOfAnimal());
+                        return;
+                    }
+                    System.out.println("No animal with the name " + command.substring(12) + " can be found!");
+                }
+            }
+        } else if (command.toUpperCase().contains("MEDIUM")) {
+
+        } else if (command.toUpperCase().contains("TRANSPORT")) {
+
+        }
     }
 }

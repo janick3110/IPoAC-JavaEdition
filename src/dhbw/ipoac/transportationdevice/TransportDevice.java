@@ -35,6 +35,10 @@ public class TransportDevice {
         costForUpgrade = (int) (cost * 1.2f);
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
     public String getType() {
         return type;
     }
@@ -66,6 +70,24 @@ public class TransportDevice {
             System.out.println("No fitting drive is avaliable");
         }
 
+    }
+
+    public void unloadData() {
+        for (Medium m : mediaInDevice
+        ) {
+            player.getAvaliableMedia().add(m);
+        }
+        mediaInDevice.clear();
+    }
+
+    public float calculateData() {
+        float sum = 0;
+
+        for (Medium m : mediaInDevice
+        ) {
+            sum += m.getData();
+        }
+        return sum;
     }
 
     public void increaseSize() {

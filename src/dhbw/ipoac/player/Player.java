@@ -19,6 +19,11 @@ public class Player {
     private final List<Habitat> habitats = new ArrayList<>();
     private final HashMap<String, Habitat> habitatDict = new HashMap<>();
     private final HashMap<String, TransportDevice> transportDict = new HashMap<>();
+    protected HashMap<String, Medium> mediumDict = new HashMap<>();
+
+    public HashMap<String, Medium> getMediumDict() {
+        return mediumDict;
+    }
 
     public HashMap<String, TransportDevice> getTransportDict() {
         return transportDict;
@@ -93,6 +98,20 @@ public class Player {
             }
         }
         return false;
+    }
+
+    public void unloadData(float size) {
+        amountDataTransmitted += size;
+    }
+
+    public List<Animal> getAllAnimals() {
+        List<Animal> animalList = new ArrayList<>();
+
+        for (Habitat h : habitats
+        ) {
+            animalList.addAll(h.getAnimals());
+        }
+        return animalList;
     }
 
 }

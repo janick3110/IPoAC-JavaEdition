@@ -67,31 +67,6 @@ public class BirdOld {
         age = 0;
     }
 
-    //Algorithm to load bird with as much as possible
-    public void loadBird(Player player) {
-        float currentWeight = 0;
-        List<Medium> allMedia = player.getAvaliableMedia();
-        for (int i = 0; i < allMedia.size(); i++) {
-            if (allMedia.get(i).getWeight() + currentWeight <= maxWeight) {
-                currentWeight += allMedia.get(i).getWeight();
-                System.out.println("Bird " + nameOfAnimal + " was loaded with " + allMedia.get(i).getNameOfMedium());
-                packaging.add(allMedia.get(i));
-            }
-        }
-        for (Medium m : packaging
-        ) {
-            player.getAvaliableMedia().remove(m);
-        }
-
-        if (packaging.size() == 0) {
-            System.out.println("No fitting drive is avaliable");
-        } else isHome = false;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
 
     //Bird lands safely at home
     public void returnBird(Player player) {

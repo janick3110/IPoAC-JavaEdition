@@ -16,7 +16,7 @@ BUY <ANIMAL TYPE>           #BUY A OBJECT OF THE TYPE IN THE BRACKETS
     <TRANSPORT DEVICE TYPE>
     
 NEXT DAY                    #A NEW DAY BEGINS. ANIMALS AT HOME RELAX,
-                             ANIMALS ON THE MOVE MOVE FORWARD
+                            #ANIMALS ON THE MOVE MOVE FORWARD
                           
 SELL    HABITAT     <ID>    #SELL A OBJECT AND RECIEVE PART OF THE COST
         ANIMAL      <NAME>  #ID IS THE ID OF THE OBJECT WHICH THE PLAYER WANTS
@@ -29,7 +29,14 @@ LIST                        #LIST ALL OBJECTS OF A PLAYER
 
 EXIT                        #END GAME (NO SAVEGAMES!!)
 
-HELP                        #DISPLAY ALL AVALIABLE COMMANDS        
+HELP                        #DISPLAY ALL AVAILABLE COMMANDS        
 ```
-    
 
+## Available Types
+
+|             TYPE | Available Types |
+|-----------------:|-----------------|
+|           ANIMAL | Ox, Pigeon, Cow, Horse, Falcon, Hawk, P1-Ge0n, Donkey               |
+|          HABITAT | Stall, Birdhouse               |
+| TRANSPORT DEVICE | Bag, Backpack, Cart               |
+|   STORAGE MEDIUM | Floppy Disk, CD, DVD, USB, extDrive               |

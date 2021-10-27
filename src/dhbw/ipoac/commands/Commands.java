@@ -135,20 +135,39 @@ public class Commands {
     public void nextDay(Player player) {
         player.NextDay();
 
-
-        List<Bird> birdsOfPlayer = new ArrayList<>();
+        List<Animal> birdsOfPlayer = player.getAllAnimals();
 
         int length = birdsOfPlayer.size();
-        Bird birdOld;
+        Animal animal;
         for (int i = 0; i < length; i++) {
-            birdOld = birdsOfPlayer.get(0);
+            animal = birdsOfPlayer.get(0);
 
+            animal.agingAnimal();
+            if (!animal.isHome()) {
+                animal.moveAnimal();
+            } else {
+                letAnimalRest(player, animal);
+            }
 
-            birdOld.agingAnimal();
             birdsOfPlayer.remove(0);
         }
 
     }
+
+    private void letAnimalRest(Player player, Animal animal) {
+        for (Habitat h : player.getHabitats()
+        ) {
+            if (h.getAnimals().contains(animal)) {
+                animal.setEnergy(animal.getEnergy() + h.getRelaxingFactor());
+
+                if (animal.getEnergy() > 100) {
+                    animal.setEnergy(100);
+
+                }
+            }
+        }
+    }
+
 
     public void help() {
         System.out.println("###################COMMANDS###################");
@@ -179,7 +198,7 @@ public class Commands {
             for (Animal a : h.getAnimalsInHabitat()
             ) {
                 System.out.println("Name: " + a.getName() + "   Type: "
-                        + a.getType() + "   Age: " + a.getAge() + "days   Is home: "
+                        + a.getType() + "   Age: " + a.getAge() + " days    Is home: "
                         + a.isHome() + " Energy: " + a.getEnergy());
             }
         }

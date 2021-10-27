@@ -47,10 +47,20 @@ public class TransportDevice {
         return maxObjects;
     }
 
+    public void attachDevice(Animal animal) {
+
+    }
+
     public List<Medium> getMediaInDevice() {
         return mediaInDevice;
     }
 
+    /**
+     * Load a transport device with the stuff the player owns
+     *
+     * @param player the player
+     * @param animal the animal which is loaded
+     */
     public void load(Player player, Animal animal) {
         float currentWeight = 0;
         List<Medium> allMedia = player.getAvaliableMedia();

@@ -87,6 +87,12 @@ public class Player {
         this.day = day;
     }
 
+    /**
+     * Helping function for checking if a name already exists
+     *
+     * @param nameToCheck the name which needs to be checked
+     * @return true if name is already used
+     */
     public boolean checkForDoubleNames(String nameToCheck) {
         for (Habitat h : habitats
         ) {
@@ -104,6 +110,11 @@ public class Player {
         amountDataTransmitted += size;
     }
 
+    /**
+     * Helping function for returning all animals the player owns
+     *
+     * @return all animals
+     */
     public List<Animal> getAllAnimals() {
         List<Animal> animalList = new ArrayList<>();
 

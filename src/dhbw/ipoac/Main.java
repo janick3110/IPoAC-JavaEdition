@@ -42,7 +42,10 @@ public class Main {
                 break;
             } else if (s.equalsIgnoreCase("PUT BEFORE CART")) {
                 commands.putCartBeforeAnimals(player, s);
-            } else System.out.println("Please enter a valid command. Use <help> for more information");
+            } else if (s.toUpperCase().contains("LOAD")) {
+                commands.loadAnimal(player, "");
+            }
+            //else System.out.println("Please enter a valid command. Use <help> for more information");
 
             //Do Events
             Random random = new Random();

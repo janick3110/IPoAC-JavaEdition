@@ -3,10 +3,13 @@ package dhbw.ipoac.animals;
 import dhbw.ipoac.animals.birds.Bird;
 import dhbw.ipoac.animals.mammals.Mammal;
 import dhbw.ipoac.player.Player;
+import dhbw.ipoac.transportationdevice.TransportDevice;
 
 import java.util.Random;
 import java.util.Scanner;
 
+
+//General class for all animals
 public class Animal {
     protected int age;
     protected int maxAge;
@@ -21,8 +24,19 @@ public class Animal {
     protected Player player;
     protected float deathProbability;
     protected float percentageMoved = 0;
+    protected TransportDevice device = null;
 
-
+    /**
+     * create new Animal
+     *
+     * @param player           the player of the game
+     * @param maxAge           the max age an animal can reach
+     * @param speed            the distance an animal can move in one day
+     * @param cost             the cost when you want to buy a new animal of this type
+     * @param type             the species
+     * @param maxWeight        the maximum weight an animal can carry
+     * @param deathProbability how probably is it this animal dies?
+     */
     public Animal(Player player, int maxAge, int speed, int cost, String type, float maxWeight, float deathProbability) {
         this.player = player;
         this.maxAge = maxAge;
@@ -47,6 +61,13 @@ public class Animal {
         }
     }
 
+    public void setDevice(TransportDevice device) {
+        this.device = device;
+    }
+
+    /**
+     * Animal ages after executing NEXT DAY.
+     */
     public void agingAnimal() {
         age++;
 
@@ -62,7 +83,11 @@ public class Animal {
         return name;
     }
 
+    /**
+     * Kill animal after event or of old age.
+     */
     public void killAnimal() {
+        /* kill animal after event or too old */
         if (this instanceof Bird) {
             //remove bird from all existences
         } else if (this instanceof Mammal) {
@@ -70,7 +95,10 @@ public class Animal {
         }
     }
 
-    public void MoveAnimal() {
+    /**
+     * let animal move
+     */
+    public void moveAnimal() {
         percentageMoved += speed;
 
         if (percentageMoved >= 100 && delivering) {
@@ -92,7 +120,10 @@ public class Animal {
         }
     }
 
-
+    /**
+     * calculate the value of an animal dependent on the age
+     */
+    // TODO: 27.10.2021 Rewrite the mathematical formula
     public int calculateValueOfAnimal() {
         if (age < maxAge) {
             return (1 / age / maxAge) * cost;
@@ -126,5 +157,9 @@ public class Animal {
 
     public float getMaxWeight() {
         return maxWeight;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 }

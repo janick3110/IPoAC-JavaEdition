@@ -22,14 +22,19 @@ import java.util.Map;
 
 public class Commands {
 
+    private final Player player;
 
-    public void buy(String fullCommand, Player player){
+    public Commands(Player player) {
+        this.player = player;
+    }
+
+    public void buy(String fullCommand) {
         if (fullCommand.contains("PIGEON")) {
-            determineHabitat(player, new Pigeon(player));
+            determineHabitat(new Pigeon(player));
         } else if (fullCommand.contains("OX")) {
-            determineHabitat(player, new Ox(player));
+            determineHabitat(new Ox(player));
         } else if (fullCommand.contains("FLOPPY DISK")) {
-            addMediumToPlayer(player, new FloppyDisk(player));
+            addMediumToPlayer(new FloppyDisk(player));
 //        } else if (fullCommand.contains("CHARGING STATION")) {
 //            if (player.getMoney() - player.getHabitat().getCostOfChargingStation() > 0) {
 //                player.moneyTransactions(player.getHabitat().getCostOfChargingStation());
@@ -45,11 +50,12 @@ public class Commands {
         } else if (fullCommand.contains("BAG")) {
             Bag bag = new Bag(player);
             player.getTransportDict().put(bag.getUuid(), bag);
+            System.out.println("New bag was added to your inventory. ID: " + bag.getUuid());
         } else System.out.println("Please enter a valid command");
 
     }
 
-    public void send(String fullcomand, Player player) {
+    public void send(String fullcomand) {
         //Either send bird, mammal or cart
         if (fullcomand.toUpperCase().contains("CART")) {
 
@@ -73,7 +79,7 @@ public class Commands {
         }
     }
 
-    public void putCartBeforeAnimals(Player player, String command) {
+    public void putCartBeforeAnimals(String command) {
         if (player.getTransportDict().containsKey(command.substring(16))) {
             if (player.getTransportDict().get(command.substring(16)) instanceof Cart) {
                 int maxAnimals = ((Cart) player.getTransportDict().get(command.substring(16))).getAnimalCount();
@@ -90,7 +96,7 @@ public class Commands {
         }
     }
 
-    public void increase(String fullCommand, Player player) {
+    public void increase(String fullCommand) {
         if (fullCommand.contains("HABITAT SIZE")) {
             String searchString = fullCommand.substring(21);
             Habitat h = player.getHabitatDict().get(searchString);
@@ -105,7 +111,7 @@ public class Commands {
         } else System.out.println("Please enter valid command");
     }
 
-    public void stats(Player player) {
+    public void stats() {
         System.out.println("##############################STATS##############################");
         System.out.println(player.getAmountDataTransmitted() + "GB of data transmitted");
         int placesInBirdHouse = 0;
@@ -132,7 +138,7 @@ public class Commands {
         System.out.println("#################################################################");
     }
 
-    public void nextDay(Player player) {
+    public void nextDay() {
         player.NextDay();
 
         List<Animal> birdsOfPlayer = player.getAllAnimals();
@@ -146,7 +152,7 @@ public class Commands {
             if (!animal.isHome()) {
                 animal.moveAnimal();
             } else {
-                letAnimalRest(player, animal);
+                letAnimalRest(animal);
             }
 
             birdsOfPlayer.remove(0);
@@ -154,7 +160,7 @@ public class Commands {
 
     }
 
-    private void letAnimalRest(Player player, Animal animal) {
+    private void letAnimalRest(Animal animal) {
         for (Habitat h : player.getHabitats()
         ) {
             if (h.getAnimals().contains(animal)) {
@@ -188,7 +194,7 @@ public class Commands {
     }
 
 
-    public void listAllObjectsOfAType(Player player) {
+    public void listAllObjectsOfAType() {
         System.out.println("These objects are currently yours:");
 
         for (Habitat h : player.getHabitats()
@@ -211,23 +217,24 @@ public class Commands {
 
     }
 
-    private void addMediumToPlayer(Player player, Medium medium) {
+    private void addMediumToPlayer(Medium medium) {
         player.getAvaliableMedia().add(medium);
-        System.out.println("A new medium of the type " + medium.getNameOfMedium() + " was added to the inventory");
+        System.out.println("A new medium of the type " + medium.getNameOfMedium() + " was added to the inventory. ID: " + medium.getId());
         player.moneyTransactions(medium.getCost());
+        player.getMediumDict().put(medium.getId(), medium);
     }
 
-    private void determineHabitat(Player player, Animal animal) {
+    private void determineHabitat(Animal animal) {
 
         if (animal instanceof Mammal) {
-            addAnimal(new Stall(player), player, animal);
+            addAnimal(new Stall(player), animal);
         } else if (animal instanceof Bird) {
-            addAnimal(new BirdHouse(player), player, animal);
+            addAnimal(new BirdHouse(player), animal);
         } else return;
 
     }
 
-    private void addAnimal(Habitat habitat, Player player, Animal animal) {
+    private void addAnimal(Habitat habitat, Animal animal) {
         for (Habitat h : player.getHabitats()
         ) {
             if (h.getClass().equals(habitat.getClass())) {
@@ -243,7 +250,7 @@ public class Commands {
                 "all your habitats are full or there is no existing " + habitat.getType());
     }
 
-    public void sellObject(Player player, String command) {
+    public void sellObject(String command) {
         if (command.toUpperCase().contains("HABITAT")) {
             String search = command.substring(13);
             for (Habitat h : player.getHabitats()
@@ -274,5 +281,68 @@ public class Commands {
         } else if (command.toUpperCase().contains("TRANSPORT")) {
 
         }
+    }
+
+    public void loadTransportDevice(String fullCommand) {
+        TransportDevice device = player.getTransportDeviceWithName(fullCommand.substring(5, 13));
+        Medium medium = player.getMediumWithName(fullCommand.substring(14));
+
+        try {
+            device.putMedium(medium);
+        } catch (Exception e) {
+            System.out.println("Medium or transport device not found. Please check input");
+        }
+    }
+
+    public void attachTransport(String fullCommand) {
+        Animal animal = player.getAnimalWithName(fullCommand.substring(16));
+        TransportDevice device = player.getTransportDeviceWithName(fullCommand.substring(7, 15));
+        try {
+            if (device.calculateWeight() <= animal.getMaxWeight()) {
+                device.attachDevice(animal);
+                System.out.println("The " + device.getType() + " with the ID " + device.getUuid()
+                        + " was attached to " + animal.getName());
+            } else
+                System.out.println("The package is too heavy. Please remove objects or choose an animal with bigger" +
+                        "weight maximum");
+        } catch (Exception e) {
+            System.out.println("The device or the animal was not found. Please check your input");
+        }
+
+
+    }
+
+    public void removeMediumFromTransport(String fullCommand) {
+        TransportDevice device = player.getTransportDeviceWithName(fullCommand.substring(7, 15));
+        Medium medium = player.getMediumWithName(fullCommand.substring(16));
+
+        try {
+            device.removeObject(medium);
+        } catch (Exception e) {
+            System.out.println("Medium or transport device not found. Please check input");
+        }
+    }
+
+    public void getInventory(String fullCommand) {
+        TransportDevice device = player.getTransportDeviceWithName(fullCommand.substring(14));
+
+        try {
+            float weight = 0;
+            float totalStorage = 0;
+            for (Medium m : device.getMediaInDevice()
+            ) {
+                weight += m.getWeight();
+                totalStorage += m.getData();
+                System.out.println("ID: " + m.getId() + " Type: " + m.getNameOfMedium() + " Weight: "
+                        + m.getWeight() + " Storage Space: " + m.getData());
+
+            }
+            System.out.println(" The transportation device " + device.getUuid() + "has a total weight" +
+                    "of " + weight + "kg and transmitts " + totalStorage + " GB");
+        } catch (Exception e) {
+            System.out.println("Transportation device was not found. Please check your input");
+        }
+
+
     }
 }

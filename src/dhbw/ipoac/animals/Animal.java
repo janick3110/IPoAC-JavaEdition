@@ -124,9 +124,11 @@ public class Animal {
      * calculate the value of an animal dependent on the age
      */
     // TODO: 27.10.2021 Rewrite the mathematical formula
-    public int calculateValueOfAnimal() {
+    public float calculateValueOfAnimal() {
         if (age < maxAge) {
-            return (1 / age / maxAge) * cost;
+            float percent = age / (float) maxAge;
+            float val = (1 - percent) * cost;
+            return val;
         } else return 0;
     }
 

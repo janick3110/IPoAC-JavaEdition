@@ -38,6 +38,10 @@ public class Medium {
         }
     }
 
+    public String getId() {
+        return id;
+    }
+
     public float getWeight() {
         return weight;
     }

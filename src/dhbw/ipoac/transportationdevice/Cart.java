@@ -14,8 +14,8 @@ public class Cart extends TransportDevice {
     private final int animalCount = 1;
 
 
-    public Cart(Player player, int maxObjects, int cost, float weight) {
-        super(player, maxObjects, cost, weight);
+    public Cart(Player player) {
+        super(player, 10, 100, 1000, "Cart");
 
 
     }

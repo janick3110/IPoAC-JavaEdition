@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Commands commands = new Commands();
         Player player = new Player();
+        Commands commands = new Commands(player);
         Event event = new Event();
         Scanner in = new Scanner(System.in);
         System.out.println("IP over Animal Transport - Tycoon");
@@ -23,27 +23,31 @@ public class Main {
             s = in.nextLine();
             // Decode commands and main loop of the game
             if (s.toUpperCase().contains("BUY")) {
-                commands.buy(s.toUpperCase(), player);
+                commands.buy(s.toUpperCase());
             } else if (s.toUpperCase().contains("UPGRADE")) {
-                commands.increase(s.toUpperCase(), player);
-            } else if (s.toUpperCase().contains("NEXT DAY")) {
-                commands.nextDay(player);
+                commands.increase(s.toUpperCase());
+            } else if (s.equalsIgnoreCase("NEXT DAY")) {
+                commands.nextDay();
             } else if (s.toUpperCase().contains("SEND")) {
-                commands.send(s, player);
-            } else if (s.toUpperCase().contains("STATS")) {
-                commands.stats(player);
-            } else if (s.toUpperCase().contains("HELP")) {
+                commands.send(s);
+            } else if (s.equalsIgnoreCase("STATS")) {
+                commands.stats();
+            } else if (s.equalsIgnoreCase("HELP")) {
                 commands.help();
             } else if (s.toUpperCase().contains("SELL")) {
-                commands.sellObject(player, s);
+                commands.sellObject(s);
             } else if (s.toUpperCase().contains("LIST")) {
-                commands.listAllObjectsOfAType(player);
+                commands.listAllObjectsOfAType();
             } else if (s.equalsIgnoreCase("EXIT")) {
                 break;
             } else if (s.equalsIgnoreCase("PUT BEFORE CART")) {
-                commands.putCartBeforeAnimals(player, s);
+                commands.putCartBeforeAnimals(s);
             } else if (s.toUpperCase().contains("LOAD")) {
-                commands.loadAnimal(player, "");
+                commands.loadTransportDevice(s);
+            } else if (s.toUpperCase().contains("ATTACH")) {
+                commands.attachTransport(s);
+            } else if (s.toUpperCase().contains("GET INVENTORY")) {
+                commands.getInventory(s);
             }
             //else System.out.println("Please enter a valid command. Use <help> for more information");
 

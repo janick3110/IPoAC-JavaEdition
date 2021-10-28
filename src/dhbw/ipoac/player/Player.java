@@ -125,4 +125,46 @@ public class Player {
         return animalList;
     }
 
+    public TransportDevice getTransportDeviceWithName(String id) {
+        for (TransportDevice device : transportDict.values()
+        ) {
+            if (device.getUuid().equals(id)) {
+                return device;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Helping function for getting a medium with a certain name
+     *
+     * @param id ID of the medium
+     * @return ID with the name
+     */
+    public Medium getMediumWithName(String id) {
+        for (Medium medium : mediumDict.values()
+        ) {
+            if (medium.getId().equals(id)) {
+                return medium;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Helping function for getting an animal with a given name
+     *
+     * @param name name of the animal
+     * @return the animal with the name
+     */
+    public Animal getAnimalWithName(String name) {
+        for (Animal animal : getAllAnimals()
+        ) {
+            if (animal.getName().equals(name)) {
+                return animal;
+            }
+        }
+        return null;
+    }
+
 }

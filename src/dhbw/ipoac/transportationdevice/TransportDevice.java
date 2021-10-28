@@ -19,12 +19,12 @@ public class TransportDevice {
     protected Player player;
     protected String type;
 
-    public TransportDevice(Player player, int maxObjects, int cost, float weight) {
+    public TransportDevice(Player player, int maxObjects, int cost, float weight, String type) {
         this.maxObjects = maxObjects;
         this.cost = cost;
         this.weight = weight;
         this.probabilityOfFailure = probabilityOfFailure;
-
+        this.type = type;
 
         uuid = UUID.randomUUID().toString().substring(0, 8);
         while (player.getAllTransportDevices().containsKey(uuid)) {
@@ -48,7 +48,21 @@ public class TransportDevice {
     }
 
     public void attachDevice(Animal animal) {
+        animal.setDevice(this);
+    }
 
+    public float calculateWeight() {
+        float sum = 0;
+        for (Medium m : mediaInDevice
+        ) {
+            sum += m.getWeight();
+        }
+        return sum;
+    }
+
+    public void removeObject(Medium object) {
+        player.getMediumDict().put(object.getId(), object);
+        mediaInDevice.remove(object);
     }
 
     public List<Medium> getMediaInDevice() {
@@ -78,6 +92,14 @@ public class TransportDevice {
 
         if (mediaInDevice.size() == 0) {
             System.out.println("No fitting drive is avaliable");
+        }
+
+    }
+
+    public void putMedium(Medium medium) {
+        if (maxObjects >= mediaInDevice.size() + 1) {
+            player.getMediumDict().remove(medium.getId(), medium);
+            mediaInDevice.add(medium);
         }
 
     }

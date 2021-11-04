@@ -22,18 +22,24 @@ public class Habitat {
     protected Player player;
     protected String type;
     protected int cost;
+    protected HabitatTypes habitatTypes;
 
     public int getCost() {
         return cost;
     }
 
-    public Habitat(Player player, int avaliableNests, int costOfNewNest, int dailyCost, String type, int cost) {
+    public HabitatTypes getHabitatTypes() {
+        return habitatTypes;
+    }
+
+    public Habitat(Player player, int avaliableNests, int costOfNewNest, int dailyCost, String type, int cost, HabitatTypes habitatTypes) {
         this.avaliableNests = avaliableNests;
         this.costOfNewNest = costOfNewNest;
         this.dailyCost = dailyCost;
         this.player = player;
         this.type = type;
         this.cost = cost;
+        this.habitatTypes = habitatTypes;
 
         nameOfHabitat = UUID.randomUUID().toString().substring(0, 8);
         while (player.getHabitatDict().containsKey(nameOfHabitat)) {

@@ -25,6 +25,7 @@ public class TransportDevice {
         this.weight = weight;
         this.probabilityOfFailure = probabilityOfFailure;
         this.type = type;
+        this.player = player;
 
         uuid = UUID.randomUUID().toString().substring(0, 8);
         while (player.getAllTransportDevices().containsKey(uuid)) {
@@ -100,6 +101,7 @@ public class TransportDevice {
         if (maxObjects >= mediaInDevice.size() + 1) {
             player.getMediumDict().remove(medium.getId(), medium);
             mediaInDevice.add(medium);
+            System.out.println(medium.getId() + " was put into " + uuid);
         }
 
     }

@@ -12,6 +12,7 @@ public class Cart extends TransportDevice {
     private int sizeOfCart;
     private int wheelCount;
     private final int animalCount = 1;
+    private boolean home = true;
 
 
     public Cart(Player player) {
@@ -22,6 +23,18 @@ public class Cart extends TransportDevice {
 
     public int getAnimalCount() {
         return animalCount;
+    }
+
+    public void setHome(boolean home) {
+        this.home = home;
+    }
+
+    public List<Mammal> getDraughtAnimals() {
+        return draughtAnimals;
+    }
+
+    public boolean isHome() {
+        return home;
     }
 
     public void putAnimalsInFront(List<Mammal> mammals) {

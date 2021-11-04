@@ -10,12 +10,13 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("IP over Animal Transport - Tycoon");
+        System.out.println("Enter <HELP> for a list of avaliable commands");
         Player player = new Player();
         Commands commands = new Commands(player);
         Event event = new Event();
         Scanner in = new Scanner(System.in);
-        System.out.println("IP over Animal Transport - Tycoon");
-        System.out.println("Enter <HELP> for a list of avaliable commands");
+
 
         String s = "";
 
@@ -48,6 +49,12 @@ public class Main {
                 commands.attachTransport(s);
             } else if (s.toUpperCase().contains("GET INVENTORY")) {
                 commands.getInventory(s);
+            } else if (s.toUpperCase().contains("REMOVE")) {
+                commands.removeMediumFromTransport(s);
+            } else if (s.toUpperCase().contains("PUFFER")) {
+                commands.getPuffer(s);
+            } else if (s.toUpperCase().contains("BREED")) {
+
             }
             //else System.out.println("Please enter a valid command. Use <help> for more information");
 

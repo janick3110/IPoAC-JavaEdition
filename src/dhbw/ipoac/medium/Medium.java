@@ -11,9 +11,18 @@ public class Medium {
     protected float cost;
     protected float data;
     protected String id;
+    protected boolean full;
 
     public String getNameOfMedium() {
         return nameOfMedium;
+    }
+
+    public boolean isFull() {
+        return full;
+    }
+
+    public void setFull(boolean full) {
+        this.full = full;
     }
 
     public float getData() {

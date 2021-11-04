@@ -1,10 +1,12 @@
 package dhbw.ipoac.commands;
 
 import dhbw.ipoac.animals.Animal;
+import dhbw.ipoac.animals.BabyAnimals;
 import dhbw.ipoac.animals.birds.Bird;
 import dhbw.ipoac.animals.birds.Pigeon;
 import dhbw.ipoac.animals.mammals.Mammal;
 import dhbw.ipoac.animals.mammals.Ox;
+import dhbw.ipoac.computer.Computer;
 import dhbw.ipoac.habitat.BirdHouse;
 import dhbw.ipoac.habitat.Habitat;
 import dhbw.ipoac.habitat.Stall;
@@ -58,9 +60,25 @@ public class Commands {
     public void send(String fullcomand) {
         //Either send bird, mammal or cart
         if (fullcomand.toUpperCase().contains("CART")) {
+            Cart cart = (Cart) player.getTransportDeviceWithName(fullcomand.substring(10));
+            if (cart.isHome() && cart.getDraughtAnimals().size() > 0) {
+                cart.setHome(false);
+            }
+        } else {
+            try {
+                Animal animal = player.getAnimalWithName(fullcomand.substring(5));
+                animal.setHome(false);
+                try {
+                    System.out.println(animal.getName() + " was send on its way! It carries "
+                            + animal.getDevice().calculateData() + " GB of Data");
+                } catch (Exception e) {
+                    animal.setHome(true);
+                    System.out.println("Your animal stays at home because it does not have a transport device attached");
+                }
 
-        } else if (player.checkForDoubleNames(fullcomand.substring(5))) {
-            loadAnimal(player, fullcomand.substring(5));
+            } catch (Exception e) {
+                System.out.println("Animal was not found. Please check your input");
+            }
         }
     }
 
@@ -154,7 +172,9 @@ public class Commands {
             } else {
                 letAnimalRest(animal);
             }
-
+            if (animal.getBreedingCooldown() > 0) {
+                animal.setBreedingCooldown(animal.getBreedingCooldown() - 1);
+            }
             birdsOfPlayer.remove(0);
         }
 
@@ -289,8 +309,10 @@ public class Commands {
 
         try {
             device.putMedium(medium);
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             System.out.println("Medium or transport device not found. Please check input");
+        } catch (Exception e) {
+            System.out.println("Something went wrong. Please try again");
         }
     }
 
@@ -305,7 +327,7 @@ public class Commands {
             } else
                 System.out.println("The package is too heavy. Please remove objects or choose an animal with bigger" +
                         "weight maximum");
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             System.out.println("The device or the animal was not found. Please check your input");
         }
 
@@ -323,6 +345,37 @@ public class Commands {
         }
     }
 
+    public void breed(String fullCommand) {
+        Animal father = player.getAnimalWithName(fullCommand.substring(6, fullCommand.lastIndexOf("|")));
+        Animal mother = player.getAnimalWithName(fullCommand.substring(fullCommand.lastIndexOf("|") + 1));
+
+        if (father.isGender() != mother.isGender()) {
+            if (father.getBreedingCooldown() == 0 && mother.getBreedingCooldown() == 0) {
+                System.out.println("New animal was created");
+                resetBreedingCooldown(father);
+                resetBreedingCooldown(mother);
+
+                Animal baby = new BabyAnimals(father);
+            }
+        }
+    }
+
+    private void resetBreedingCooldown(Animal animal) {
+        animal.setBreedingCooldown((int) (animal.getMaxAge() * 0.05f));
+    }
+
+    //BREED
+    public void getPuffer(String fullCommand) {
+        try {
+            Computer pc = player.getComputerDict().get(fullCommand.substring(7, 18));
+            System.out.println(pc.getNameOfPc() + " has generated " + pc.getPuffer() + " GB of Data since "
+                    + pc.getPcStartTime().toString());
+        } catch (Exception e) {
+            System.out.println("PC not found. Please check input");
+        }
+
+    }//PUFFER PC-12345678
+
     public void getInventory(String fullCommand) {
         TransportDevice device = player.getTransportDeviceWithName(fullCommand.substring(14));
 
@@ -335,10 +388,9 @@ public class Commands {
                 totalStorage += m.getData();
                 System.out.println("ID: " + m.getId() + " Type: " + m.getNameOfMedium() + " Weight: "
                         + m.getWeight() + " Storage Space: " + m.getData());
-
             }
-            System.out.println(" The transportation device " + device.getUuid() + "has a total weight" +
-                    "of " + weight + "kg and transmitts " + totalStorage + " GB");
+            System.out.println("The transportation device " + device.getUuid() + "has a total weight of " +
+                    weight + "kg and transmitts " + totalStorage + " GB");
         } catch (Exception e) {
             System.out.println("Transportation device was not found. Please check your input");
         }

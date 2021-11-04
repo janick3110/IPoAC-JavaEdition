@@ -2,6 +2,8 @@ package dhbw.ipoac.animals;
 
 import dhbw.ipoac.animals.birds.Bird;
 import dhbw.ipoac.animals.mammals.Mammal;
+import dhbw.ipoac.habitat.Habitat;
+import dhbw.ipoac.habitat.HabitatTypes;
 import dhbw.ipoac.player.Player;
 import dhbw.ipoac.transportationdevice.TransportDevice;
 
@@ -25,6 +27,9 @@ public class Animal {
     protected float deathProbability;
     protected float percentageMoved = 0;
     protected TransportDevice device = null;
+    protected boolean gender; //True = Male, False = Female
+    protected int breedingCooldown;
+    protected HabitatTypes habitatType;
 
     /**
      * create new Animal
@@ -37,7 +42,7 @@ public class Animal {
      * @param maxWeight        the maximum weight an animal can carry
      * @param deathProbability how probably is it this animal dies?
      */
-    public Animal(Player player, int maxAge, int speed, int cost, String type, float maxWeight, float deathProbability) {
+    public Animal(Player player, int maxAge, int speed, int cost, String type, float maxWeight, float deathProbability, HabitatTypes typeOfHabitat) {
         this.player = player;
         this.maxAge = maxAge;
         this.speed = speed;
@@ -45,13 +50,27 @@ public class Animal {
         this.type = type;
         this.maxWeight = maxWeight;
         this.deathProbability = deathProbability;
+        this.habitatType = typeOfHabitat;
 
         energy = 100;
         age = 1;
         home = true;
         delivering = false;
+        breedingCooldown = (int) (maxAge * 0.05f);
 
-        System.out.println("Name your " + type + ":");
+        Random r = new Random();
+        gender = r.nextBoolean();
+
+        String genderTxt;
+
+        if (gender) {
+            genderTxt = "male";
+        } else {
+            genderTxt = "female";
+        }
+
+
+        System.out.println("Name your " + genderTxt + " " + type + ":");
         Scanner in = new Scanner(System.in);
         name = in.nextLine();
 
@@ -59,6 +78,46 @@ public class Animal {
             System.out.println("Name already in use. Please choose another name:");
             name = in.nextLine();
         }
+
+
+    }
+
+    public Animal(BabyAnimals animal) {
+        this.player = animal.player;
+        this.maxAge = animal.maxAge;
+        this.speed = animal.speed;
+        this.cost = animal.cost;
+        this.type = animal.type;
+        this.maxWeight = animal.maxWeight;
+        this.deathProbability = animal.deathProbability;
+        this.habitatType = animal.habitatType;
+        this.name = animal.name;
+        this.gender = animal.gender;
+        this.energy = animal.energy;
+        this.age = animal.age;
+        this.home = animal.home;
+        this.delivering = animal.delivering;
+        this.breedingCooldown = (int) (maxAge * 0.05f);
+    }
+
+    public HabitatTypes getHabitatType() {
+        return habitatType;
+    }
+
+    public int getMaxAge() {
+        return maxAge;
+    }
+
+    public void setBreedingCooldown(int breedingCooldown) {
+        this.breedingCooldown = breedingCooldown;
+    }
+
+    public int getBreedingCooldown() {
+        return breedingCooldown;
+    }
+
+    public TransportDevice getDevice() {
+        return device;
     }
 
     public void setDevice(TransportDevice device) {
@@ -87,12 +146,25 @@ public class Animal {
      * Kill animal after event or of old age.
      */
     public void killAnimal() {
-        /* kill animal after event or too old */
-        if (this instanceof Bird) {
-            //remove bird from all existences
-        } else if (this instanceof Mammal) {
-            //remove mammal from all existences
+        for (Habitat h : player.getHabitats()
+        ) {
+            for (Animal a : h.getAnimals()
+            ) {
+                if (a.getName().equals(name)) {
+                    h.getMapNameToBird().remove(name, this);
+                    System.out.println("The animal " + name + " was killed");
+                }
+            }
         }
+    }
+
+
+    private boolean checkForAttachedTransport() {
+        return this.getDevice() != null;
+    }
+
+    public boolean isGender() {
+        return gender;
     }
 
     /**
@@ -132,6 +204,9 @@ public class Animal {
         } else return 0;
     }
 
+    public void setHome(boolean home) {
+        this.home = home;
+    }
 
     public float getDeathProbability() {
         return deathProbability;

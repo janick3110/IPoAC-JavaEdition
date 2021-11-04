@@ -1,6 +1,7 @@
 package dhbw.ipoac.player;
 
 import dhbw.ipoac.animals.Animal;
+import dhbw.ipoac.computer.Computer;
 import dhbw.ipoac.habitat.BirdHouse;
 import dhbw.ipoac.habitat.Habitat;
 import dhbw.ipoac.medium.Medium;
@@ -19,10 +20,15 @@ public class Player {
     private final List<Habitat> habitats = new ArrayList<>();
     private final HashMap<String, Habitat> habitatDict = new HashMap<>();
     private final HashMap<String, TransportDevice> transportDict = new HashMap<>();
-    protected HashMap<String, Medium> mediumDict = new HashMap<>();
+    private final HashMap<String, Medium> mediumDict = new HashMap<>();
+    private final HashMap<String, Computer> computerDict = new HashMap<>();
 
     public HashMap<String, Medium> getMediumDict() {
         return mediumDict;
+    }
+
+    public HashMap<String, Computer> getComputerDict() {
+        return computerDict;
     }
 
     public HashMap<String, TransportDevice> getTransportDict() {
@@ -31,6 +37,8 @@ public class Player {
 
     public Player() {
         habitats.add(new BirdHouse(this));
+        Computer pc = new Computer(this);
+        computerDict.put(pc.getNameOfPc(), pc);
     }
 
     public HashMap<String, Habitat> getHabitatDict() {
@@ -134,6 +142,24 @@ public class Player {
         }
         return null;
     }
+
+    public void addAnimalToHabitat(Animal animal) {
+
+        for (Habitat h : habitatDict.values()
+        ) {
+            if (h.isEnoughSpace() && animal.getHabitatType().equals(h.getHabitatTypes())) {
+                h.addAnimalToHabitat(animal);
+            }
+        }
+    }
+
+    public void removeAnimalFromArchives(Animal animal) {
+        for (Habitat h : habitatDict.values()
+        ) {
+            h.getAnimals().remove(animal);
+        }
+    }
+
 
     /**
      * Helping function for getting a medium with a certain name

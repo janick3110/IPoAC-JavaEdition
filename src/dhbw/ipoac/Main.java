@@ -1,5 +1,6 @@
 package dhbw.ipoac;
 
+import dhbw.ipoac.commands.CommandList;
 import dhbw.ipoac.commands.Commands;
 import dhbw.ipoac.events.Event;
 import dhbw.ipoac.player.Player;
@@ -23,40 +24,67 @@ public class Main {
         while (in.hasNextLine()) {
             s = in.nextLine();
             // Decode commands and main loop of the game
-            if (s.toUpperCase().contains("BUY")) {
-                commands.buy(s.toUpperCase());
-            } else if (s.toUpperCase().contains("UPGRADE")) {
-                commands.increase(s.toUpperCase());
-            } else if (s.equalsIgnoreCase("NEXT DAY")) {
-                commands.nextDay();
-            } else if (s.toUpperCase().contains("SEND")) {
-                commands.send(s);
-            } else if (s.equalsIgnoreCase("STATS")) {
-                commands.stats();
-            } else if (s.equalsIgnoreCase("HELP")) {
-                commands.help();
-            } else if (s.toUpperCase().contains("SELL")) {
-                commands.sellObject(s);
-            } else if (s.toUpperCase().contains("LIST")) {
-                commands.listAllObjectsOfAType();
-            } else if (s.equalsIgnoreCase("EXIT")) {
-                break;
-            } else if (s.equalsIgnoreCase("PUT BEFORE CART")) {
-                commands.putCartBeforeAnimals(s);
-            } else if (s.toUpperCase().contains("LOAD")) {
-                commands.loadTransportDevice(s);
-            } else if (s.toUpperCase().contains("ATTACH")) {
-                commands.attachTransport(s);
-            } else if (s.toUpperCase().contains("GET INVENTORY")) {
-                commands.getInventory(s);
-            } else if (s.toUpperCase().contains("REMOVE")) {
-                commands.removeMediumFromTransport(s);
-            } else if (s.toUpperCase().contains("PUFFER")) {
-                commands.getPuffer(s);
-            } else if (s.toUpperCase().contains("BREED")) {
-
+            String command = "";
+            try {
+                command = s.toUpperCase().substring(0, s.lastIndexOf(" "));
+            } catch (StringIndexOutOfBoundsException e) {
+                command = s.toUpperCase();
             }
-            //else System.out.println("Please enter a valid command. Use <help> for more information");
+
+            CommandList availableCommands = CommandList.valueOf(command);
+            switch (availableCommands) {
+                case PUT:
+                    commands.putCartBeforeAnimals(s);
+                    break;
+                case BUY:
+                    commands.buy(s.toUpperCase());
+                    break;
+                case UPGRADE:
+                    commands.increase(s.toUpperCase());
+                    break;
+                case NEXT:
+                    commands.nextDay();
+                    break;
+                case SEND:
+                    commands.send(s);
+                    break;
+                case STATS:
+                    commands.stats();
+                    break;
+                case HELP:
+                    commands.help();
+                    break;
+                case SELL:
+                    commands.sellObject(s);
+                    break;
+                case LIST:
+                    commands.listAllObjectsOfAType();
+                    break;
+                case EXIT:
+                    // TODO: 04.11.2021 Save game
+                    System.out.println("Thank you for playing IPoAT. See you next time!");
+                    return;
+                case LOAD:
+                    commands.loadTransportDevice(s);
+                    break;
+                case INVENTORY:
+                    commands.getInventory(s);
+                    break;
+                case REMOVE:
+                    commands.removeMediumFromTransport(s);
+                    break;
+                case PUFFER:
+                    break;
+                case BREED:
+                    commands.getPuffer(s);
+                    break;
+                case ATTACH:
+                    commands.attachTransport(s);
+                    break;
+                default:
+                    System.out.println("Your command is no valid command. Please enter <HELP> or read the README file");
+            }
+
 
             //Do Events
             Random random = new Random();

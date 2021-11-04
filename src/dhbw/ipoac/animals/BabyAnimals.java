@@ -7,8 +7,6 @@ import java.util.Random;
 
 public class BabyAnimals extends Animal {
 
-    private boolean bird; //true if bird, false if mammal
-
     public BabyAnimals(Animal animal) {
         super(animal.player, animal.maxAge, animal.speed, 0, animal.type, animal.maxWeight, animal.deathProbability, animal.getHabitatType());
         name = "Baby-" + name;

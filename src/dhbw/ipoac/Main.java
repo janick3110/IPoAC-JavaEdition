@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("IP over Animal Transport - Tycoon");
-        System.out.println("Enter <HELP> for a list of avaliable commands");
+        System.out.println("Enter <HELP> for a list of available commands");
         Player player = new Player();
         Commands commands = new Commands(player);
         Event event = new Event();
@@ -82,7 +82,9 @@ public class Main {
                     commands.attachTransport(s);
                     break;
                 default:
-                    System.out.println("Your command is no valid command. Please enter <HELP> or read the README file");
+                    System.out.println("Your command is no valid command. " +
+                            "Please enter <HELP> or read the README file");
+                    break;
             }
 
 

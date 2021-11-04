@@ -1,4 +1,4 @@
-# IPoAC-JavaEdition
+# IPoAT-Java Edition
 
 This is a game, where the player can play as a tycoon, who transmitts data over animals. This is a reference to the so
 called IPoAC-protocol after [RFC1149](https://datatracker.ietf.org/doc/html/rfc1149). Currently, there are existing two
@@ -6,6 +6,15 @@ types of animals: birds and mammals (which are reduced to animals which have hoo
 
 The game is a sole command-based game. The player has to enter his commands, which are explained down below. There is
 also a HELP-command in-game to explain the commands. All commands are case-insensitive, but names have to be correct.
+
+## Game Principle
+
+The player starts with a computer, a floppy disk, a pigeon, a bag and a bird house. With these objects, he must make
+money. Money can be earned by sending data via a storage medium such as the floppy disk to another location. If an
+animal arrives, it generates the money and flies back. The duration of the two flights to and from the destination are
+determined by the speed of the animal. The generated money depends on the amount of data which is sent. Bigger animals
+can carry greater amounts of data.  
+The player can buy new housing, animals and upgrade objects, but also sell animals or let them breed.
 
 ## Commands
 
@@ -40,3 +49,8 @@ HELP                        #DISPLAY ALL AVAILABLE COMMANDS
 |          HABITAT | Stall, Birdhouse               |
 | TRANSPORT DEVICE | Bag, Backpack, Cart               |
 |   STORAGE MEDIUM | Floppy Disk, CD, DVD, USB, extDrive               |
+
+## Future
+
+Should this game ever be finished, there is a chance this will be translated into C# and put into a Unity project, so
+that it is no longer a console game but becomes a nice 3D-Game.

@@ -7,6 +7,7 @@ import dhbw.ipoac.animals.birds.Pigeon;
 import dhbw.ipoac.animals.mammals.Mammal;
 import dhbw.ipoac.animals.mammals.Ox;
 import dhbw.ipoac.computer.Computer;
+import dhbw.ipoac.employee.Employee;
 import dhbw.ipoac.habitat.BirdHouse;
 import dhbw.ipoac.habitat.Habitat;
 import dhbw.ipoac.habitat.Stall;
@@ -57,16 +58,16 @@ public class Commands {
 
     }
 
-    public void send(String fullcomand) {
+    public void send(String fullCommand) {
         //Either send bird, mammal or cart
-        if (fullcomand.toUpperCase().contains("CART")) {
-            Cart cart = (Cart) player.getTransportDeviceWithName(fullcomand.substring(10));
+        if (fullCommand.toUpperCase().contains("CART")) {
+            Cart cart = (Cart) player.getTransportDeviceWithName(fullCommand.substring(10));
             if (cart.isHome() && cart.getDraughtAnimals().size() > 0) {
                 cart.setHome(false);
             }
         } else {
             try {
-                Animal animal = player.getAnimalWithName(fullcomand.substring(5));
+                Animal animal = player.getAnimalWithName(fullCommand.substring(5));
                 animal.setHome(false);
                 try {
                     System.out.println(animal.getName() + " was send on its way! It carries "
@@ -78,21 +79,6 @@ public class Commands {
 
             } catch (Exception e) {
                 System.out.println("Animal was not found. Please check your input");
-            }
-        }
-    }
-
-    public void loadAnimal(Player player, String nameOfAnimal) {
-        for (Habitat h : player.getHabitats()
-        ) {
-            for (Animal a : h.getAnimals()) {
-                if (nameOfAnimal.equals(a.getName())) {
-                    if (a instanceof Mammal) {
-                        ((Mammal) a).getBackpack().load(player, a);
-                    } else if (a instanceof Bird) {
-                        ((Bird) a).getBag().load(player, a);
-                    } else return;
-                }
             }
         }
     }
@@ -156,15 +142,37 @@ public class Commands {
         System.out.println("#################################################################");
     }
 
+    public void sackEmployee(String id) {
+        String employeeID = id.substring(5);
+        for (Employee employee : player.getEmployeeDict().values()
+        ) {
+            if (employeeID.equals(employee.getEmployeeID())) {
+                System.out.println(employee.getName() + " was fired!");
+                player.getEmployeeDict().remove(employee.getEmployeeID(), employee);
+                return;
+            }
+        }
+    }
+
+    public void recruitNewEmployee() {
+
+        if (player.getMoney() + Employee.getRecruitmentFee() >= 0) {
+            Employee employee = new Employee();
+            player.getEmployeeDict().put(employee.getEmployeeID(), employee);
+            player.moneyTransactions(Employee.getRecruitmentFee());
+        } else System.out.println("Not enough money for a new employee");
+
+    }
+
     public void nextDay() {
         player.NextDay();
 
-        List<Animal> birdsOfPlayer = player.getAllAnimals();
+        List<Animal> allAnimals = player.getAllAnimals();
 
-        int length = birdsOfPlayer.size();
+        int length = allAnimals.size();
         Animal animal;
         for (int i = 0; i < length; i++) {
-            animal = birdsOfPlayer.get(0);
+            animal = allAnimals.get(0);
 
             animal.agingAnimal();
             if (!animal.isHome()) {
@@ -175,7 +183,12 @@ public class Commands {
             if (animal.getBreedingCooldown() > 0) {
                 animal.setBreedingCooldown(animal.getBreedingCooldown() - 1);
             }
-            birdsOfPlayer.remove(0);
+            if (animal instanceof BabyAnimals && animal.getAge() >= animal.getMaxAge() * .05f) {
+                ((BabyAnimals) animal).growUp();
+            }
+            allAnimals.remove(0);
+
+
         }
 
     }
@@ -356,6 +369,9 @@ public class Commands {
                 resetBreedingCooldown(mother);
 
                 Animal baby = new BabyAnimals(father);
+
+                player.addAnimalToHabitat(baby);
+                System.out.println("Congratulations on your new baby " + baby.getType() + " " + baby.getName());
             }
         }
     }

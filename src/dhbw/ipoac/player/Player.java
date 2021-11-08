@@ -2,6 +2,7 @@ package dhbw.ipoac.player;
 
 import dhbw.ipoac.animals.Animal;
 import dhbw.ipoac.computer.Computer;
+import dhbw.ipoac.employee.Employee;
 import dhbw.ipoac.habitat.BirdHouse;
 import dhbw.ipoac.habitat.Habitat;
 import dhbw.ipoac.medium.Medium;
@@ -22,6 +23,11 @@ public class Player {
     private final HashMap<String, TransportDevice> transportDict = new HashMap<>();
     private final HashMap<String, Medium> mediumDict = new HashMap<>();
     private final HashMap<String, Computer> computerDict = new HashMap<>();
+    private final HashMap<String, Employee> employeeDict = new HashMap<>();
+
+    public HashMap<String, Employee> getEmployeeDict() {
+        return employeeDict;
+    }
 
     public HashMap<String, Medium> getMediumDict() {
         return mediumDict;
@@ -149,8 +155,10 @@ public class Player {
         ) {
             if (h.isEnoughSpace() && animal.getHabitatType().equals(h.getHabitatTypes())) {
                 h.addAnimalToHabitat(animal);
+                return;
             }
         }
+
     }
 
     public void removeAnimalFromArchives(Animal animal) {

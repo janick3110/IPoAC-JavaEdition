@@ -16,5 +16,7 @@ public enum CommandList {
     REMOVE,
     PUFFER,
     BREED,
-    ATTACH
+    ATTACH,
+    RECRUIT,
+    SACK
 }

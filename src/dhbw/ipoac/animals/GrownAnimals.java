@@ -12,6 +12,7 @@ public class GrownAnimals extends Animal {
 
     public GrownAnimals(Player player, int maxAge, int speed, int cost, String type, float maxWeight, float deathProbability, HabitatTypes types) {
         super(player, maxAge, speed, cost, type, maxWeight, deathProbability, types);
+        age = (int) (maxAge * 0.05f);
     }
 
     public GrownAnimals(BabyAnimals animal) {

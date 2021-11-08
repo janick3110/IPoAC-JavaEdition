@@ -1,1 +1,1 @@
-{"Money":799,"Habitats":[{"Type":"BIRDHOUSE","Animals":["dhbw.ipoac.animals.birds.Pigeon@210366b4"],"maxCapacity":0,"ID":"50cd1ba0"},{"Type":"STALL","Animals":["dhbw.ipoac.animals.mammals.Ox@3b0143d3"],"maxCapacity":0,"ID":"5d18ba9d"}],"Days":0,"Data":0}
+{"Money":1000,"Habitats":[{"Type":"BIRDHOUSE","Animals":[],"maxCapacity":0,"ID":"ea26356b"}],"Days":0,"Data":0}

@@ -2,6 +2,7 @@ package dhbw.ipoac.savesystem;
 
 
 import dhbw.ipoac.animals.Animal;
+import dhbw.ipoac.encrypt.Encryption;
 import dhbw.ipoac.habitat.Habitat;
 import dhbw.ipoac.player.Player;
 import org.json.JSONArray;
@@ -19,9 +20,9 @@ public class Savegame {
         System.out.println("Saving game...");
         JSONObject jsonObject = new JSONObject();
         savePlayer(player);
+        savePlayer(player);
         //jsonObject.put("Player", "Janick");
         writeToFile(savePlayer(player));
-
     }
 
     private static JSONObject savePlayer(Player player){
@@ -52,7 +53,7 @@ public class Savegame {
                 animalJSON.put("Delivering", animal.isDelivering());
                 animalJSON.put("Gender", animal.isGender());
 
-                animalArray.put(animal);
+                animalArray.put(animalJSON);
             }
             habitat.put("Animals", animalArray);
             a.put(habitat);
@@ -67,7 +68,9 @@ public class Savegame {
     public static void writeToFile(JSONObject save) {
         try {
             FileWriter myWriter = new FileWriter("savegame.txt");
-            myWriter.write(save.toString());
+            String txt = Encryption.doEncryption(save.toString());
+            myWriter.write(txt);
+            //myWriter.write(save.toString());
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
@@ -75,4 +78,5 @@ public class Savegame {
             e.printStackTrace();
         }
     }
+
 }

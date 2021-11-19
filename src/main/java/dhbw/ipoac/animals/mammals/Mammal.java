@@ -19,6 +19,8 @@ public class Mammal extends GrownAnimals {
 
     }
 
+
+
     public Backpack getBackpack() {
         return backpack;
     }

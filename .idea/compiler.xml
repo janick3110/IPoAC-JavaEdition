@@ -8,8 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="IPoAC" />
         <module name="IPoAT-Entry" />
-        <module name="IPoAT-Data" />
         <module name="IPoAT-Presentation" />
+        <module name="IPoAT-Core" />
         <module name="IPoAT-Logic" />
       </profile>
     </annotationProcessing>

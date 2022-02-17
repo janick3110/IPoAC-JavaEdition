@@ -110,6 +110,8 @@ public class Animal {
 
     }
 
+    //public Animal(Player player) {
+    //}
 
 
     public boolean isDelivering() {

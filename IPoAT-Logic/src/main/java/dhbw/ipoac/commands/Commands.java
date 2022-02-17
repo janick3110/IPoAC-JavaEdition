@@ -76,6 +76,7 @@ public class Commands {
 
 
     public void setAutosave() {
+        //Animal a = new Animal(player);
         this.autosave = !this.autosave;
         if (autosave){
             System.out.println("Autosave is now enabled");

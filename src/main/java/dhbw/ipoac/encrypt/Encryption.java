@@ -11,7 +11,7 @@ public abstract class Encryption {
     private static final int chunkSize = 16;
     private static final int seedLength = 2048;
 
-    public static void setupEncryptingArray(){
+    private static void setupEncryptingArray(){
         int counter = 0;
 
         for (int i = 0; i < encryptingArray.length; i++) {

@@ -19,13 +19,12 @@ public class Main {
 
         System.out.println("IP over Animal Transport - Tycoon");
         System.out.println("Enter <HELP> for a list of available commands");
+        System.out.println("More information: https://github.com/janick3110/IPoAC-JavaEdition");
         Player player = new Player();
         Commands commands = new Commands(player);
         Event event = new Event();
-
-        Encryption.setupEncryptingArray();
         
-        //LoadSaveGame.load();
+        LoadSaveGame.load();
         //Savegame.save(player);
         //System.out.println("Saved");
 
@@ -41,7 +40,7 @@ public class Main {
             } catch (StringIndexOutOfBoundsException e) {
                 command = s.toUpperCase();
             }
-            //try{
+            try {
                 CommandList availableCommands = CommandList.valueOf(command);
                 switch (availableCommands) {
                     case PUT:
@@ -102,6 +101,9 @@ public class Main {
                     case SAVE:
                         commands.save();
                         break;
+                    case AUTOSAVE:
+                        commands.setAutosave();
+                        break;
                     default:
                         System.out.println("Your command is no valid command. " +
                                 "Please enter <HELP> or read the README file");
@@ -113,15 +115,14 @@ public class Main {
                 Random random = new Random();
                 event.doSomethingGoodOrBad(random.nextInt(100), player);
 
-                if (commands.getAutosave()){
+                if (commands.getAutosave()) {
                     commands.save();
                 }
 
-            //}
-            /*catch (Exception e){
+            } catch (IllegalArgumentException e) {
                 System.out.println("Your command is no valid command. " +
                         "Please enter <HELP> or read the README file");
-            }*/
+            }
 
 
 

@@ -1,36 +1,57 @@
 package dhbw.ipoac.savesystem;
 
+import dhbw.ipoac.animals.Animal;
+import dhbw.ipoac.animals.birds.Pigeon;
 import dhbw.ipoac.encrypt.Encryption;
+import dhbw.ipoac.habitat.BirdHouse;
+import dhbw.ipoac.habitat.Habitat;
 import dhbw.ipoac.player.Player;
 import org.json.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 public class LoadSaveGame {
 
 
     private static String jsonString(){
-        BufferedReader br = null;
+
+        Scanner sc = null;
         try {
             File file = new File("savegame.txt"); // java.io.File
-            FileReader fr = new FileReader(file); // java.io.FileReader
-            br = new BufferedReader(fr); // java.io.BufferedReader
-            String line;
-            while ((line = br.readLine()) != null) {
-                return line;
+            sc = new Scanner(file);     // java.util.Scanner
+            String line = "";
+            while (sc.hasNextLine()) {
+                line = sc.nextLine();
+                // process the line
             }
-            String output = Encryption.doDecrypting(line);
+            if (Savegame.bypassEncryption){
+                return line;
+            } else{
+                String output = Encryption.doDecrypting(line);
+                return output;
+            }
+
+
         }
-        catch(IOException e) { e.printStackTrace();}
-        finally
+        catch(FileNotFoundException e)
         {
-            try { if (br != null) br.close(); }
-            catch(IOException e) { e.printStackTrace(); }
+            e.printStackTrace();
+        }
+        finally {
+            if (sc != null) sc.close();
         }
         return null;
+
+
+
+
+
+
+
+
+
+
     }
 
     public static Player load(){
@@ -44,10 +65,31 @@ public class LoadSaveGame {
         for (int i = 0; i < arr.length(); i++)
         {
             System.out.println(arr.get(i).toString());
+            JSONObject object = arr.getJSONObject(i);
+            Habitat habitat = new Habitat(object,player);
+            JSONArray animals = object.getJSONArray("Animals");
+            for (int j = 0; j < animals.length(); j++) {
+                JSONObject animal = animals.getJSONObject(j);
+                Animal animal1 = new Animal(animal,player);
+                habitat.addAnimalToHabitat(getAnimalFromType(animal1.getTypeOfAnimal(), player,animal));
+            }
+
+            player.getHabitatDict().put(habitat.getNameOfHabitat(),
+                    getHabitatFromType(habitat.getType(), player, animals.getJSONObject(i)));
         }
         return player;
     }
 
+    private static Animal getAnimalFromType(String type, Player player, JSONObject object){
+        if (type.equals("PIGEON")){
+            return new Pigeon(object,player);
+        } else return null;
+    }
 
+    private static Habitat getHabitatFromType(String type, Player player, JSONObject object){
+        if (type.equals("BIRDHOUSE")){
+            return new BirdHouse(object, player);
+        } else return null;
+    }
 
 }

@@ -5,6 +5,7 @@ import dhbw.ipoac.animals.GrownAnimals;
 import dhbw.ipoac.habitat.HabitatTypes;
 import dhbw.ipoac.player.Player;
 import dhbw.ipoac.transportationdevice.Bag;
+import org.json.JSONObject;
 
 public class Bird extends GrownAnimals {
 
@@ -18,6 +19,10 @@ public class Bird extends GrownAnimals {
     public Bird(BabyAnimals animals) {
         super(animals);
 
+    }
+
+    public Bird(JSONObject object, Player player) {
+        super(object,player);
     }
 
     public Bag getBag() {

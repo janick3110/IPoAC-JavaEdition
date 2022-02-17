@@ -2,6 +2,7 @@ package dhbw.ipoac.animals.mammals;
 
 import dhbw.ipoac.animals.BabyAnimals;
 import dhbw.ipoac.animals.GrownAnimals;
+import dhbw.ipoac.employee.Employee;
 import dhbw.ipoac.habitat.HabitatTypes;
 import dhbw.ipoac.player.Player;
 import dhbw.ipoac.transportationdevice.Backpack;
@@ -9,6 +10,7 @@ import dhbw.ipoac.transportationdevice.Backpack;
 public class Mammal extends GrownAnimals {
 
     private Backpack backpack;
+    protected Employee rider;
 
     public Mammal(Player player, int maxAge, int speed, int cost, String type, float maxWeight, float deathProbability, HabitatTypes types) {
         super(player, maxAge, speed, cost, type, maxWeight, deathProbability, types);

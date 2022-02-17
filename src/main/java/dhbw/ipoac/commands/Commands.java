@@ -4,6 +4,7 @@ import dhbw.ipoac.animals.Animal;
 import dhbw.ipoac.animals.BabyAnimals;
 import dhbw.ipoac.animals.birds.Bird;
 import dhbw.ipoac.animals.birds.Pigeon;
+import dhbw.ipoac.animals.mammals.Elephant;
 import dhbw.ipoac.animals.mammals.Mammal;
 import dhbw.ipoac.animals.mammals.Ox;
 import dhbw.ipoac.computer.Computer;
@@ -42,7 +43,12 @@ public class Commands {
             determineHabitat(new Pigeon(player));
         } else if (fullCommand.contains("OX")) {
             determineHabitat(new Ox(player));
-        } else if (fullCommand.contains("FLOPPY DISK")) {
+        } else if (fullCommand.contains("ELEPHANT")){
+            determineHabitat(new Elephant(player));
+        }
+
+
+        else if (fullCommand.contains("FLOPPY DISK")) {
             addMediumToPlayer(new FloppyDisk(player));
 //        } else if (fullCommand.contains("CHARGING STATION")) {
 //            if (player.getMoney() - player.getHabitat().getCostOfChargingStation() > 0) {
@@ -68,6 +74,15 @@ public class Commands {
         Savegame.save(player);
     }
 
+
+    public void setAutosave() {
+        this.autosave = !this.autosave;
+        if (autosave){
+            System.out.println("Autosave is now enabled");
+        } else {
+            System.out.println("Autosave is now disabled. Enter SAVE to save the game");
+        }
+    }
 
     public void send(String fullCommand) {
         //Either send bird, mammal or cart
@@ -161,7 +176,7 @@ public class Commands {
                 System.out.println(employee.getName() + " was fired!");
                 player.getEmployeeDict().remove(employee.getEmployeeID(), employee);
                 return;
-            };
+            }
         }
     }
 

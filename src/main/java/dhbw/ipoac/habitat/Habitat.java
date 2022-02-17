@@ -3,6 +3,7 @@ package dhbw.ipoac.habitat;
 import dhbw.ipoac.animals.Animal;
 import dhbw.ipoac.animals.birds.Bird;
 import dhbw.ipoac.player.Player;
+import org.json.JSONObject;
 
 import java.util.*;
 
@@ -32,7 +33,7 @@ public class Habitat {
         return habitatTypes;
     }
 
-    public Habitat(Player player, int avaliableNests, int costOfNewNest, int dailyCost, String type, int cost, HabitatTypes habitatTypes) {
+    public Habitat(Player player, int avaliableNests, int costOfNewNest, int dailyCost, String type, int cost,int maxCapacity, HabitatTypes habitatTypes) {
         this.avaliableNests = avaliableNests;
         this.costOfNewNest = costOfNewNest;
         this.dailyCost = dailyCost;
@@ -40,11 +41,31 @@ public class Habitat {
         this.type = type;
         this.cost = cost;
         this.habitatTypes = habitatTypes;
+        this.maxCapacity = maxCapacity;
 
         nameOfHabitat = UUID.randomUUID().toString().substring(0, 8);
         while (player.getHabitatDict().containsKey(nameOfHabitat)) {
             nameOfHabitat = UUID.randomUUID().toString().substring(0, 8);
         }
+    }
+
+    public Habitat(JSONObject jsonObject, Player player){
+        try {
+            nameOfHabitat = jsonObject.getString("ID");
+            this.avaliableNests = jsonObject.getInt("avaliableNests");
+            this.costOfNewNest = jsonObject.getInt("costForNewNest");
+            this.dailyCost = jsonObject.getInt("dailyCost");
+            this.player = player;
+            this.type = jsonObject.getString("Type");
+            this.cost = jsonObject.getInt("costForBuying");
+            this.habitatTypes = (HabitatTypes) jsonObject.get("Type");
+            this.maxCapacity = jsonObject.getInt("maxCapacity");
+        } finally {
+            return;
+        }
+
+
+
     }
 
     public int getDailyCost() {

@@ -3,6 +3,7 @@ package dhbw.ipoac.animals;
 import dhbw.ipoac.habitat.HabitatTypes;
 import dhbw.ipoac.player.Player;
 import dhbw.ipoac.transportationdevice.TransportDevice;
+import org.json.JSONObject;
 
 public class GrownAnimals extends Animal {
 
@@ -20,6 +21,10 @@ public class GrownAnimals extends Animal {
     public GrownAnimals(BabyAnimals animal) {
         super(animal);
 
+    }
+
+    public GrownAnimals(JSONObject object, Player player) {
+        super(object,player);
     }
 
 

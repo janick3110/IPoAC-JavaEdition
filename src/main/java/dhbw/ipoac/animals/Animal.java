@@ -6,6 +6,7 @@ import dhbw.ipoac.habitat.Habitat;
 import dhbw.ipoac.habitat.HabitatTypes;
 import dhbw.ipoac.player.Player;
 import dhbw.ipoac.transportationdevice.TransportDevice;
+import org.json.JSONObject;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -32,6 +33,7 @@ public class Animal {
     protected HabitatTypes habitatType;
 
     /**
+     * 
      * create new Animal
      *
      * @param player           the player of the game
@@ -82,6 +84,33 @@ public class Animal {
 
     }
 
+    public Animal(JSONObject animal, Player player) {
+        try{
+            this.age = animal.getInt("Age");
+            this.maxAge = animal.getInt("MaxAge");
+            this.speed = animal.getInt("Speed");
+            this.energy = animal.getInt("Energy");
+            this.cost = animal.getInt("Cost");
+            this.name = animal.getString("Name");
+            this.type = animal.getString("Type");
+            this.home = animal.getBoolean("Home");
+            this.delivering = animal.getBoolean("Delivering");
+            this.maxWeight = maxWeight;
+            this.player = player;
+            this.deathProbability = deathProbability;
+            this.percentageMoved = percentageMoved;
+            this.device = device;
+            this.gender = animal.getBoolean("Gender");
+            this.breedingCooldown = breedingCooldown;
+            this.habitatType = habitatType;
+        } catch (Exception e){
+            System.out.println("Invalid JSON");
+        }
+
+    }
+
+
+
     public boolean isDelivering() {
         return delivering;
     }
@@ -122,6 +151,10 @@ public class Animal {
 
     public TransportDevice getDevice() {
         return device;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     public void setDevice(TransportDevice device) {

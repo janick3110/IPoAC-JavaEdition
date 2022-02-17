@@ -24,7 +24,7 @@ public class Main {
         Commands commands = new Commands(player);
         Event event = new Event();
         
-        LoadSaveGame.load();
+        //LoadSaveGame.load();
         //Savegame.save(player);
         //System.out.println("Saved");
 

@@ -11,7 +11,6 @@ import dhbw.ipoac.transportationdevice.TransportDevice;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 
 public class Player {
     private List<Medium> avaliableMedia = new ArrayList<>();

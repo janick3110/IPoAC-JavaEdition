@@ -2,6 +2,7 @@ package dhbw.ipoac.animals;
 
 import dhbw.ipoac.animals.birds.Bird;
 import dhbw.ipoac.animals.mammals.Mammal;
+
 import dhbw.ipoac.habitat.Habitat;
 import dhbw.ipoac.habitat.HabitatTypes;
 import dhbw.ipoac.player.Player;

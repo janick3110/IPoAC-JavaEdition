@@ -7,19 +7,24 @@ import dhbw.ipoac.events.Event;
 import dhbw.ipoac.player.Player;
 import dhbw.ipoac.savesystem.LoadSaveGame;
 import dhbw.ipoac.savesystem.Savegame;
+import dhbw.ipoat.GUI;
+import dhbw.ipoat.Terminal;
+
 
 import java.util.Random;
-import java.util.Scanner;
+
 
 public class Main {
 
     public static void main(String[] args) {
 
+        GUI gui = new Terminal();
 
 
-        System.out.println("IP over Animal Transport - Tycoon");
-        System.out.println("Enter <HELP> for a list of available commands");
-        System.out.println("More information: https://github.com/janick3110/IPoAC-JavaEdition");
+        gui.out("IP over Animal Transport - Tycoon");
+        gui.out("Enter <HELP> for a list of available commands");
+        gui.out("More information: https://github.com/janick3110/IPoAC-JavaEdition");
+
         Player player = new Player();
         Commands commands = new Commands(player);
         Event event = new Event();
@@ -28,13 +33,11 @@ public class Main {
         //Savegame.save(player);
         //System.out.println("Saved");
 
-        Scanner in = new Scanner(System.in);
-        String s;
 
-        while (in.hasNextLine()) {
-            s = in.nextLine();
+        while (true) {
             // Decode commands and main loop of the game
             String command;
+            String s = gui.in();
             try {
                 command = s.toUpperCase().substring(0, s.indexOf(" "));
             } catch (StringIndexOutOfBoundsException e) {

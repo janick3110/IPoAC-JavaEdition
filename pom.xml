@@ -12,6 +12,7 @@
         <module>IPoAT-Data</module>
         <module>IPoAT-Logic</module>
         <module>IPoAT-Presentation</module>
+        <module>IPoAT-Entry</module>
     </modules>
 
     <properties>

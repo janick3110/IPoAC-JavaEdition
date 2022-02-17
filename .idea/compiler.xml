@@ -6,9 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="IPoAT-Test" />
         <module name="IPoAC" />
+        <module name="IPoAT-Parent" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="IPoAT-Data" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

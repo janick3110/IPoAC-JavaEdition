@@ -1,0 +1,290 @@
+@startuml
+class dhbw.ipoac.animals.GrownAnimals {
+# int cost
+# boolean home
+# boolean delivering
+# int breedingCooldown
+# TransportDevice transport
++ TransportDevice getTransport()
+}
+class dhbw.ipoac.computer.Computer {
+- float writingSpeed
+- float generationSpeed
+- List<Medium> mediaInPC
+- String nameOfPc
+- float puffer
+- float maxPuffer
+- float cost
+- float dataTransmitted
+~ Instant pcStartTime
++ void GenerateData()
++ Instant getPcStartTime()
++ float getPuffer()
++ void transferData(Medium)
++ String getNameOfPc()
+}
+class dhbw.ipoac.animals.birds.Pigeon {
+}
+class dhbw.ipoac.medium.Medium {
+# String nameOfMedium
+# float weight
+# float cost
+# float data
+# String id
+# boolean full
++ String getNameOfMedium()
++ boolean isFull()
++ void setFull(boolean)
++ float getData()
++ float getCost()
++ String getId()
++ float getWeight()
++ void setWeight(float)
+}
+enum dhbw.ipoac.employee.EmployeeNames {
++  Janick
++  Timo
++  Andreas
++  Lars
++  Nico
++  Felix
++  David
++  Markus
++  Christin
++  Claudia
++  Laura
++  Katja
++  Sven
++  Lea
++  Nina
+}
+class dhbw.ipoac.animals.mammals.Ox {
+}
+class dhbw.ipoac.animals.BabyAnimals {
++ void growUp()
+}
+class dhbw.ipoac.habitat.BirdHouse {
+}
+class dhbw.ipoac.transportationdevice.Cart {
+- List<Mammal> draughtAnimals
+- int sizeOfCart
+- int wheelCount
+- int animalCount
+- boolean home
++ int getAnimalCount()
++ void setHome(boolean)
++ List<Mammal> getDraughtAnimals()
++ boolean isHome()
++ void putAnimalsInFront(List<Mammal>)
+}
+class dhbw.ipoac.animals.mammals.Horse {
+}
+class dhbw.ipoac.transportationdevice.Bag {
+}
+enum dhbw.ipoac.animals.birds.BirdList {
++  PIGEON
+}
+class dhbw.ipoac.habitat.Habitat {
+# List<Bird> birdOlds
+# int avaliableNests
+# int costOfNewNest
+# int maxCapacity
+# int relaxingFactor
+# int amountOfChargingStations
+# int costOfChargingStation
+# int dailyCost
+- Map<String,Animal> mapNameToBird
+# List<Animal> animalsInHabitat
+# String nameOfHabitat
+# Player player
+# String type
+# int cost
+# HabitatTypes habitatTypes
++ int getCost()
++ HabitatTypes getHabitatTypes()
++ int getDailyCost()
++ String getType()
++ int getMaxCapacity()
++ List<Animal> getAnimalsInHabitat()
++ Map<String,Animal> getMapNameToBird()
++ int getCostOfNewNest()
++ int getAmountOfChargingStations()
++ int getCostOfChargingStation()
++ void setCostOfChargingStation(int)
++ int getRelaxingFactor()
++ void increaseChargingStations()
++ List<Animal> getAnimals()
++ boolean isEnoughSpace()
++ void addAnimalToHabitat(Animal)
++ void IncreaseSizeOfHabitat()
++ String getNameOfHabitat()
++ void decreaseNests(int)
++ int getAvaliableNests()
+}
+class dhbw.ipoac.employee.Employee {
+- {static} int employeeCounter
+- {static} int recruitmentFee
+- EmployeeNames name
+- int dailyCost
+- String employeeID
++ {static} int getRecruitmentFee()
++ int getDailyCost()
++ String getEmployeeID()
++ EmployeeNames getName()
+}
+class dhbw.ipoac.habitat.Stall {
+}
+class dhbw.ipoac.animals.birds.Bird {
+- Bag bag
++ Bag getBag()
++ {static} boolean doesThisAnimalExist(String)
+}
+class dhbw.ipoac.animals.mammals.Mammal {
+- Backpack backpack
+# Employee rider
++ Backpack getBackpack()
++ {static} boolean doesThisAnimalExist(String)
+}
+class dhbw.ipoac.player.Player {
+- List<Medium> avaliableMedia
+- int day
+- String name
+- float money
+- float amountDataTransmitted
+- HashMap<String,TransportDevice> allTransportDevices
+- HashMap<String,Habitat> habitatDict
+- HashMap<String,TransportDevice> transportDict
+- HashMap<String,Medium> mediumDict
+- HashMap<String,Computer> computerDict
+- HashMap<String,Employee> employeeDict
++ HashMap<String,Employee> getEmployeeDict()
++ HashMap<String,Medium> getMediumDict()
++ HashMap<String,Computer> getComputerDict()
++ HashMap<String,TransportDevice> getTransportDict()
++ String getName()
++ HashMap<String,Habitat> getHabitatDict()
++ HashMap<String,TransportDevice> getAllTransportDevices()
++ float getAmountDataTransmitted()
++ void setAmountDataTransmitted(float)
++ void moneyTransactions(float)
++ List<Medium> getAvaliableMedia()
++ void setAvaliableMedia(List<Medium>)
++ float getMoney()
++ void setMoney(int)
++ void NextDay()
++ int getDay()
++ void setDay(int)
++ boolean checkForDoubleNames(String)
++ void unloadData(float)
++ List<Animal> getAllAnimals()
++ TransportDevice getTransportDeviceWithName(String)
++ void addAnimalToHabitat(Animal)
++ void removeAnimalFromArchives(Animal)
++ Medium getMediumWithName(String)
++ Animal getAnimalWithName(String)
+}
+class dhbw.ipoac.transportationdevice.TransportDevice {
+# List<Medium> mediaInDevice
+# int maxObjects
+# int cost
+# int costForUpgrade
+# float weight
+# float probabilityOfFailure
+# String uuid
+# Player player
+# String type
++ String getUuid()
++ String getType()
++ int getMaxObjects()
++ void attachDevice(Animal)
++ float calculateWeight()
++ void removeObject(Medium)
++ List<Medium> getMediaInDevice()
++ void load(Player,Animal)
++ void putMedium(Medium)
++ void unloadData()
++ float calculateData()
++ void increaseSize()
+# void notifyPlayer(String)
++ TransportDevice getTransportDevice()
+}
+class dhbw.ipoac.medium.FloppyDisk {
+}
+class dhbw.ipoac.animals.Animal {
+# int age
+# int maxAge
+# int speed
+# int energy
+# int cost
+# String name
+# String type
+# boolean home
+# boolean delivering
+# float maxWeight
+# Player player
+# float deathProbability
+# float percentageMoved
+# TransportDevice device
+# boolean gender
+# int breedingCooldown
+# HabitatTypes habitatType
++ boolean isDelivering()
++ HabitatTypes getHabitatType()
++ int getMaxAge()
++ void setBreedingCooldown(int)
++ int getBreedingCooldown()
++ TransportDevice getDevice()
++ int getSpeed()
++ void setDevice(TransportDevice)
++ void agingAnimal()
++ String getName()
++ void killAnimal()
+- boolean checkForAttachedTransport()
++ boolean isGender()
++ void moveAnimal()
++ float calculateValueOfAnimal()
++ void setHome(boolean)
++ float getDeathProbability()
++ int getCost()
++ String getTypeOfAnimal()
++ boolean isHome()
++ int getAge()
++ int getEnergy()
++ float getMaxWeight()
++ void setEnergy(int)
+}
+class dhbw.ipoac.transportationdevice.Backpack {
+}
+enum dhbw.ipoac.employee.Occupations {
++  NONE
++  RIDING
++  LOADING
+}
+class dhbw.ipoac.animals.mammals.Elephant {
+}
+enum dhbw.ipoac.animals.mammals.MammalList {
++  Ox
++  Horse
++  Elephant
+}
+enum dhbw.ipoac.habitat.HabitatTypes {
++  STALL
++  BIRDHOUSE
+}
+
+
+dhbw.ipoac.animals.Animal <|-- dhbw.ipoac.animals.GrownAnimals
+dhbw.ipoac.animals.birds.Bird <|-- dhbw.ipoac.animals.birds.Pigeon
+dhbw.ipoac.animals.mammals.Mammal <|-- dhbw.ipoac.animals.mammals.Ox
+dhbw.ipoac.animals.Animal <|-- dhbw.ipoac.animals.BabyAnimals
+dhbw.ipoac.habitat.Habitat <|-- dhbw.ipoac.habitat.BirdHouse
+dhbw.ipoac.transportationdevice.TransportDevice <|-- dhbw.ipoac.transportationdevice.Cart
+dhbw.ipoac.animals.mammals.Mammal <|-- dhbw.ipoac.animals.mammals.Horse
+dhbw.ipoac.transportationdevice.TransportDevice <|-- dhbw.ipoac.transportationdevice.Bag
+dhbw.ipoac.habitat.Habitat <|-- dhbw.ipoac.habitat.Stall
+dhbw.ipoac.animals.GrownAnimals <|-- dhbw.ipoac.animals.birds.Bird
+dhbw.ipoac.animals.GrownAnimals <|-- dhbw.ipoac.animals.mammals.Mammal
+dhbw.ipoac.medium.Medium <|-- dhbw.ipoac.medium.FloppyDisk
+dhbw.ipoac.transportationdevice.TransportDevice <|-- dhbw.ipoac.transportationdevice.Backpack
+dhbw.ipoac.animals.mammals.Mammal <|-- dhbw.ipoac.animals.mammals.Elephant
+@enduml

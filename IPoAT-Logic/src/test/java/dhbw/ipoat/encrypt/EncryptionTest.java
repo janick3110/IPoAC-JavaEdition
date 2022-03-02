@@ -4,8 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EncryptionTest {
 
@@ -45,6 +44,6 @@ public class EncryptionTest {
         System.out.println(result);
         result = Encryption.doEncryption(result);
 
-        assertFalse(teststring.equals(result));
+        assertNotEquals(teststring, result);
     }
 }

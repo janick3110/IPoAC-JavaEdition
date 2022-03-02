@@ -1,7 +1,6 @@
 package dhbw.ipoat.commands;
 
-import dhbw.ipoat.animals.Animal;
-import dhbw.ipoat.animals.BabyAnimals;
+import dhbw.ipoat.animals.*;
 import dhbw.ipoat.animals.birds.Bird;
 import dhbw.ipoat.animals.birds.Pigeon;
 import dhbw.ipoat.animals.mammals.Elephant;
@@ -29,6 +28,11 @@ public class Commands {
 
     private final Player player;
     private Boolean autosave = true;
+    private enum outputPossibilities{
+        CONSOLE,
+        SPEAKER
+    }
+    private outputPossibilities mode = outputPossibilities.CONSOLE;
 
     public Commands(Player player) {
         this.player = player;
@@ -40,11 +44,11 @@ public class Commands {
 
     public void buy(String fullCommand) {
         if (fullCommand.contains("PIGEON")) {
-            determineHabitat(new Pigeon(player));
+            determineHabitat(new Pigeon(player, new ConsoleSoundGenerator()));
         } else if (fullCommand.contains("OX")) {
-            determineHabitat(new Ox(player));
+            determineHabitat(new Ox(player, new ConsoleSoundGenerator()));
         } else if (fullCommand.contains("ELEPHANT")){
-            determineHabitat(new Elephant(player));
+            determineHabitat(new Elephant(player, new ConsoleSoundGenerator()));
         }
 
 
@@ -439,5 +443,39 @@ public class Commands {
         }
 
 
+    }
+
+    public void playAnimalSound(String s) {
+        Animal animal = player.getAnimalWithName(s.substring(6));
+
+        if (animal instanceof GrownAnimals){
+            GrownAnimals gAnimal = (GrownAnimals) animal;
+            gAnimal.MakeSound();
+        }
+    }
+
+    public void switchSoundOutput() {
+        if (mode == outputPossibilities.CONSOLE){
+            mode = outputPossibilities.SPEAKER;
+
+        } else if (mode == outputPossibilities.SPEAKER){
+            mode = outputPossibilities.CONSOLE;
+        }
+        setAllAnimalImplementations();
+    }
+
+    private void setAllAnimalImplementations(){
+        for (Animal animal : player.getAllAnimals()
+        ) {
+            if (animal instanceof GrownAnimals){
+                GrownAnimals grownAnimal = (GrownAnimals) animal;
+                if (mode == outputPossibilities.CONSOLE){
+                    grownAnimal.setAnimalImplementation(new ConsoleSoundGenerator());
+                } else if (mode == outputPossibilities.SPEAKER){
+                    grownAnimal.setAnimalImplementation(new AudioSoundGenerator());
+                }
+
+            }
+        }
     }
 }

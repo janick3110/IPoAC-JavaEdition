@@ -34,10 +34,11 @@ public class BabyAnimals extends Animal {
                 break;
             } else if(answer.equalsIgnoreCase("KEEP")){
                 if (Mammal.doesThisAnimalExist(type.toUpperCase())) {
-                    player.addAnimalToHabitat(new Mammal(this));
+                    //TODO: Determine which animal needs to be instantiated
+                    //player.addAnimalToHabitat(new Mammal(this));
                     break;
                 } else if (Bird.doesThisAnimalExist(type.toUpperCase())) {
-                    player.addAnimalToHabitat(new Bird(this));
+                    //player.addAnimalToHabitat(new Bird(this));
                     break;
                 } else {
                     System.out.println("Error! Type of animal not correct defined");

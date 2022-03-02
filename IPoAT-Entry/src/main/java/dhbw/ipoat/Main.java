@@ -102,6 +102,12 @@ public class Main {
                     case AUTOSAVE:
                         commands.setAutosave();
                         break;
+                    case SOUND:
+                        commands.playAnimalSound(s);
+                        break;
+                    case SWITCH:
+                        commands.switchSoundOutput();
+                        break;
                     default:
                         System.out.println("Your command is no valid command. " +
                                 "Please enter <HELP> or read the README file");

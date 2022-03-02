@@ -20,5 +20,7 @@ public enum CommandList {
     RECRUIT,
     SACK,
     SAVE,
-    AUTOSAVE
+    AUTOSAVE,
+    SOUND,
+    SWITCH
 }

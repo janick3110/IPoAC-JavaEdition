@@ -5,13 +5,14 @@ import dhbw.ipoat.player.Player;
 import dhbw.ipoat.transportationdevice.TransportDevice;
 import org.json.JSONObject;
 
-public class GrownAnimals extends Animal {
+public abstract class GrownAnimals extends Animal {
 
     protected int cost;
     protected boolean home;
     protected boolean delivering;
     protected int breedingCooldown;
     protected TransportDevice transport;
+    protected AnimalImplementation animalImplementation;
 
     public GrownAnimals(Player player, int maxAge, int speed, int cost, String type, float maxWeight, float deathProbability, HabitatTypes types) {
         super(player, maxAge, speed, cost, type, maxWeight, deathProbability, types);
@@ -23,6 +24,8 @@ public class GrownAnimals extends Animal {
 
     }
 
+    public abstract void MakeSound();
+
     public GrownAnimals(JSONObject object, Player player) {
         super(object,player);
     }
@@ -30,5 +33,13 @@ public class GrownAnimals extends Animal {
 
     public TransportDevice getTransport() {
         return transport;
+    }
+
+    public AnimalImplementation getAnimalImplementation() {
+        return animalImplementation;
+    }
+
+    public void setAnimalImplementation(AnimalImplementation animalImplementation) {
+        this.animalImplementation = animalImplementation;
     }
 }

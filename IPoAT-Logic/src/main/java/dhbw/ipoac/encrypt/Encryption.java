@@ -188,9 +188,6 @@ public abstract class Encryption {
                 }
             }
         }
-
-
-
     }
 
     private static void buildOutput(){

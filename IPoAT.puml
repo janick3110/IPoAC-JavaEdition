@@ -1,11 +1,11 @@
 @startuml
-class dhbw.ipoac.savesystem.LoadSaveGame {
+class dhbw.ipoat.savesystem.LoadSaveGame {
 - {static} String jsonString()
 + {static} Player load()
 - {static} Animal getAnimalFromType(String,Player,JSONObject)
 - {static} Habitat getHabitatFromType(String,Player,JSONObject)
 }
-class dhbw.ipoac.animals.GrownAnimals {
+class dhbw.ipoat.animals.GrownAnimals {
 # int cost
 # boolean home
 # boolean delivering
@@ -16,7 +16,7 @@ class dhbw.ipoac.animals.GrownAnimals {
 + <<Create>> GrownAnimals(JSONObject,Player)
 + TransportDevice getTransport()
 }
-class dhbw.ipoac.computer.Computer {
+class dhbw.ipoat.computer.Computer {
 - float writingSpeed
 - float generationSpeed
 - List<Medium> mediaInPC
@@ -33,11 +33,11 @@ class dhbw.ipoac.computer.Computer {
 + void transferData(Medium)
 + String getNameOfPc()
 }
-class dhbw.ipoac.animals.birds.Pigeon {
+class dhbw.ipoat.animals.birds.Pigeon {
 + <<Create>> Pigeon(Player)
 + <<Create>> Pigeon(JSONObject,Player)
 }
-class dhbw.ipoac.medium.Medium {
+class dhbw.ipoat.medium.Medium {
 # String nameOfMedium
 # float weight
 # float cost
@@ -54,7 +54,7 @@ class dhbw.ipoac.medium.Medium {
 + float getWeight()
 + void setWeight(float)
 }
-enum dhbw.ipoac.employee.EmployeeNames {
+enum dhbw.ipoat.employee.EmployeeNames {
 +  Janick
 +  Timo
 +  Andreas
@@ -71,26 +71,26 @@ enum dhbw.ipoac.employee.EmployeeNames {
 +  Lea
 +  Nina
 }
-interface dhbw.ipoac.GUI {
+interface dhbw.ipoat.GUI {
 ~ String in()
 ~ void out(String)
 ~ void debug(String)
 }
-class dhbw.ipoac.animals.mammals.Ox {
+class dhbw.ipoat.animals.mammals.Ox {
 + <<Create>> Ox(Player)
 }
-class dhbw.ipoac.savesystem.Savegame {
+class dhbw.ipoat.savesystem.Savegame {
 - {static} List<Player> allPlayers
 + {static} boolean bypassEncryption
 + {static} void save(Player)
 - {static} JSONObject savePlayer(Player)
 + {static} void writeToFile(JSONObject)
 }
-class dhbw.ipoac.animals.BabyAnimals {
+class dhbw.ipoat.animals.BabyAnimals {
 + <<Create>> BabyAnimals(Animal)
 + void growUp()
 }
-enum dhbw.ipoac.commands.CommandList {
+enum dhbw.ipoat.commands.CommandList {
 +  PUT
 +  BUY
 +  UPGRADE
@@ -112,11 +112,11 @@ enum dhbw.ipoac.commands.CommandList {
 +  SAVE
 +  AUTOSAVE
 }
-class dhbw.ipoac.habitat.BirdHouse {
+class dhbw.ipoat.habitat.BirdHouse {
 + <<Create>> BirdHouse(Player)
 + <<Create>> BirdHouse(JSONObject,Player)
 }
-class dhbw.ipoac.transportationdevice.Cart {
+class dhbw.ipoat.transportationdevice.Cart {
 - List<Mammal> draughtAnimals
 - int sizeOfCart
 - int wheelCount
@@ -129,19 +129,19 @@ class dhbw.ipoac.transportationdevice.Cart {
 + boolean isHome()
 + void putAnimalsInFront(List<Mammal>)
 }
-class dhbw.ipoac.animals.mammals.Horse {
+class dhbw.ipoat.animals.mammals.Horse {
 + <<Create>> Horse(Player)
 }
-class dhbw.ipoac.transportationdevice.Bag {
+class dhbw.ipoat.transportationdevice.Bag {
 + <<Create>> Bag(Player)
 }
-class dhbw.ipoac.events.Event {
+class dhbw.ipoat.events.Event {
 + void doSomethingGoodOrBad(int,Player)
 }
-enum dhbw.ipoac.animals.birds.BirdList {
+enum dhbw.ipoat.animals.birds.BirdList {
 +  PIGEON
 }
-class dhbw.ipoac.habitat.Habitat {
+class dhbw.ipoat.habitat.Habitat {
 # List<Bird> birdOlds
 # int avaliableNests
 # int costOfNewNest
@@ -180,10 +180,10 @@ class dhbw.ipoac.habitat.Habitat {
 + void decreaseNests(int)
 + int getAvaliableNests()
 }
-class dhbw.ipoac.Main {
+class dhbw.ipoat.Main {
 + {static} void main(String[])
 }
-class dhbw.ipoac.employee.Employee {
+class dhbw.ipoat.employee.Employee {
 - {static} int employeeCounter
 - {static} int recruitmentFee
 - EmployeeNames name
@@ -195,7 +195,7 @@ class dhbw.ipoac.employee.Employee {
 + String getEmployeeID()
 + EmployeeNames getName()
 }
-class dhbw.ipoac.savesystem.JsonConstants {
+class dhbw.ipoat.savesystem.JsonConstants {
 + {static} String SAVEGAMEFILE
 + {static} String PLAYERS
 + {static} String NAME
@@ -206,10 +206,10 @@ class dhbw.ipoac.savesystem.JsonConstants {
 + {static} String TRA
 + {static} String DEFAULTSAVEGAME
 }
-class dhbw.ipoac.habitat.Stall {
+class dhbw.ipoat.habitat.Stall {
 + <<Create>> Stall(Player)
 }
-class dhbw.ipoac.commands.Commands {
+class dhbw.ipoat.commands.Commands {
 - Player player
 - Boolean autosave
 + <<Create>> Commands(Player)
@@ -239,7 +239,7 @@ class dhbw.ipoac.commands.Commands {
 + void getPuffer(String)
 + void getInventory(String)
 }
-class dhbw.ipoac.animals.birds.Bird {
+class dhbw.ipoat.animals.birds.Bird {
 - Bag bag
 + <<Create>> Bird(Player,int,int,int,String,float,float,HabitatTypes)
 + <<Create>> Bird(BabyAnimals)
@@ -247,7 +247,7 @@ class dhbw.ipoac.animals.birds.Bird {
 + Bag getBag()
 + {static} boolean doesThisAnimalExist(String)
 }
-class dhbw.ipoac.animals.mammals.Mammal {
+class dhbw.ipoat.animals.mammals.Mammal {
 - Backpack backpack
 # Employee rider
 + <<Create>> Mammal(Player,int,int,int,String,float,float,HabitatTypes)
@@ -255,7 +255,7 @@ class dhbw.ipoac.animals.mammals.Mammal {
 + Backpack getBackpack()
 + {static} boolean doesThisAnimalExist(String)
 }
-class dhbw.ipoac.player.Player {
+class dhbw.ipoat.player.Player {
 - List<Medium> avaliableMedia
 - int day
 - String name
@@ -300,7 +300,7 @@ class dhbw.ipoat.Terminal {
 + void out(String)
 + void debug(String)
 }
-class dhbw.ipoac.transportationdevice.TransportDevice {
+class dhbw.ipoat.transportationdevice.TransportDevice {
 # List<Medium> mediaInDevice
 # int maxObjects
 # int cost
@@ -326,10 +326,10 @@ class dhbw.ipoac.transportationdevice.TransportDevice {
 # void notifyPlayer(String)
 + TransportDevice getTransportDevice()
 }
-class dhbw.ipoac.medium.FloppyDisk {
+class dhbw.ipoat.medium.FloppyDisk {
 + <<Create>> FloppyDisk(Player)
 }
-class dhbw.ipoac.animals.Animal {
+class dhbw.ipoat.animals.Animal {
 # int age
 # int maxAge
 # int speed
@@ -375,15 +375,15 @@ class dhbw.ipoac.animals.Animal {
 + float getMaxWeight()
 + void setEnergy(int)
 }
-class dhbw.ipoac.transportationdevice.Backpack {
+class dhbw.ipoat.transportationdevice.Backpack {
 + <<Create>> Backpack(Player)
 }
-enum dhbw.ipoac.employee.Occupations {
+enum dhbw.ipoat.employee.Occupations {
 +  NONE
 +  RIDING
 +  LOADING
 }
-abstract class dhbw.ipoac.encrypt.Encryption {
+abstract class dhbw.ipoat.encrypt.Encryption {
 - {static} int[][] encryptingArray
 - {static} int chunkSize
 - {static} int seedLength
@@ -395,33 +395,33 @@ abstract class dhbw.ipoac.encrypt.Encryption {
 - {static} void swapAxis(boolean,String)
 - {static} void buildOutput()
 }
-class dhbw.ipoac.animals.mammals.Elephant {
+class dhbw.ipoat.animals.mammals.Elephant {
 + <<Create>> Elephant(Player)
 }
-enum dhbw.ipoac.animals.mammals.MammalList {
+enum dhbw.ipoat.animals.mammals.MammalList {
 +  Ox
 +  Horse
 +  Elephant
 }
-enum dhbw.ipoac.habitat.HabitatTypes {
+enum dhbw.ipoat.habitat.HabitatTypes {
 +  STALL
 +  BIRDHOUSE
 }
 
 
-dhbw.ipoac.animals.Animal <|-- dhbw.ipoac.animals.GrownAnimals
-dhbw.ipoac.animals.birds.Bird <|-- dhbw.ipoac.animals.birds.Pigeon
-dhbw.ipoac.animals.mammals.Mammal <|-- dhbw.ipoac.animals.mammals.Ox
-dhbw.ipoac.animals.Animal <|-- dhbw.ipoac.animals.BabyAnimals
-dhbw.ipoac.habitat.Habitat <|-- dhbw.ipoac.habitat.BirdHouse
-dhbw.ipoac.transportationdevice.TransportDevice <|-- dhbw.ipoac.transportationdevice.Cart
-dhbw.ipoac.animals.mammals.Mammal <|-- dhbw.ipoac.animals.mammals.Horse
-dhbw.ipoac.transportationdevice.TransportDevice <|-- dhbw.ipoac.transportationdevice.Bag
-dhbw.ipoac.habitat.Habitat <|-- dhbw.ipoac.habitat.Stall
-dhbw.ipoac.animals.GrownAnimals <|-- dhbw.ipoac.animals.birds.Bird
-dhbw.ipoac.animals.GrownAnimals <|-- dhbw.ipoac.animals.mammals.Mammal
-dhbw.ipoac.GUI <|.. dhbw.ipoat.Terminal
-dhbw.ipoac.medium.Medium <|-- dhbw.ipoac.medium.FloppyDisk
-dhbw.ipoac.transportationdevice.TransportDevice <|-- dhbw.ipoac.transportationdevice.Backpack
-dhbw.ipoac.animals.mammals.Mammal <|-- dhbw.ipoac.animals.mammals.Elephant
+dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.GrownAnimals
+dhbw.ipoat.animals.birds.Bird <|-- dhbw.ipoat.animals.birds.Pigeon
+dhbw.ipoat.animals.mammals.Mammal <|-- dhbw.ipoat.animals.mammals.Ox
+dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.BabyAnimals
+dhbw.ipoat.habitat.Habitat <|-- dhbw.ipoat.habitat.BirdHouse
+dhbw.ipoat.transportationdevice.TransportDevice <|-- dhbw.ipoat.transportationdevice.Cart
+dhbw.ipoat.animals.mammals.Mammal <|-- dhbw.ipoat.animals.mammals.Horse
+dhbw.ipoat.transportationdevice.TransportDevice <|-- dhbw.ipoat.transportationdevice.Bag
+dhbw.ipoat.habitat.Habitat <|-- dhbw.ipoat.habitat.Stall
+dhbw.ipoat.animals.GrownAnimals <|-- dhbw.ipoat.animals.birds.Bird
+dhbw.ipoat.animals.GrownAnimals <|-- dhbw.ipoat.animals.mammals.Mammal
+dhbw.ipoat.GUI <|.. dhbw.ipoat.Terminal
+dhbw.ipoat.medium.Medium <|-- dhbw.ipoat.medium.FloppyDisk
+dhbw.ipoat.transportationdevice.TransportDevice <|-- dhbw.ipoat.transportationdevice.Backpack
+dhbw.ipoat.animals.mammals.Mammal <|-- dhbw.ipoat.animals.mammals.Elephant
 @enduml

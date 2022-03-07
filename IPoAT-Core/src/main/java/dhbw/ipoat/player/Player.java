@@ -45,6 +45,8 @@ public class Player {
         return name;
     }
 
+
+
     public Player() {
         BirdHouse startHouse = new BirdHouse(this);
         habitatDict.put(startHouse.getNameOfHabitat(),startHouse);

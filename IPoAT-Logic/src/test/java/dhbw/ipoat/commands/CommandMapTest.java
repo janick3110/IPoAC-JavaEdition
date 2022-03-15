@@ -20,7 +20,7 @@ class CommandMapTest {
         CommandMap commandMap = new CommandMap(player);
 
         //Act
-        commandMap.buy("Buy pigeon");
+        commandMap.execute(CommandToken.BUY,"Buy pigeon");
 
         //Assert
         //assertTrue();

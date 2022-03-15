@@ -6,16 +6,19 @@ import dhbw.ipoat.animals.BabyAnimals;
 public class CommandBreed extends CommandTemplate{
     @Override
     public void execute(String input) {
-        Animal father = player.getAnimalWithName(input.substring(6, input.lastIndexOf("|")));
-        Animal mother = player.getAnimalWithName(input.substring(input.lastIndexOf("|") + 1));
 
-        if (father.isGender() != mother.isGender()) {
-            if (father.getBreedingCooldown() == 0 && mother.getBreedingCooldown() == 0) {
+        String[] parents = input.split("\\|");
+
+        Animal parent1 = player.getAnimalWithName(parents[0]);
+        Animal parent2 = player.getAnimalWithName(parents[1]);
+
+        if (parent1.isGender() != parent2.isGender()) {
+            if (parent1.getBreedingCooldown() == 0 && parent2.getBreedingCooldown() == 0) {
                 System.out.println("New animal was created");
-                resetBreedingCooldown(father);
-                resetBreedingCooldown(mother);
+                resetBreedingCooldown(parent1);
+                resetBreedingCooldown(parent2);
 
-                Animal baby = new BabyAnimals(father);
+                Animal baby = new BabyAnimals(parent1);
 
                 player.addAnimalToHabitat(baby);
                 System.out.println("Congratulations on your new baby "+ baby.getTypeOfAnimal() + " " + baby.getName());

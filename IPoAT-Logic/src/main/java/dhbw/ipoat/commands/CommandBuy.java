@@ -19,6 +19,9 @@ public class CommandBuy extends CommandTemplate{
 
     @Override
     public void execute(String input) {
+
+        input = input.toUpperCase();
+
         if (input.contains("PIGEON")) {
             determineHabitat(new Pigeon(player, new ConsoleSoundGenerator()));
         } else if (input.contains("OX")) {
@@ -41,7 +44,7 @@ public class CommandBuy extends CommandTemplate{
             Bag bag = new Bag(player);
             player.getTransportDict().put(bag.getUuid(), bag);
             System.out.println("New bag was added to your inventory. ID: " + bag.getUuid());
-        } else System.out.println("Please enter a valid command");
+        } else System.out.println("Please enter a valid Animal");
 
     }
 

@@ -5,6 +5,7 @@ import dhbw.ipoat.commands.CommandMap;
 import dhbw.ipoat.commands.CommandToken;
 import dhbw.ipoat.events.Event;
 import dhbw.ipoat.player.Player;
+import dhbw.ipoat.savesystem.Savegame;
 
 
 import java.util.Random;
@@ -34,35 +35,35 @@ public class Main {
 
         while (true) {
             // Decode commands and main loop of the game
-            String command;
-            String s = gui.in();
+            String[] argument;
+            String input = gui.in();
+
+
+
+            argument = input.split(" ");
+            argument[0] = argument[0].toUpperCase();
+
             try {
-                command = s.toUpperCase().substring(0, s.indexOf(" "));
-            } catch (StringIndexOutOfBoundsException e) {
-                command = s.toUpperCase();
-            }
-            try {
-                CommandToken availableCommands = CommandToken.valueOf(command);
+                CommandToken availableCommands = CommandToken.valueOf(argument[0]);
 
-
-
-
-                        System.out.println("Your command is no valid command. " +
-                                "Please enter <HELP> or read the README file");
-
-
-
+                if (argument.length == 1) {
+                    commandMap.execute(availableCommands, null);
+                } else if(argument.length == 2) {
+                    commandMap.execute(availableCommands, argument[1]);
+                } else if(argument.length == 3) {
+                    commandMap.execute(availableCommands, argument[1] + " " + argument[2]);
+                }
 
                 //Do Events
                 Random random = new Random();
                 event.doSomethingGoodOrBad(random.nextInt(100), player);
 
-                if (commandMap.getAutosave()) {
-                    commandMap.save();
+                if (Savegame.autosave) {
+                    Savegame.save(player);
                 }
 
             } catch (IllegalArgumentException e) {
-                System.out.println("Your command is no valid command. " +
+                System.out.println("Your argument is no valid argument. " +
                         "Please enter <HELP> or read the README file");
             }
 

@@ -6,8 +6,8 @@ types of animals: birds and mammals (which are reduced to animals which have hoo
 be seen under [this](https://trello.com/b/5Aa7svzA/ipoat) website, where we show what we're currently doing. It may not be
 always the latest version, but it should give you some ideas on what we're currently working.
 
-The game is a sole command-based game. The player has to enter his commands, which are explained down below. There is
-also a HELP-command in-game to explain the commands. All commands are case-insensitive, but names have to be correct.
+The game is a sole command-based game. The player has to enter his commandMap, which are explained down below. There is
+also a HELP-command in-game to explain the commandMap. All commandMap are case-insensitive, but names have to be correct.
 
 ## Game Principle
 

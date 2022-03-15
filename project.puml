@@ -146,7 +146,7 @@ class dhbw.ipoat.animals.birds.Pigeon {
 class dhbw.ipoat.Main {
 + {static} void main(String[])
 }
-class dhbw.ipoat.commands.Commands {
+class dhbw.ipoat.commands.CommandMapds {
 - Player player
 - Boolean autosave
 - outputPossibilities mode
@@ -179,7 +179,7 @@ class dhbw.ipoat.commands.Commands {
 + void switchSoundOutput()
 - void setAllAnimalImplementations()
 }
-enum dhbw.ipoat.commands.outputPossibilities {
+enum dhbw.ipoat.commandMap.outputPossibilities {
 +  CONSOLE
 +  SPEAKER
 }
@@ -385,7 +385,7 @@ abstract class dhbw.ipoat.encrypt.Encryption {
 - {static} void swapAxis(boolean,String)
 - {static} void buildOutput()
 }
-enum dhbw.ipoat.commands.CommandList {
+enum dhbw.ipoat.commandMap.CommandToken {
 +  PUT
 +  BUY
 +  UPGRADE

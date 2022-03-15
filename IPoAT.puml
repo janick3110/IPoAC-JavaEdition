@@ -90,7 +90,7 @@ class dhbw.ipoat.animals.BabyAnimals {
 + <<Create>> BabyAnimals(Animal)
 + void growUp()
 }
-enum dhbw.ipoat.commands.CommandList {
+enum dhbw.ipoat.commandMap.CommandToken {
 +  PUT
 +  BUY
 +  UPGRADE
@@ -209,7 +209,7 @@ class dhbw.ipoat.savesystem.JsonConstants {
 class dhbw.ipoat.habitat.Stall {
 + <<Create>> Stall(Player)
 }
-class dhbw.ipoat.commands.Commands {
+class dhbw.ipoat.commands.CommandMapds {
 - Player player
 - Boolean autosave
 + <<Create>> Commands(Player)

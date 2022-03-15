@@ -15,9 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Savegame {
+public abstract class Savegame {
+
     private static List<Player> allPlayers = new ArrayList<>();
     public final static boolean bypassEncryption = true;
+    public static Boolean autosave = true;
 
     public static void save(Player player){
         System.out.println("Saving game...");

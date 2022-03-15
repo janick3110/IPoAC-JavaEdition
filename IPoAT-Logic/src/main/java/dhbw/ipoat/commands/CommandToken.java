@@ -1,6 +1,6 @@
 package dhbw.ipoat.commands;
 
-public enum CommandList {
+public enum CommandToken {
     PUT,
     BUY,
     UPGRADE,

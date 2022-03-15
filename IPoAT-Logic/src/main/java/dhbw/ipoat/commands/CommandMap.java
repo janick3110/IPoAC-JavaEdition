@@ -20,21 +20,28 @@ import dhbw.ipoat.transportationdevice.Cart;
 import dhbw.ipoat.transportationdevice.TransportDevice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 
-public class Commands {
+public class CommandMap {
+
+    private Map<CommandToken, CommandTemplate> commands = new HashMap<>();
 
     private final Player player;
     private Boolean autosave = true;
+
+
+
     private enum outputPossibilities{
         CONSOLE,
         SPEAKER
     }
     private outputPossibilities mode = outputPossibilities.CONSOLE;
 
-    public Commands(Player player) {
+    public CommandMap(Player player) {
         this.player = player;
     }
 
@@ -43,34 +50,6 @@ public class Commands {
     }
 
     public void buy(String fullCommand) {
-        if (fullCommand.contains("PIGEON")) {
-            determineHabitat(new Pigeon(player, new ConsoleSoundGenerator()));
-        } else if (fullCommand.contains("OX")) {
-            determineHabitat(new Ox(player, new ConsoleSoundGenerator()));
-        } else if (fullCommand.contains("ELEPHANT")){
-            determineHabitat(new Elephant(player, new ConsoleSoundGenerator()));
-        }
-
-
-        else if (fullCommand.contains("FLOPPY DISK")) {
-            addMediumToPlayer(new FloppyDisk(player));
-//        } else if (fullCommand.contains("CHARGING STATION")) {
-//            if (player.getMoney() - player.getHabitat().getCostOfChargingStation() > 0) {
-//                player.moneyTransactions(player.getHabitat().getCostOfChargingStation());
-//                player.getHabitat().increaseChargingStations();
-//            }
-
-
-        } else if (fullCommand.contains("STALL")) {
-            Stall stall = new Stall(player);
-            player.getHabitatDict().put(stall.getNameOfHabitat(),stall);
-            System.out.println("New stall was added to your inventory. ID: " + stall.getNameOfHabitat());
-            player.moneyTransactions(-stall.getCost());
-        } else if (fullCommand.contains("BAG")) {
-            Bag bag = new Bag(player);
-            player.getTransportDict().put(bag.getUuid(), bag);
-            System.out.println("New bag was added to your inventory. ID: " + bag.getUuid());
-        } else System.out.println("Please enter a valid command");
 
     }
 
@@ -115,35 +94,11 @@ public class Commands {
     }
 
     public void putCartBeforeAnimals(String command) {
-        if (player.getTransportDict().containsKey(command.substring(16))) {
-            if (player.getTransportDict().get(command.substring(16)) instanceof Cart) {
-                int maxAnimals = ((Cart) player.getTransportDict().get(command.substring(16))).getAnimalCount();
-                int counter = 0;
-                List<Mammal> listAnimals = new ArrayList<>();
-                for (Animal a : player.getAllAnimals()
-                ) {
-                    if (a instanceof Mammal && counter < maxAnimals) {
-                        listAnimals.add((Mammal) a);
-                    }
-                }
-                ((Cart) player.getTransportDict().get(command.substring(10))).putAnimalsInFront(listAnimals);
-            }
-        }
+
     }
 
     public void increase(String fullCommand) {
-        if (fullCommand.contains("HABITAT SIZE")) {
-            String searchString = fullCommand.substring(21);
-            Habitat h = player.getHabitatDict().get(searchString);
 
-            if (player.getMoney() - h.getCostOfNewNest() >= 0) {
-                player.moneyTransactions(-h.getCostOfNewNest());
-                h.IncreaseSizeOfHabitat();
-            } else
-                System.out.println("Not enough money. " + h.getCostOfNewNest() + " is required,  " + player.getMoney() + " is avaliable");
-
-
-        } else System.out.println("Please enter valid command");
     }
 
     public void stats() {
@@ -281,38 +236,11 @@ public class Commands {
 
     }
 
-    private void addMediumToPlayer(Medium medium) {
-        player.getAvaliableMedia().add(medium);
-        System.out.println("A new medium of the type " + medium.getNameOfMedium() + " was added to the inventory. ID: " + medium.getId());
-        player.moneyTransactions(medium.getCost());
-        player.getMediumDict().put(medium.getId(), medium);
-    }
 
-    private void determineHabitat(Animal animal) {
 
-        if (animal instanceof Mammal) {
-            addAnimal(new Stall(player), animal);
-        } else if (animal instanceof Bird) {
-            addAnimal(new BirdHouse(player), animal);
-        } else return;
 
-    }
 
-    private void addAnimal(Habitat habitat, Animal animal) {
-        for (Habitat h : player.getHabitatDict().values()
-        ) {
-            if (h.getClass().equals(habitat.getClass())) {
-                if (player.getMoney() - animal.getCost() > 0 && h.isEnoughSpace()) {
-                    h.addAnimalToHabitat(animal);
-                    player.moneyTransactions(-animal.getCost());
-                    return;
-                }
-            }
 
-        }
-        System.out.println(animal.getTypeOfAnimal() + " couldn't be bought. There is no place either because " +
-                "all your habitats are full or there is no existing " + habitat.getType());
-    }
 
     public void sellObject(String command) {
         if (command.toUpperCase().contains("HABITAT")) {
@@ -477,5 +405,42 @@ public class Commands {
 
             }
         }
+    }
+
+    public void execute(CommandToken commandToken, String input) {
+        commands.get(commandToken).execute(input);
+    }
+
+    private void initializeMap() {
+        commands.put(CommandToken.PUT, new CommandPut());
+        commands.put(CommandToken.BUY, new CommandBuy());
+        commands.put(CommandToken.UPGRADE, new CommandUpgrade());
+        commands.put(CommandToken.NEXT, input -> nextDay()) ;
+        commands.put(CommandToken.SEND, input -> send(input));
+        commands.put(CommandToken.STATS, input -> stats());
+        commands.put(CommandToken.HELP, input -> help());
+        commands.put(CommandToken.SELL, input -> sellObject(input));
+        commands.put(CommandToken.LIST, input -> listAllObjectsOfAType());
+        commands.put(CommandToken.EXIT, input -> {
+            save();
+            System.out.println("Thank you for playing IPoAT. See you next time!");
+            return;
+        });
+        commands.put(CommandToken.LOAD, input -> loadTransportDevice(input));
+        commands.put(CommandToken.INVENTORY, input -> getInventory(input));
+        commands.put(CommandToken.REMOVE, input -> removeMediumFromTransport(input));
+        commands.put(CommandToken.PUFFER, input -> getPuffer(input));
+        commands.put(CommandToken.BREED, input -> breed(input));
+        commands.put(CommandToken.ATTACH, input -> attachTransport(input));
+        commands.put(CommandToken.RECRUIT, input -> recruitNewEmployee());
+        commands.put(CommandToken.SACK, input -> sackEmployee(input));
+        commands.put(CommandToken.SAVE, input -> save());
+        commands.put(CommandToken.AUTOSAVE, input -> setAutosave());
+        commands.put(CommandToken.SOUND, input -> playAnimalSound(input));
+        commands.put(CommandToken.SWITCH, input -> switchSoundOutput());
+    }
+
+    public Map<CommandToken, Consumer<String>> getCommands() {
+        return commands;
     }
 }

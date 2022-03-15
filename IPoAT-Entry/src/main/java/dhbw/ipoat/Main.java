@@ -1,5 +1,6 @@
 package dhbw.ipoat;
 
+import dhbw.ipoat.animals.AudioSoundGenerator;
 import dhbw.ipoat.commands.CommandMap;
 import dhbw.ipoat.commands.CommandToken;
 import dhbw.ipoat.events.Event;
@@ -11,6 +12,9 @@ import java.util.Random;
 
 public class Main {
     static Player player = new Player();
+
+
+
     public static void main(String[] args) {
 
         GUI gui = new Terminal();

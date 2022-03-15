@@ -33,13 +33,13 @@ public class CommandMap {
     private final Player player;
     private Boolean autosave = true;
 
-
-
-    private enum outputPossibilities{
+    public enum outputPossibilities{
         CONSOLE,
         SPEAKER
     }
-    private outputPossibilities mode = outputPossibilities.CONSOLE;
+    public static outputPossibilities mode = outputPossibilities.CONSOLE;
+
+
 
     public CommandMap(Player player) {
         this.player = player;
@@ -53,20 +53,7 @@ public class CommandMap {
 
     }
 
-    public void save(){
-        Savegame.save(player);
-    }
 
-
-    public void setAutosave() {
-        //Animal a = new Animal(player);
-        this.autosave = !this.autosave;
-        if (autosave){
-            System.out.println("Autosave is now enabled");
-        } else {
-            System.out.println("Autosave is now disabled. Enter SAVE to save the game");
-        }
-    }
 
     public void send(String fullCommand) {
         //Either send bird, mammal or cart
@@ -129,24 +116,11 @@ public class CommandMap {
     }
 
     public void sackEmployee(String id){
-        String employeeID = id.substring(5);
-        for (Employee employee:player.getEmployeeDict().values()
-             ) {
-            if (employeeID.equals(employee.getEmployeeID())){
-                System.out.println(employee.getName() + " was fired!");
-                player.getEmployeeDict().remove(employee.getEmployeeID(), employee);
-                return;
-            }
-        }
+
     }
 
     public void recruitNewEmployee(){
 
-        if (player.getMoney() + Employee.getRecruitmentFee() >= 0 ) {
-            Employee employee = new Employee();
-            player.getEmployeeDict().put(employee.getEmployeeID(),employee);
-            player.moneyTransactions(Employee.getRecruitmentFee());
-        } else System.out.println("Not enough money for a new employee");
 
     }
 
@@ -289,19 +263,7 @@ public class CommandMap {
     }
 
     public void attachTransport(String fullCommand) {
-        Animal animal = player.getAnimalWithName(fullCommand.substring(16));
-        TransportDevice device = player.getTransportDeviceWithName(fullCommand.substring(7, 15));
-        try {
-            if (device.calculateWeight() <= animal.getMaxWeight()) {
-                device.attachDevice(animal);
-                System.out.println("The " + device.getType() + " with the ID " + device.getUuid()
-                        + " was attached to " + animal.getName());
-            } else
-                System.out.println("The package is too heavy. Please remove objects or choose an animal with bigger" +
-                        "weight maximum");
-        } catch (NullPointerException e) {
-            System.out.println("The device or the animal was not found. Please check your input");
-        }
+
 
 
     }
@@ -318,26 +280,10 @@ public class CommandMap {
     }
 
     public void breed(String fullCommand) {
-        Animal father = player.getAnimalWithName(fullCommand.substring(6, fullCommand.lastIndexOf("|")));
-        Animal mother = player.getAnimalWithName(fullCommand.substring(fullCommand.lastIndexOf("|") + 1));
 
-        if (father.isGender() != mother.isGender()) {
-            if (father.getBreedingCooldown() == 0 && mother.getBreedingCooldown() == 0) {
-                System.out.println("New animal was created");
-                resetBreedingCooldown(father);
-                resetBreedingCooldown(mother);
-
-                Animal baby = new BabyAnimals(father);
-
-                player.addAnimalToHabitat(baby);
-                System.out.println("Congratulations on your new baby "+ baby.getTypeOfAnimal() + " " + baby.getName());
-            }
-        }
     }
 
-    private void resetBreedingCooldown(Animal animal) {
-        animal.setBreedingCooldown((int) (animal.getMaxAge() * 0.05f));
-    }
+
 
     //BREED
     public void getPuffer(String fullCommand) {
@@ -373,39 +319,9 @@ public class CommandMap {
 
     }
 
-    public void playAnimalSound(String s) {
-        Animal animal = player.getAnimalWithName(s.substring(6));
 
-        if (animal instanceof GrownAnimals){
-            GrownAnimals gAnimal = (GrownAnimals) animal;
-            gAnimal.MakeSound();
-        }
-    }
 
-    public void switchSoundOutput() {
-        if (mode == outputPossibilities.CONSOLE){
-            mode = outputPossibilities.SPEAKER;
 
-        } else if (mode == outputPossibilities.SPEAKER){
-            mode = outputPossibilities.CONSOLE;
-        }
-        setAllAnimalImplementations();
-    }
-
-    private void setAllAnimalImplementations(){
-        for (Animal animal : player.getAllAnimals()
-        ) {
-            if (animal instanceof GrownAnimals){
-                GrownAnimals grownAnimal = (GrownAnimals) animal;
-                if (mode == outputPossibilities.CONSOLE){
-                    grownAnimal.setAnimalImplementation(new ConsoleSoundGenerator());
-                } else if (mode == outputPossibilities.SPEAKER){
-                    grownAnimal.setAnimalImplementation(new AudioSoundGenerator());
-                }
-
-            }
-        }
-    }
 
     public void execute(CommandToken commandToken, String input) {
         commands.get(commandToken).execute(input);
@@ -430,17 +346,17 @@ public class CommandMap {
         commands.put(CommandToken.INVENTORY, input -> getInventory(input));
         commands.put(CommandToken.REMOVE, input -> removeMediumFromTransport(input));
         commands.put(CommandToken.PUFFER, input -> getPuffer(input));
-        commands.put(CommandToken.BREED, input -> breed(input));
-        commands.put(CommandToken.ATTACH, input -> attachTransport(input));
-        commands.put(CommandToken.RECRUIT, input -> recruitNewEmployee());
-        commands.put(CommandToken.SACK, input -> sackEmployee(input));
-        commands.put(CommandToken.SAVE, input -> save());
-        commands.put(CommandToken.AUTOSAVE, input -> setAutosave());
-        commands.put(CommandToken.SOUND, input -> playAnimalSound(input));
-        commands.put(CommandToken.SWITCH, input -> switchSoundOutput());
+        commands.put(CommandToken.BREED, new CommandBreed());
+        commands.put(CommandToken.ATTACH, new CommandAttatch());
+        commands.put(CommandToken.RECRUIT, new CommandRecruit());
+        commands.put(CommandToken.SACK, new CommandSack());
+        commands.put(CommandToken.SAVE, new CommandSave());
+        commands.put(CommandToken.AUTOSAVE, new CommandAutosave());
+        commands.put(CommandToken.SOUND, new CommandSound());
+        commands.put(CommandToken.SWITCH, new CommandSwitch());
     }
 
-    public Map<CommandToken, Consumer<String>> getCommands() {
+    public Map<CommandToken, CommandTemplate> getCommands() {
         return commands;
     }
 }

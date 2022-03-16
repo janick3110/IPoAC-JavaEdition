@@ -71,7 +71,7 @@ enum dhbw.ipoat.employee.EmployeeNames {
 +  Lea
 +  Nina
 }
-interface dhbw.ipoat.GUI {
+interface dhbw.ipoat.commands.GUI {
 ~ String in()
 ~ void out(String)
 ~ void debug(String)
@@ -420,7 +420,7 @@ dhbw.ipoat.transportationdevice.TransportDevice <|-- dhbw.ipoat.transportationde
 dhbw.ipoat.habitat.Habitat <|-- dhbw.ipoat.habitat.Stall
 dhbw.ipoat.animals.GrownAnimals <|-- dhbw.ipoat.animals.birds.Bird
 dhbw.ipoat.animals.GrownAnimals <|-- dhbw.ipoat.animals.mammals.Mammal
-dhbw.ipoat.GUI <|.. dhbw.ipoat.Terminal
+dhbw.ipoat.commands.GUI <|.. dhbw.ipoat.Terminal
 dhbw.ipoat.medium.Medium <|-- dhbw.ipoat.medium.FloppyDisk
 dhbw.ipoat.transportationdevice.TransportDevice <|-- dhbw.ipoat.transportationdevice.Backpack
 dhbw.ipoat.animals.mammals.Mammal <|-- dhbw.ipoat.animals.mammals.Elephant

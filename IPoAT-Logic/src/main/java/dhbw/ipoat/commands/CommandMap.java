@@ -28,6 +28,7 @@ import java.util.function.Consumer;
 
 public class CommandMap {
 
+    public GUI gui;
 
     private Map<CommandToken, CommandTemplate> commands = new HashMap<>();
 
@@ -42,7 +43,8 @@ public class CommandMap {
 
 
 
-    public CommandMap(Player player) {
+    public CommandMap(Player player, GUI gui) {
+        this.gui = gui;
         this.player = player;
         CommandTemplate.setPlayer(player);
         initializeMap();

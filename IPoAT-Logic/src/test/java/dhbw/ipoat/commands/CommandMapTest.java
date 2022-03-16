@@ -2,6 +2,7 @@ package dhbw.ipoat.commands;
 
 import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.player.Player;
+import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ class CommandMapTest {
         when(player.getMoney()).thenReturn(100000f);
 
         when(player.getAllAnimals()).thenReturn(new ArrayList<Animal>());
-        CommandMap commandMap = new CommandMap(player);
+        CommandMap commandMap = new CommandMap(player, EasyMock.anyObject(GUI.class));
 
         //Act
         commandMap.execute(CommandToken.BUY,"Buy pigeon");

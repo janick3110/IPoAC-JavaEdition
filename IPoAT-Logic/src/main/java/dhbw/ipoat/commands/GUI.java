@@ -1,4 +1,4 @@
-package dhbw.ipoat;
+package dhbw.ipoat.commands;
 
 public interface GUI {
 

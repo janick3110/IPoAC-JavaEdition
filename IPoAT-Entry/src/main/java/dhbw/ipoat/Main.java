@@ -1,8 +1,8 @@
 package dhbw.ipoat;
 
-import dhbw.ipoat.animals.AudioSoundGenerator;
 import dhbw.ipoat.commands.CommandMap;
 import dhbw.ipoat.commands.CommandToken;
+import dhbw.ipoat.commands.GUI;
 import dhbw.ipoat.events.Event;
 import dhbw.ipoat.player.Player;
 import dhbw.ipoat.savesystem.Savegame;
@@ -25,7 +25,7 @@ public class Main {
         gui.out("More information: https://github.com/janick3110/IPoAC-JavaEdition");
 
 
-        CommandMap commandMap = new CommandMap(player);
+        CommandMap commandMap = new CommandMap(player, gui);
         Event event = new Event();
         
         //LoadSaveGame.load();

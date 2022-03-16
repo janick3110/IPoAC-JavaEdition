@@ -326,7 +326,7 @@ class dhbw.ipoat.animals.Animal {
 }
 class dhbw.ipoat.transportationdevice.Backpack {
 }
-interface dhbw.ipoat.GUI {
+interface dhbw.ipoat.commands.GUI {
 + String in()
 + void out(String)
 + void debug(String)
@@ -425,7 +425,7 @@ dhbw.ipoat.animals.AnimalImplementation <|.. dhbw.ipoat.animals.AudioSoundGenera
 dhbw.ipoat.medium.Medium <|-- dhbw.ipoat.medium.FloppyDisk
 dhbw.ipoat.animals.GrownAnimals <|-- dhbw.ipoat.animals.mammals.Mammal
 dhbw.ipoat.animals.mammals.Mammal <|-- dhbw.ipoat.animals.mammals.Ox
-dhbw.ipoat.GUI <|.. dhbw.ipoat.Terminal
+dhbw.ipoat.commands.GUI <|.. dhbw.ipoat.Terminal
 dhbw.ipoat.transportationdevice.TransportDevice <|-- dhbw.ipoat.transportationdevice.Backpack
 dhbw.ipoat.animals.mammals.Mammal <|-- dhbw.ipoat.animals.mammals.Elephant
 @enduml

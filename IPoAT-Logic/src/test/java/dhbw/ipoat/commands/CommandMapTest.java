@@ -21,7 +21,7 @@ class CommandMapTest {
         CommandMap commandMap = new CommandMap(player, EasyMock.anyObject(GUI.class));
 
         //Act
-        commandMap.execute(CommandToken.BUY,"Buy pigeon");
+        //commandMap.execute(CommandToken.BUY,"Buy pigeon");
 
         //Assert
         //assertTrue();

@@ -44,9 +44,7 @@ public class Habitat {
         this.maxCapacity = maxCapacity;
 
         nameOfHabitat = UUID.randomUUID().toString().substring(0, 8);
-        while (player.getHabitatDict().containsKey(nameOfHabitat)) {
-            nameOfHabitat = UUID.randomUUID().toString().substring(0, 8);
-        }
+
     }
 
     public Habitat(JSONObject jsonObject, Player player){
@@ -132,7 +130,7 @@ public class Habitat {
     public void IncreaseSizeOfHabitat() {
         avaliableNests++;
         costOfNewNest = (int) (costOfNewNest * 1.2f);
-        System.out.println("The amount of avaliable nests has been increased to " + avaliableNests);
+        //System.out.println("The amount of avaliable nests has been increased to " + avaliableNests);
     }
 
     public String getNameOfHabitat() {

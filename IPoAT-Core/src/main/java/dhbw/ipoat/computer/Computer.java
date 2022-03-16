@@ -1,7 +1,6 @@
 package dhbw.ipoat.computer;
 
 import dhbw.ipoat.medium.Medium;
-import dhbw.ipoat.player.Player;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -19,15 +18,11 @@ public class Computer {
     private final float cost = 2000;
     private float dataTransmitted = 0;
 
-    Instant pcStartTime = Instant.now();
+    Instant pcStartTime;
 
-    public Computer(Player player) {
+    public Computer() {
+        pcStartTime = Instant.now();
         nameOfPc += UUID.randomUUID().toString().substring(0, 8);
-        while (player.getComputerDict().containsKey(nameOfPc)) {
-            nameOfPc = "PC-" + UUID.randomUUID().toString().substring(0, 8);
-        }
-
-        System.out.println("New PC with the name " + nameOfPc + " was created!");
     }
 
     public void GenerateData() {

@@ -35,7 +35,7 @@ public class EncryptionTest {
     }
 
     @Test
-    public void doEncryptionWithSpecialCharacters() {
+    public void doEncryptionWithAllCharacters() {
         //Arrange
 
         StringBuilder teststring = new StringBuilder();

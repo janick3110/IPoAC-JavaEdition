@@ -50,7 +50,7 @@ public class Player {
     public Player() {
         BirdHouse startHouse = new BirdHouse(this);
         habitatDict.put(startHouse.getNameOfHabitat(),startHouse);
-        Computer pc = new Computer(this);
+        Computer pc = new Computer();
         computerDict.put(pc.getNameOfPc(), pc);
     }
 

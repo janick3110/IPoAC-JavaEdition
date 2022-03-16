@@ -1,5 +1,7 @@
 package dhbw.ipoat;
 
+import dhbw.ipoat.commands.GUI;
+
 import java.util.Scanner;
 
 public class Terminal implements GUI {

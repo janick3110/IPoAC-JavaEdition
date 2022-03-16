@@ -7,6 +7,5 @@ public class CommandExit extends CommandTemplate{
     public void execute(String input) {
         Savegame.save(player);
         System.out.println("Thank you for playing IPoAT. See you next time!");
-        return;
     }
 }

@@ -2,6 +2,7 @@ package dhbw.ipoat.encrypt;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Class to encrypt a string with the award-winning matrix encryption
@@ -28,7 +29,7 @@ public abstract class Encryption {
         //doDecrypting(doEncryption(text));
     }
 
-    public static String doEncryption(String string){
+    public static String doEncryption(String string, int seed){
         setupEncryptingArray();
         //generate every 16 Chars a new seed
         //swap axis
@@ -41,10 +42,10 @@ public abstract class Encryption {
         for (char character:string.toCharArray()
              ) {
             if (counter%chunkSize==0){
-                String seed = generateSeed();
-                swapAxis(true,seed);
-                swapAxis(false,seed);
-                output.append(seed);
+                String seedString = generateSeed(seed);
+                swapAxis(true,seedString);
+                swapAxis(false,seedString);
+                output.append(seedString);
             }
             counter++;
             for (int x = 0; x < encryptingArray.length; x++) {
@@ -153,10 +154,11 @@ public abstract class Encryption {
         return output;
     }
 
-    private static String generateSeed(){
+    private static String generateSeed(int seed){
         StringBuilder output = new StringBuilder();
+        Random generator = new Random(seed);
         for (int i = 0; i < seedLength; i++) {
-            int random = (int) ((Math.random() * ((encryptingArray.length-1) - 1)) + 1);
+            int random = (int) Math.abs((generator.nextFloat() * ((encryptingArray.length-1) - 1)) + 1);
             output.append(String.format("%02d", random));
         }
         //05021406

@@ -14,10 +14,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Savegame {
 
-    private static List<Player> allPlayers = new ArrayList<>();
+    private static final List<Player> allPlayers = new ArrayList<>();
     public final static boolean bypassEncryption = true;
     public static Boolean autosave = true;
 
@@ -109,7 +110,7 @@ public abstract class Savegame {
             if (bypassEncryption){
                 txt = save.toString();
             } else {
-                txt = Encryption.doEncryption(save.toString());
+                txt = Encryption.doEncryption(save.toString(),new Random().nextInt(2147483647));
             }
 
             myWriter.write(txt);

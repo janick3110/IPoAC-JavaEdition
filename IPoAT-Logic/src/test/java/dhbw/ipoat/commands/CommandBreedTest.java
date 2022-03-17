@@ -1,13 +1,11 @@
 package dhbw.ipoat.commands;
 
-import org.junit.jupiter.api.Test;
-
 class CommandBreedTest {
 
 
-    @Test
+    /*@Test
     void breedTest() {
-        /*Player player = EasyMock.createMock(Player.class);
+        *//*Player player = EasyMock.createMock(Player.class);
         Animal animal1 = EasyMock.createMock(Pigeon.class);
         Animal animal2 = EasyMock.createMock(Pigeon.class);
 
@@ -48,7 +46,7 @@ class CommandBreedTest {
 
         CommandTemplate command = new CommandBreed();
 
-        //command.execute("father|mother");*/
+        //command.execute("father|mother");*//*
 
-    }
+    }*/
 }

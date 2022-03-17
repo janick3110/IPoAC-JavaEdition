@@ -21,19 +21,11 @@ public abstract class Encryption {
                 counter++;
             }
         }
-
-
-
-        //buildOutput();
-        //doEncryption(text);
-        //doDecrypting(doEncryption(text));
     }
 
     public static String doEncryption(String string, int seed){
         setupEncryptingArray();
-        //generate every 16 Chars a new seed
-        //swap axis
-        //apply to text
+
         StringBuilder output = new StringBuilder();
         int counter = 0;
         char c;
@@ -58,7 +50,6 @@ public abstract class Encryption {
             }
 
         }
-        //buildOutput();
         return output.toString();
     }
 
@@ -73,33 +64,14 @@ public abstract class Encryption {
         int seedOffset = seedLength * 2;
         int chunkOffset = chunkSize * 4;
 
-        //05021406
         String txt = encryptedText;
 
         while (!txt.equals("")){
-            if (txt.length() < seedOffset + chunkOffset){
-                seeds.add(txt.substring(0,seedOffset));
-                encodedText.add(txt.substring(seedOffset));
-                break;
-            } else{
-                seeds.add(txt.substring(0,seedOffset));
-                encodedText.add(txt.substring(seedOffset, seedOffset + chunkOffset));
-            }
+            seeds.add(txt.substring(0,seedOffset));
+            encodedText.add(txt.substring(seedOffset, seedOffset + chunkOffset));
             txt = txt.substring(seedOffset+chunkOffset);
         }
 
-        /*for (String seedVal:seeds
-             ) {
-            swapAxis(true,seedVal);
-            swapAxis(false,seedVal);
-        }*/
-        //buildOutput();
-
-        StringBuilder bob = new StringBuilder();
-        for (String s:encodedText
-             ) {
-            bob.append(s);
-        }
 
         for (int i = 0; i < seeds.size(); i++) {
             swapAxis(true, seeds.get(i));
@@ -107,41 +79,11 @@ public abstract class Encryption {
 
             String textToDecrypt = encodedText.get(i);
             while(!textToDecrypt.equals("")){
-                if (textToDecrypt.length() < 4){
-                    output.append(decryptCharacter(textToDecrypt));
-                    textToDecrypt = "";
-                } else{
-                    output.append(decryptCharacter(textToDecrypt.substring(0,4)));
-                    textToDecrypt = textToDecrypt.substring(4);
-                }
+                output.append(decryptCharacter(textToDecrypt.substring(0,4)));
+                textToDecrypt = textToDecrypt.substring(4);
 
             }
         }
-
-
-        /*for (char c: encryptedText.toCharArray()
-             ) {
-            if (seed && counter == seedLength * 2){
-                seed = false;
-                swapAxis(true,seedTxt.toString());
-                swapAxis(false,seedTxt.toString());
-                seedTxt.setLength(0);
-                counter = 0;
-            } else if(seed && counter < seedLength * 2){
-                seedTxt.append(c);
-                counter++;
-            } else if (!seed && counter == chunkSize * 6){
-                counter = 0;
-                seed = true;
-            } else if(!seed && counter < chunkSize * 6){
-                encryption.append(c);
-                counter++;
-
-            }
-
-
-        }*/
-
 
         return output.toString();
     }
@@ -149,7 +91,6 @@ public abstract class Encryption {
     private static char decryptCharacter(String segment){
         int x = Integer.parseInt(segment.substring(0,2));
         int y = Integer.parseInt(segment.substring(2,4));
-        //System.out.println(x + "|" + y);
         char output = (char) encryptingArray[x][y];
         return output;
     }
@@ -161,7 +102,6 @@ public abstract class Encryption {
             int random = (int) Math.abs((generator.nextFloat() * ((encryptingArray.length-1) - 1)) + 1);
             output.append(String.format("%02d", random));
         }
-        //05021406
         return output.toString();
     }
 
@@ -192,17 +132,5 @@ public abstract class Encryption {
         }
     }
 
-    private static void buildOutput(){
-        String output = "";
-        for (int[] ints : encryptingArray) {
-            String line = "";
-            for (int j = 0; j < encryptingArray.length; j++) {
-                line += "[" + String.format("%03d", ints[j]) + "|" + Character.toString(ints[j]) + "]";
-            }
-            line += "\n";
-            output += line;
-        }
-        System.out.println("Ausgabe: " + output);
-    }
 
 }

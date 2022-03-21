@@ -10,6 +10,5 @@ public class CommandRecruit extends CommandTemplate{
             player.getEmployeeDict().put(employee.getEmployeeID(),employee);
             player.moneyTransactions(Employee.getRecruitmentFee());
         } else System.out.println("Not enough money for a new employee");
-
     }
 }

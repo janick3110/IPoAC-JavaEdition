@@ -272,7 +272,7 @@ enum dhbw.ipoat.animals.mammals.MammalList {
 class dhbw.ipoat.commands.CommandSellObject {
 + void execute(String)
 }
-class dhbw.ipoat.animals.BabyAnimals {
+class dhbw.ipoat.animals.BabyAnimal {
 + void growUp()
 }
 class dhbw.ipoat.commands.CommandSend {
@@ -498,7 +498,7 @@ dhbw.ipoat.animals.GrownAnimals <|-- dhbw.ipoat.animals.birds.Bird
 dhbw.ipoat.habitat.Habitat <|-- dhbw.ipoat.habitat.BirdHouse
 dhbw.ipoat.habitat.Habitat <|-- dhbw.ipoat.habitat.Stall
 dhbw.ipoat.commands.CommandTemplate <|-- dhbw.ipoat.commands.CommandSellObject
-dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.BabyAnimals
+dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.BabyAnimal
 dhbw.ipoat.commands.CommandTemplate <|-- dhbw.ipoat.commands.CommandSend
 dhbw.ipoat.transportationdevice.TransportDevice <|-- dhbw.ipoat.transportationdevice.Cart
 dhbw.ipoat.animals.mammals.Mammal <|-- dhbw.ipoat.animals.mammals.Horse

@@ -105,7 +105,7 @@ enum dhbw.ipoat.animals.mammals.MammalList {
 +  Horse
 +  Elephant
 }
-class dhbw.ipoat.animals.BabyAnimals {
+class dhbw.ipoat.animals.BabyAnimal {
 + void growUp()
 }
 abstract class dhbw.ipoat.animals.GrownAnimals {
@@ -414,7 +414,7 @@ enum dhbw.ipoat.commandMap.CommandToken {
 dhbw.ipoat.animals.GrownAnimals <|-- dhbw.ipoat.animals.birds.Bird
 dhbw.ipoat.habitat.Habitat <|-- dhbw.ipoat.habitat.BirdHouse
 dhbw.ipoat.habitat.Habitat <|-- dhbw.ipoat.habitat.Stall
-dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.BabyAnimals
+dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.BabyAnimal
 dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.GrownAnimals
 dhbw.ipoat.transportationdevice.TransportDevice <|-- dhbw.ipoat.transportationdevice.Cart
 dhbw.ipoat.animals.AnimalImplementation <|.. dhbw.ipoat.animals.ConsoleSoundGenerator

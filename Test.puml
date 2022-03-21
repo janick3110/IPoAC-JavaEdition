@@ -60,7 +60,7 @@ enum dhbw.ipoat.employee.EmployeeNames {
 }
 class dhbw.ipoat.animals.mammals.Ox {
 }
-class dhbw.ipoat.animals.BabyAnimals {
+class dhbw.ipoat.animals.BabyAnimal {
 + void growUp()
 }
 class dhbw.ipoat.habitat.BirdHouse {
@@ -276,7 +276,7 @@ enum dhbw.ipoat.habitat.HabitatTypes {
 dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.GrownAnimals
 dhbw.ipoat.animals.birds.Bird <|-- dhbw.ipoat.animals.birds.Pigeon
 dhbw.ipoat.animals.mammals.Mammal <|-- dhbw.ipoat.animals.mammals.Ox
-dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.BabyAnimals
+dhbw.ipoat.animals.Animal <|-- dhbw.ipoat.animals.BabyAnimal
 dhbw.ipoat.habitat.Habitat <|-- dhbw.ipoat.habitat.BirdHouse
 dhbw.ipoat.transportationdevice.TransportDevice <|-- dhbw.ipoat.transportationdevice.Cart
 dhbw.ipoat.animals.mammals.Mammal <|-- dhbw.ipoat.animals.mammals.Horse

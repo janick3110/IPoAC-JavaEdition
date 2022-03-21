@@ -17,7 +17,7 @@ public class CommandAttatch extends CommandTemplate{
                 System.out.println("The package is too heavy. Please remove objects or choose an animal with bigger" +
                         "weight maximum");
         } catch (NullPointerException e) {
-            System.out.println("The device or the animal was not found. Please check your input");
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -1,7 +1,6 @@
 package dhbw.ipoat.commands;
 
 import dhbw.ipoat.animals.Animal;
-import dhbw.ipoat.animals.BabyAnimals;
 
 public class CommandBreed extends CommandTemplate{
     @Override
@@ -18,7 +17,7 @@ public class CommandBreed extends CommandTemplate{
                 resetBreedingCooldown(parent1);
                 resetBreedingCooldown(parent2);
 
-                Animal baby = new BabyAnimals(parent1);
+                Animal baby = new BabyAnimal(parent1);
 
                 player.addAnimalToHabitat(baby);
                 System.out.println("Congratulations on your new baby "+ baby.getTypeOfAnimal() + " " + baby.getName());

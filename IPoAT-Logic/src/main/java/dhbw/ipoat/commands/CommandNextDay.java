@@ -1,7 +1,6 @@
 package dhbw.ipoat.commands;
 
 import dhbw.ipoat.animals.Animal;
-import dhbw.ipoat.animals.BabyAnimals;
 import dhbw.ipoat.habitat.Habitat;
 
 import java.util.List;
@@ -27,8 +26,8 @@ public class CommandNextDay extends CommandTemplate{
             if (animal.getBreedingCooldown() > 0) {
                 animal.setBreedingCooldown(animal.getBreedingCooldown() - 1);
             }
-            if (animal instanceof BabyAnimals && animal.getAge() >= animal.getMaxAge() * .05f){
-                ((BabyAnimals) animal).growUp();
+            if (animal instanceof BabyAnimal && animal.getAge() >= animal.getMaxAge() * .05f){
+                ((BabyAnimal) animal).growUp();
             }
             allAnimals.remove(0);
 

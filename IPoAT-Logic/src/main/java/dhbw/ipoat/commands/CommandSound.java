@@ -1,7 +1,6 @@
 package dhbw.ipoat.commands;
 
 import dhbw.ipoat.animals.Animal;
-import dhbw.ipoat.animals.GrownAnimals;
 
 public class CommandSound extends CommandTemplate{
     @Override

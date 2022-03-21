@@ -1,42 +1,18 @@
 package dhbw.ipoat.animals.mammals;
 
-import dhbw.ipoat.animals.AnimalImplementation;
-import dhbw.ipoat.animals.BabyAnimals;
-import dhbw.ipoat.animals.GrownAnimals;
-import dhbw.ipoat.employee.Employee;
-import dhbw.ipoat.habitat.HabitatTypes;
+import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.player.Player;
-import dhbw.ipoat.transportationdevice.Backpack;
+import dhbw.ipoat.transportationdevice.TransportationDeviceType;
 
-public abstract class Mammal extends GrownAnimals {
+import java.util.ArrayList;
 
-    private Backpack backpack;
-    protected Employee rider;
+public abstract class Mammal extends Animal {
 
-    public Mammal(Player player, int maxAge, int speed, int cost, String type, float maxWeight, float deathProbability, HabitatTypes types, AnimalImplementation animal) {
-        super(player, maxAge, speed, cost, type, maxWeight, deathProbability, types);
-        animalImplementation = animal;
-    }
-
-    public Mammal(BabyAnimals animals) {
-        super(animals);
-
-    }
-
-
-
-    public Backpack getBackpack() {
-        return backpack;
-    }
-
-    public static boolean doesThisAnimalExist(String type) {
-        MammalList[] animals = MammalList.values();
-        for (MammalList animal : animals) {
-            if (animal.toString().equals(type)) {
-                return true;
-            }
-        }
-        return false;
+    public Mammal(Player owner) {
+        super(owner);
+        allowedTransportationDevices = new ArrayList<>();
+        allowedTransportationDevices.add(TransportationDeviceType.Backpack);
+        allowedTransportationDevices.add(TransportationDeviceType.Cart);
     }
 
 }

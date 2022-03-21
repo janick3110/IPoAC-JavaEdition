@@ -55,6 +55,7 @@ public class LoadSaveGame {
     }
 
     public static Player load(){
+        AnimalFactory animalFactory = new AnimalFactory();
         Player player = new Player();
         String jsonString = jsonString() ; //assign your JSON String here
         JSONObject obj = new JSONObject(jsonString);
@@ -70,7 +71,7 @@ public class LoadSaveGame {
             JSONArray animals = object.getJSONArray("Animals");
             for (int j = 0; j < animals.length(); j++) {
                 JSONObject animal = animals.getJSONObject(j);
-                Animal animal1 = new Animal(animal,player);
+                Animal animal1 = animalFactory.makeAnimal(animal,player);
                 habitat.addAnimalToHabitat(getAnimalFromType(animal1.getTypeOfAnimal(), player,animal));
             }
 

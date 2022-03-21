@@ -14,30 +14,32 @@ import dhbw.ipoat.medium.FloppyDisk;
 import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.transportationdevice.Bag;
 
-public class CommandBuy extends CommandTemplate{
-
+public class CommandBuy extends CommandTemplate {
 
     @Override
     public void execute(String input) {
-
         input = input.toUpperCase();
+
+
+    }
+
+
+    public void executeeee(String input) {
+
 
         if (input.contains("PIGEON")) {
             determineHabitat(new Pigeon(player, new ConsoleSoundGenerator()));
         } else if (input.contains("OX")) {
             determineHabitat(new Ox(player, new ConsoleSoundGenerator()));
-        } else if (input.contains("ELEPHANT")){
+        } else if (input.contains("ELEPHANT")) {
             determineHabitat(new Elephant(player, new ConsoleSoundGenerator()));
-        }
-
-
-        else if (input.contains("FLOPPY DISK")) {
+        } else if (input.contains("FLOPPY DISK")) {
             addMediumToPlayer(new FloppyDisk(player));
 
 
         } else if (input.contains("STALL")) {
             Stall stall = new Stall(player);
-            player.getHabitatDict().put(stall.getNameOfHabitat(),stall);
+            player.getHabitatDict().put(stall.getNameOfHabitat(), stall);
             System.out.println("New stall was added to your inventory. ID: " + stall.getNameOfHabitat());
             player.moneyTransactions(-stall.getCost());
         } else if (input.contains("BAG")) {

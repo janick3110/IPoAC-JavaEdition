@@ -1,10 +1,8 @@
 package dhbw.ipoat.commands;
 
-import com.sun.tools.javac.Main;
 import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.animals.AudioSoundGenerator;
 import dhbw.ipoat.animals.ConsoleSoundGenerator;
-import dhbw.ipoat.animals.GrownAnimals;
 
 public class CommandSwitch extends CommandTemplate{
     @Override

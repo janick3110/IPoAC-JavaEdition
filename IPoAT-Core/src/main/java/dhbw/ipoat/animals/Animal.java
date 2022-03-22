@@ -71,4 +71,11 @@ public abstract class Animal extends Buyable {
         return habitatType;
     }
 
+    @Override
+    public void buyThisObject() throws OperationNotAllowedException {
+        owner.checkMoney(this.price);
+        owner.getInventory().getAnimals().add(this);
+    }
+
+
 }

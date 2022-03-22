@@ -34,4 +34,24 @@ public class PlayerInventory {
     public void putIn(Habitat habitat) {
         habitats.add(habitat);
     }
+
+    public ArrayList<Habitat> getHabitats() {
+        return habitats;
+    }
+
+    public ArrayList<TransportDevice> getTransportDevices() {
+        return transportDevices;
+    }
+
+    public ArrayList<Medium> getMediums() {
+        return mediums;
+    }
+
+    public ArrayList<Animal> getAnimals() {
+        return animals;
+    }
+
+    public HashMap<String, Animal> getAnimalsByName() {
+        return animalsByName;
+    }
 }

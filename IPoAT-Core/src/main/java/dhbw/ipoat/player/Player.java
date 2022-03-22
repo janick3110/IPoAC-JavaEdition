@@ -33,7 +33,7 @@ public class Player {
 
     PlayerInventory inventory = new PlayerInventory();
 
-    private HashMap<String, Buyable> buyableMap = new HashMap<>();
+    private HashMap<String, Runnable> buyableMap = new HashMap<>();
 
     public Player(String playerName) {
         this.playerName = playerName;
@@ -42,8 +42,7 @@ public class Player {
     }
 
     public void buy(String itemName) throws OperationNotAllowedException {
-        Buyable article = buyableMap.get(itemName);
-        checkMoney(article.price);
+       buyableMap.get(itemName).run();
 
     }
 
@@ -51,31 +50,41 @@ public class Player {
         inventory.putIn(animal);
     }
 
-    private void checkMoney(int cost) throws OperationNotAllowedException {
+    public void checkMoney(int cost) throws OperationNotAllowedException {
         if(money < cost) {
             throw new OperationNotAllowedException("You have not enough money");
         }
     }
 
+    private void buyThisObject(Buyable item) {
+        try{
+            item.buy();
+        } catch (OperationNotAllowedException e){
+
+        }
+
+    }
+
     private void initializeBuyableMap() {
 
-        buyableMap.put("HORSE", new Horse(this)) ;
-        buyableMap.put("PIGEON", new Pigeon(this));
-        buyableMap.put("ELEPHANT", new Elephant(this));
-        buyableMap.put("OX", new Ox(this));
+        buyableMap.put("HORSE", () -> buyThisObject(new Horse(this))) ;
+        buyableMap.put("PIGEON", () -> buyThisObject(new Pigeon(this)));
+        buyableMap.put("ELEPHANT", () -> buyThisObject(new Elephant(this)));
+        buyableMap.put("OX", () -> buyThisObject(new Ox(this)));
 
-        buyableMap.put("BIRDHOUSE", new BirdHouse(this));
-        buyableMap.put("STALL", new Stall(this));
+        buyableMap.put("BIRDHOUSE", () -> buyThisObject(new BirdHouse(this)));
+        buyableMap.put("STALL", () -> buyThisObject(new Stall(this)));
 
-        buyableMap.put("FLOPPYDISK", new FloppyDisk(this));
+        buyableMap.put("FLOPPYDISK", () -> buyThisObject(new FloppyDisk(this)));
 
-        buyableMap.put("BACKPACK", new Backpack(this));
-        buyableMap.put("BAG", new Bag(this));
-        buyableMap.put("CART", new Cart(this));
+        buyableMap.put("BACKPACK", () -> buyThisObject(new Backpack(this)));
+        buyableMap.put("BAG", () -> buyThisObject(new Bag(this)));
+        buyableMap.put("CART", () -> buyThisObject(new Cart(this)));
 
     }
 
 
-
-
+    public PlayerInventory getInventory() {
+        return inventory;
+    }
 }

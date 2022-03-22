@@ -1,6 +1,9 @@
 package dhbw.ipoat.animals;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.player.Player;
+
+import java.util.ArrayList;
 
 public abstract class Buyable {
 
@@ -13,5 +16,10 @@ public abstract class Buyable {
         this.owner = owner;
     }
 
+    protected abstract void buyThisObject() throws OperationNotAllowedException;
+
+    public void buy() throws OperationNotAllowedException {
+        buyThisObject();
+    }
 
 }

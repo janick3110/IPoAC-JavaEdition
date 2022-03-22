@@ -58,4 +58,10 @@ public class Habitat extends Buyable {
             throw new OperationNotAllowedException("No room for animal");
         }
     }
+
+    @Override
+    protected void buyThisObject() throws OperationNotAllowedException {
+        owner.checkMoney(this.price);
+        owner.getInventory().getHabitats().add(this);
+    }
 }

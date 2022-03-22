@@ -1,5 +1,6 @@
 package dhbw.ipoat.animals;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.habitat.HabitatTypes;
 import dhbw.ipoat.player.Player;
 import dhbw.ipoat.transportationdevice.TransportDevice;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 
 //General class for all animals
-public abstract class Animal {
+public abstract class Animal extends Buyable {
 
     protected String name;
     protected UUID uuid;
@@ -25,38 +26,49 @@ public abstract class Animal {
     protected double sendingProgress;
     protected double breedingCoolDown;
 
-    protected Player owner;
     protected ArrayList<TransportDevice> equippedTransportDevices;
 
 
     // maybe add Animal Type
 
     protected Status status;
+
     protected Gender gender;
     protected HabitatTypes habitatType;
 
     protected ArrayList<TransportationDeviceType> allowedTransportationDevices;
 
-    public Animal(Player owner) {
-        this.owner = owner;
-
+    public Animal(Player owner, int price) {
+        super(price, owner);
     }
 
-    public void addTransportationdevice(TransportDevice transportDevice) throws IllegalArgumentException, BadAttributeValueExpException {
+    public void addTransportationdevice(TransportDevice transportDevice) throws OperationNotAllowedException {
         checkSupportedDeviceType(transportDevice.getDeviceType());
         checkAge();
     }
 
-    private void checkSupportedDeviceType(TransportationDeviceType transportDeviceType) {
+    private void checkSupportedDeviceType(TransportationDeviceType transportDeviceType) throws OperationNotAllowedException {
         if (!allowedTransportationDevices.contains(transportDeviceType)) {
-            throw new IllegalArgumentException("Error, device not supported for animal type: " + this.getClass().getSimpleName());
+            throw new OperationNotAllowedException("Error, device not supported for animal type: " + this.getClass().getSimpleName());
         }
     }
 
-    protected void checkAge() throws BadAttributeValueExpException {
+    protected void checkAge() throws OperationNotAllowedException {
         if (!(currentAge >= matureAge)) {
-            throw new BadAttributeValueExpException("Error, " + name + " is not old enough.");
+            throw new OperationNotAllowedException("Error, " + name + " is not old enough.");
         }
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public HabitatTypes getHabitatType() {
+        return habitatType;
     }
 
 }

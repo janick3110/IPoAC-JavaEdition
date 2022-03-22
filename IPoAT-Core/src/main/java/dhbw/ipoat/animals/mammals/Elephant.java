@@ -7,4 +7,7 @@ import dhbw.ipoat.player.Player;
 public class Elephant extends Mammal{
 
 
+    public Elephant(Player owner) {
+        super(owner, 100);
+    }
 }

@@ -6,6 +6,11 @@ import dhbw.ipoat.habitat.Habitat;
 import java.util.List;
 
 public class CommandNextDay extends CommandTemplate{
+
+    public CommandNextDay() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         player.NextDay();

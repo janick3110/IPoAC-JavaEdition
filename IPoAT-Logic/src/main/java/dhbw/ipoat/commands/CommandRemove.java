@@ -3,7 +3,12 @@ package dhbw.ipoat.commands;
 import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.transportationdevice.TransportDevice;
 
-public class CommandRemove extends CommandTemplate{
+public class CommandRemove extends CommandTemplate {
+
+    public CommandRemove() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         TransportDevice device = player.getTransportDeviceWithName(input.substring(7, 15));

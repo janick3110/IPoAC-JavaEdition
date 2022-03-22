@@ -3,6 +3,11 @@ package dhbw.ipoat.commands;
 import dhbw.ipoat.computer.Computer;
 
 public class CommandPuffer extends CommandTemplate{
+
+    public CommandPuffer() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         try {

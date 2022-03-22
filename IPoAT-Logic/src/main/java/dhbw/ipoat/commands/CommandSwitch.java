@@ -5,6 +5,11 @@ import dhbw.ipoat.animals.AudioSoundGenerator;
 import dhbw.ipoat.animals.ConsoleSoundGenerator;
 
 public class CommandSwitch extends CommandTemplate{
+
+    public CommandSwitch() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         if (CommandMap.mode == CommandMap.outputPossibilities.CONSOLE){

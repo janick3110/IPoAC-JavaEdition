@@ -5,7 +5,7 @@ import dhbw.ipoat.player.Player;
 public class Pigeon extends Bird {
 
     public Pigeon(Player owner) {
-        super(owner);
+        super(owner, 50);
     }
 
 

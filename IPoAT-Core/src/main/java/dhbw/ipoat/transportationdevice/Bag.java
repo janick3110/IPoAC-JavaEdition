@@ -1,9 +1,11 @@
 package dhbw.ipoat.transportationdevice;
 
+import dhbw.ipoat.player.Player;
+
 public class Bag extends TransportDevice {
 
 
-    public Bag() {
-        super(TransportationDeviceType.Bag);
+    public Bag(Player owner) {
+        super(TransportationDeviceType.Bag, 30, owner);
     }
 }

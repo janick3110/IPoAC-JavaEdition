@@ -3,6 +3,11 @@ package dhbw.ipoat.commands;
 import dhbw.ipoat.animals.Animal;
 
 public class CommandBreed extends CommandTemplate{
+
+    public CommandBreed() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
 

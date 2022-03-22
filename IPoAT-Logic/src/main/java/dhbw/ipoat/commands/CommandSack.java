@@ -4,6 +4,10 @@ import dhbw.ipoat.employee.Employee;
 
 public class CommandSack extends CommandTemplate{
 
+    public CommandSack() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         String employeeID = input.substring(5);

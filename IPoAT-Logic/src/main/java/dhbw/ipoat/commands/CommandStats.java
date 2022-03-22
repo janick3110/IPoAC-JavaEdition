@@ -5,6 +5,11 @@ import dhbw.ipoat.habitat.Habitat;
 import dhbw.ipoat.habitat.Stall;
 
 public class CommandStats extends CommandTemplate{
+
+    public CommandStats() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         System.out.println("##############################STATS##############################");

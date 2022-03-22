@@ -4,6 +4,11 @@ import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.transportationdevice.TransportDevice;
 
 public class CommandAttatch extends CommandTemplate{
+
+    public CommandAttatch() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         Animal animal = player.getAnimalWithName(input.substring(16));

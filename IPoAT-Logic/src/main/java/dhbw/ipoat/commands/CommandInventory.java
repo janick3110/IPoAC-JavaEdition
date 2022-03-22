@@ -4,6 +4,11 @@ import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.transportationdevice.TransportDevice;
 
 public class CommandInventory extends CommandTemplate{
+
+    public CommandInventory() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         TransportDevice device = player.getTransportDeviceWithName(input.substring(14));

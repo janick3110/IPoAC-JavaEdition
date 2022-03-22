@@ -3,6 +3,11 @@ package dhbw.ipoat.commands;
 import dhbw.ipoat.habitat.Habitat;
 
 public class CommandUpgrade extends CommandTemplate{
+
+    public CommandUpgrade() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         if (input.contains("HABITAT SIZE")) {

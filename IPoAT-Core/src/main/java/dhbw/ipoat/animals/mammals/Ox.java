@@ -6,4 +6,7 @@ import dhbw.ipoat.player.Player;
 
 public class Ox extends Mammal {
 
+    public Ox(Player owner) {
+        super(owner, 80);
+    }
 }

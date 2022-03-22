@@ -3,6 +3,11 @@ package dhbw.ipoat.commands;
 import dhbw.ipoat.animals.Animal;
 
 public class CommandSound extends CommandTemplate{
+
+    public CommandSound() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         Animal animal = player.getAnimalWithName(input.substring(6));

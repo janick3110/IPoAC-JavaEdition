@@ -1,5 +1,6 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.GameInterface;
 import dhbw.ipoat.animals.*;
 import dhbw.ipoat.animals.birds.Bird;
 import dhbw.ipoat.animals.birds.Pigeon;
@@ -43,10 +44,14 @@ public class CommandMap {
 
 
 
-    public CommandMap(Player player, GUI gui) {
+    public CommandMap(Player player, GUI gui, GameInterface game) {
         this.gui = gui;
         this.player = player;
+
         CommandTemplate.setPlayer(player);
+        CommandTemplate.setGui(gui);
+        CommandTemplate.setGameInterface(game);
+
         initializeMap();
     }
 

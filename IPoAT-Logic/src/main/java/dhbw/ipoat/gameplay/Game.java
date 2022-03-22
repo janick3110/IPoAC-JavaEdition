@@ -27,7 +27,7 @@ public class Game implements GameInterface {
         this.gui = gui;
         this.player = new Player(gui.in("Enter Player Name"));
 
-        commandMap = new CommandMap(player, gui);
+        commandMap = new CommandMap(player, gui, this);
         event = new Event(player);
 
 

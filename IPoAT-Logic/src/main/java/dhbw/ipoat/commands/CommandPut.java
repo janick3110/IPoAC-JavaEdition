@@ -9,6 +9,10 @@ import java.util.List;
 
 public class CommandPut extends CommandTemplate{
 
+    public CommandPut() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         if (player.getTransportDict().containsKey(input.substring(16))) {

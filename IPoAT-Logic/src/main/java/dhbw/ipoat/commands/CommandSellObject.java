@@ -4,6 +4,11 @@ import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.habitat.Habitat;
 
 public class CommandSellObject extends CommandTemplate{
+
+    public CommandSellObject() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         if (input.toUpperCase().contains("HABITAT")) {

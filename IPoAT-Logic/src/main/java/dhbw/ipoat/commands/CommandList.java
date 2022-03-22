@@ -8,6 +8,10 @@ import java.util.Map;
 
 public class CommandList extends CommandTemplate{
 
+    public CommandList() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         System.out.println("These objects are currently yours:");

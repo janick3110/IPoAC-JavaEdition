@@ -3,6 +3,11 @@ package dhbw.ipoat.commands;
 import dhbw.ipoat.employee.Employee;
 
 public class CommandRecruit extends CommandTemplate{
+
+    public CommandRecruit() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         if (player.getMoney() + Employee.getRecruitmentFee() >= 0 ) {

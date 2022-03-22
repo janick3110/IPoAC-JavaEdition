@@ -4,6 +4,11 @@ import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.transportationdevice.Cart;
 
 public class CommandSend extends CommandTemplate{
+
+    public CommandSend() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         //Either send bird, mammal or cart

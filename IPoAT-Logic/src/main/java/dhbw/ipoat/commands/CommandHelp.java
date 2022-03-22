@@ -1,6 +1,11 @@
 package dhbw.ipoat.commands;
 
 public class CommandHelp extends CommandTemplate{
+
+    public CommandHelp() {
+        super();
+    }
+
     @Override
     public void execute(String input) {
         System.out.println("###################COMMANDS###################");

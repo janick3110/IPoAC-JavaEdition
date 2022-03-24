@@ -1,7 +1,13 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Animal;
+import dhbw.ipoat.animals.Buyable;
 import dhbw.ipoat.habitat.Habitat;
+import dhbw.ipoat.medium.Medium;
+import dhbw.ipoat.transportationdevice.TransportDevice;
+
+import java.util.List;
 
 public class CommandSellObject extends CommandTemplate{
 
@@ -11,35 +17,50 @@ public class CommandSellObject extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        if (input.toUpperCase().contains("HABITAT")) {
-            String search = input.substring(13);
-            for (Habitat h : player.getHabitatDict().values()
-            ) {
-                if (h.getNameOfHabitat().equals(search)) {
-                    player.getHabitatDict().remove(search);
-                    player.getHabitatDict().remove(h.getNameOfHabitat(),h);
-                    player.moneyTransactions(h.getCostOfNewNest() / 1.2f);
-                    return;
-                }
-
+        try {
+            String[] arguments = input.split("");
+            int moneyGained = 0;
+            if (arguments[1].equalsIgnoreCase("animal")) {
+                Animal animalToSell = player.getInventory().getAnimalsByName().get(arguments[2]);
+                checkIfObjectDoesExist(animalToSell);
+                player.getInventory().getAnimals().remove(animalToSell);
+                player.getInventory().getAnimalsByName().remove(animalToSell.getName());
+                moneyGained = animalToSell.calculateSellValue();
             }
-            System.out.println("No habitat with that name is found");
-        } else if (input.toUpperCase().contains("ANIMAL")) {
-            for (Habitat h : player.getHabitatDict().values()
-            ) {
-                for (Animal a : h.getAnimals()
-                ) {
-                    if (a.getName().equals(input.substring(12))) {
-                        player.moneyTransactions(a.calculateValueOfAnimal());
-                        return;
-                    }
-                    System.out.println("No animal with the name " + input.substring(12) + " can be found!");
-                }
+            else if (arguments[1].equalsIgnoreCase("habitat")) {
+                Habitat habitat = giveBuyableObject(player.getInventory().getHabitats(),arguments[2]);
+                player.getInventory().getHabitats().remove(habitat);
+                moneyGained = habitat.calculateSellValue();
             }
-        } else if (input.toUpperCase().contains("MEDIUM")) {
-
-        } else if (input.toUpperCase().contains("TRANSPORT")) {
-
+            else if (arguments[1].equalsIgnoreCase("transport")) {
+                TransportDevice device = giveBuyableObject(player.getInventory().getTransportDevices(),arguments[2]);
+                player.getInventory().getTransportDevices().remove(device);
+                moneyGained = device.calculateSellValue();
+            }
+            else if (arguments[1].equalsIgnoreCase("medium")) {
+                Medium medium = giveBuyableObject(player.getInventory().getMediums(),arguments[2]);
+                player.getInventory().getTransportDevices().remove(medium);
+                moneyGained = medium.calculateSellValue();
+            }
+            player.moneyTransactions(moneyGained);
+        } catch (OperationNotAllowedException e) {
+            gui.out(e.getMessage());
         }
+
+    }
+
+    private void checkIfObjectDoesExist(Buyable buyable) throws OperationNotAllowedException {
+        if(buyable == null){
+            throw new OperationNotAllowedException("Object to sell does not exist");
+        }
+    }
+    private <T extends Buyable> T giveBuyableObject(List<T> list, String nameToSearch) throws OperationNotAllowedException {
+        for (T object:list
+             ) {
+            if (object.getName().equals(nameToSearch)){
+                return object;
+            }
+        }
+        throw new OperationNotAllowedException("Object to sell does not exist");
     }
 }

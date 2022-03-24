@@ -18,8 +18,18 @@ public class Computer extends Buyable {
     }
 
     @Override
-    protected void buyThisObject() throws OperationNotAllowedException {
+    public void buyThisObject() throws OperationNotAllowedException {
         owner.checkMoney(this.price);
         owner.getInventory().getComputers().add(this);
+    }
+
+    @Override
+    protected void removeThisObject() {
+        owner.getInventory().getComputers().remove(this);
+    }
+
+    @Override
+    protected int calculateSellValue() {
+        return (int) (price * .5f);
     }
 }

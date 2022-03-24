@@ -14,7 +14,6 @@ import java.util.UUID;
 //General class for all animals
 public abstract class Animal extends Buyable {
 
-    protected String name;
     protected UUID uuid;
 
     protected double currentAge;
@@ -71,6 +70,7 @@ public abstract class Animal extends Buyable {
         return habitatType;
     }
 
+
     @Override
     public void buyThisObject() throws OperationNotAllowedException {
         owner.checkMoney(this.price);
@@ -78,5 +78,14 @@ public abstract class Animal extends Buyable {
         owner.getInventory().getAnimalsByName().put(this.name, this);
     }
 
+    @Override
+    protected void removeThisObject() {
+        owner.getInventory().getAnimals().remove(this);
+        owner.getInventory().getAnimalsByName().remove(this.name);
+    }
 
+    @Override
+    public int calculateSellValue(){
+        return (int) Math.round(price* (1 - currentAge/lifeExpectancy));
+    }
 }

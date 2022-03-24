@@ -4,11 +4,12 @@ import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.player.Player;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public abstract class Buyable {
 
     public final int price;
-
+    protected String name;
     protected Player owner;
 
     public Buyable(int price, Player owner) {
@@ -16,10 +17,16 @@ public abstract class Buyable {
         this.owner = owner;
     }
 
-    protected abstract void buyThisObject() throws OperationNotAllowedException;
+    public abstract void buyThisObject() throws OperationNotAllowedException;
 
-    public void buy() throws OperationNotAllowedException {
-        buyThisObject();
+    protected abstract void removeThisObject();
+
+    public String getName() {
+        return name;
     }
+
+    protected abstract int calculateSellValue();
+
+
 
 }

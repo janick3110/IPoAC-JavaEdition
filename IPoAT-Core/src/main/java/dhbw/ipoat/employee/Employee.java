@@ -16,8 +16,18 @@ public class Employee extends Buyable {
     }
 
     @Override
-    protected void buyThisObject() throws OperationNotAllowedException {
+    public void buyThisObject() throws OperationNotAllowedException {
         owner.checkMoney(this.price);
         owner.getInventory().getEmployees().add(this);
+    }
+
+    @Override
+    protected void removeThisObject() {
+        owner.getInventory().getEmployees().remove(this);
+    }
+
+    @Override
+    protected int calculateSellValue() {
+        return 0;
     }
 }

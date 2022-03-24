@@ -1,8 +1,10 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.animals.mammals.Mammal;
 import dhbw.ipoat.transportationdevice.Cart;
+import dhbw.ipoat.transportationdevice.TransportDevice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +17,26 @@ public class CommandPut extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        if (player.getTransportDict().containsKey(input.substring(16))) {
-            if (player.getTransportDict().get(input.substring(16)) instanceof Cart) {
-                int maxAnimals = ((Cart) player.getTransportDict().get(input.substring(16))).getAnimalCount();
-                int counter = 0;
-                List<Mammal> listAnimals = new ArrayList<>();
-                for (Animal a : player.getAllAnimals()
-                ) {
-                    if (a instanceof Mammal && counter < maxAnimals) {
-                        listAnimals.add((Mammal) a);
-                    }
+        try{
+            String[] arguments = input.split(" ");
+            Animal animal = player.getInventory().getAnimalsByName().get(arguments[1]);
+            TransportDevice device = null;
+
+            for (TransportDevice transport:player.getInventory().getTransportDevices()
+            ) {
+                if (transport.getName().equals(arguments[2])){
+                    device = transport;
                 }
-                ((Cart) player.getTransportDict().get(input.substring(10))).putAnimalsInFront(listAnimals);
             }
+
+            if (device == null){
+                throw new OperationNotAllowedException("Device does not exist");
+            }
+
+            animal.addTransportationdevice(device);
+        } catch (OperationNotAllowedException e) {
+            gui.out(e.getMessage());
         }
+
     }
 }

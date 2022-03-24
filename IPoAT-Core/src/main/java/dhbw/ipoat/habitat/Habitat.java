@@ -60,9 +60,19 @@ public class Habitat extends Buyable {
     }
 
     @Override
-    protected void buyThisObject() throws OperationNotAllowedException {
+    public void buyThisObject() throws OperationNotAllowedException {
         owner.checkMoney(this.price);
         owner.getInventory().getHabitats().add(this);
+    }
+
+    @Override
+    protected void removeThisObject() {
+        owner.getInventory().getEmployees().remove(this);
+    }
+
+    @Override
+    public int calculateSellValue() {
+        return (int) (price * .75f);
     }
 
     public void upgradeSize() throws OperationNotAllowedException {

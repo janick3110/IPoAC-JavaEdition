@@ -18,9 +18,14 @@ public abstract class TransportDevice extends Buyable {
     }
 
     @Override
-    protected void buyThisObject() throws OperationNotAllowedException {
+    public void buyThisObject() throws OperationNotAllowedException {
         owner.checkMoney(this.price);
         owner.getInventory().getTransportDevices().add(this);
+    }
+
+    @Override
+    public int calculateSellValue(){
+        return (int) (price * 0.85f);
     }
 
 }

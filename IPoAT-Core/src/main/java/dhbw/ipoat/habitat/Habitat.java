@@ -84,4 +84,12 @@ public class Habitat extends Buyable {
     public int getAnimalCapacity() {
         return animalCapacity;
     }
+
+    public HabitatTypes getType() {
+        return type;
+    }
+
+    public ArrayList<Animal> getAnimals() {
+        return animals;
+    }
 }

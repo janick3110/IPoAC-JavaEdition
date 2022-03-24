@@ -1,5 +1,6 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.transportationdevice.TransportDevice;
 
@@ -11,18 +12,21 @@ public class CommandAttatch extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        Animal animal = player.getAnimalWithName(input.substring(16));
-        TransportDevice device = player.getTransportDeviceWithName(input.substring(7, 15));
-        try {
-            if (device.calculateWeight() <= animal.getMaxWeight()) {
-                device.attachDevice(animal);
-                System.out.println("The " + device.getType() + " with the ID " + device.getUuid()
-                        + " was attached to " + animal.getName());
-            } else
-                System.out.println("The package is too heavy. Please remove objects or choose an animal with bigger" +
-                        "weight maximum");
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
+        try{
+            Animal animal = player.getInventory().getAnimalsByName().get(input.split(" ")[1]);
+            if (animal == null){
+                throw new OperationNotAllowedException("Animal does not exist");
+            }
+            for (TransportDevice device:player.getInventory().getTransportDevices()
+            ) {
+                if (device.getName().equals(input.split(" ")[2])){
+                    animal.addTransportationdevice(device);
+                    return;
+                }
+                throw new OperationNotAllowedException("Transport device does not exist");
+            }
+        } catch (OperationNotAllowedException e) {
+            gui.out(e.getMessage());
         }
     }
 }

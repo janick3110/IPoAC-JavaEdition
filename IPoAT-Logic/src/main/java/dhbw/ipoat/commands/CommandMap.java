@@ -71,7 +71,6 @@ public class CommandMap {
         commands.put(CommandToken.LIST, new CommandList());
         commands.put(CommandToken.EXIT, new CommandExit());
         commands.put(CommandToken.LOAD, new CommandLoad());
-        commands.put(CommandToken.INVENTORY, new CommandInventory());
         commands.put(CommandToken.REMOVE, new CommandRemove());
         commands.put(CommandToken.PUFFER, new CommandPuffer());
         commands.put(CommandToken.BREED, new CommandBreed());

@@ -9,6 +9,7 @@ import dhbw.ipoat.transportationdevice.TransportDevice;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class CommandPut extends CommandTemplate{
 
     public CommandPut() {

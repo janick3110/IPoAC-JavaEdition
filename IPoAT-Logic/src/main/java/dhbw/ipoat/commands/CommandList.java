@@ -1,7 +1,10 @@
 package dhbw.ipoat.commands;
 
 import dhbw.ipoat.animals.Animal;
+import dhbw.ipoat.computer.Computer;
+import dhbw.ipoat.employee.Employee;
 import dhbw.ipoat.habitat.Habitat;
+import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.transportationdevice.TransportDevice;
 
 import java.util.Map;
@@ -14,24 +17,43 @@ public class CommandList extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        System.out.println("These objects are currently yours:");
+        gui.out("These objects are currently yours:");
 
-        for (Habitat h : player.getHabitatDict().values()
-        ) {
-            System.out.println("ID: " + h.getNameOfHabitat() + " Capacity: " + h.getAnimals().size()
-                    + "/" + h.getAvaliableNests() + " Type: " + h.getType() + " Daily Costs: " + h.getDailyCost());
-            for (Animal a : h.getAnimalsInHabitat()
-            ) {
-                System.out.println("Name: " + a.getName() + "   Type: "
-                        + a.getTypeOfAnimal() + "   Age: " + a.getAge() + " days    Is home: "
-                        + a.isHome() + " Energy: " + a.getEnergy());
+        gui.out("#############HABITATS#############");
+        for (Habitat habitat:player.getInventory().getHabitats()
+             ) {
+            gui.out("Name: " + habitat.name + "\n" +
+                    "Capacity: " + habitat.getAnimalCapacity() + "\n" +
+                    "Type: " + habitat.getType());
+
+            for (Animal animal:habitat.getAnimals()
+                 ) {
+                gui.out("Name: " + animal.getName() + "\n");//TODO: Add other output stuff
             }
         }
-        System.out.println("\nYour transportation devices");
-        Map<String, TransportDevice> map = player.getTransportDict();
-        for (Map.Entry<String, TransportDevice> entry : map.entrySet()) {
-            System.out.println("ID: " + entry.getKey() + " Type: " + entry.getValue().getType() + " Size: " +
-                    entry.getValue().getMaxObjects());
+
+        gui.out("############TRANSPORT#############");
+        for (TransportDevice device:player.getInventory().getTransportDevices()
+             ) {
+            gui.out("Name: " + device.getName()); //TODO: Add other output stuff
+        }
+
+        gui.out("#############EMPLOYEES############");
+        for (Employee employee:player.getInventory().getEmployees()
+             ) {
+            gui.out("Name: " + employee.getName()); //TODO: Add other output stuff
+        }
+
+        gui.out("##############MEDIUM##############");
+        for (Medium medium:player.getInventory().getMediums()
+        ) {
+            gui.out("Name: " + medium.getName()); //TODO: Add other output stuff
+        }
+
+        gui.out("#############COMPUTERS############");
+        for (Computer computer:player.getInventory().getComputers()
+             ) {
+            gui.out("Name: " + computer.getName());
         }
 
     }

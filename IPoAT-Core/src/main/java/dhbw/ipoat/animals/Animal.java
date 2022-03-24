@@ -75,6 +75,7 @@ public abstract class Animal extends Buyable {
     public void buyThisObject() throws OperationNotAllowedException {
         owner.checkMoney(this.price);
         owner.getInventory().getAnimals().add(this);
+        owner.getInventory().getAnimalsByName().put(this.name, this);
     }
 
 

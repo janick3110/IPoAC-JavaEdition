@@ -86,4 +86,8 @@ public class Game implements GameInterface {
     }
 
 
+    @Override
+    public int days() {
+        return days;
+    }
 }

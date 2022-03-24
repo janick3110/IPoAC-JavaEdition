@@ -23,6 +23,7 @@ import dhbw.ipoat.transportationdevice.TransportDevice;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
 public class Player {
@@ -33,7 +34,7 @@ public class Player {
 
     PlayerInventory inventory = new PlayerInventory();
 
-    private HashMap<String, Runnable> buyableMap = new HashMap<>();
+    private HashMap<String, Callable<String>> buyableMap = new HashMap<>();
 
     public Player(String playerName) {
         this.playerName = playerName;
@@ -41,13 +42,14 @@ public class Player {
 
     }
 
-    public void buy(String itemName) throws OperationNotAllowedException {
-       buyableMap.get(itemName).run();
+    public String buy(String itemName) throws OperationNotAllowedException {
+        try{
+            return buyableMap.get(itemName).call();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
 
-    }
 
-    private void putInInventory(Animal animal) {
-        inventory.putIn(animal);
     }
 
     public void checkMoney(int cost) throws OperationNotAllowedException {
@@ -56,11 +58,14 @@ public class Player {
         }
     }
 
-    private void buyThisObject(Buyable item) {
+    private String buyThisObject(Buyable item) {
         try{
             item.buy();
+            moneyTransactions(-item.price);
+            return "New " + item.getClass().getSimpleName() + " was bought for " + item.price + "MU. "
+                    + "The new balance is now " + getMoney() + " MU";
         } catch (OperationNotAllowedException e){
-
+            return e.getMessage();
         }
 
     }
@@ -83,8 +88,21 @@ public class Player {
 
     }
 
+    public void setMoney(int money){
+        this.money = money;
+    }
+
+    public void moneyTransactions(int valueToAddOrSubtract){
+        money += valueToAddOrSubtract;
+    }
 
     public PlayerInventory getInventory() {
         return inventory;
     }
+
+    public int getMoney() {
+        return money;
+    }
+
+
 }

@@ -64,4 +64,14 @@ public class Habitat extends Buyable {
         owner.checkMoney(this.price);
         owner.getInventory().getHabitats().add(this);
     }
+
+    public void upgradeSize() throws OperationNotAllowedException {
+        owner.checkMoney(upgradeCost);
+        animalCapacity++;
+        upgradeCost*=2;
+    }
+
+    public int getAnimalCapacity() {
+        return animalCapacity;
+    }
 }

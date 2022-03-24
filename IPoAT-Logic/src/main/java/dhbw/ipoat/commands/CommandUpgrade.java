@@ -1,5 +1,6 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.habitat.Habitat;
 
 public class CommandUpgrade extends CommandTemplate{
@@ -10,17 +11,20 @@ public class CommandUpgrade extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        if (input.contains("HABITAT SIZE")) {
-            String searchString = input.substring(21);
-            Habitat h = player.getHabitatDict().get(searchString);
+        var habitats = player.getInventory().getHabitats();
 
-            if (player.getMoney() - h.getCostOfNewNest() >= 0) {
-                player.moneyTransactions(-h.getCostOfNewNest());
-                h.IncreaseSizeOfHabitat();
-            } else
-                System.out.println("Not enough money. " + h.getCostOfNewNest() + " is required,  " + player.getMoney() + " is avaliable");
+        try{
+            for (Habitat habitat:habitats
+            ) {
+                if (habitat.name.equals(input)){
+                    habitat.upgradeSize();
+                    gui.out("Habitat " + habitat.name + " was upgraded. It now has " +
+                            habitat.getAnimalCapacity() + " spaces");
+                }
+            }
+        } catch (OperationNotAllowedException e) {
+            gui.out(e.getMessage());
+        }
 
-
-        } else System.out.println("Please enter valid command");
     }
 }

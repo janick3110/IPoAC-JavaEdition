@@ -9,7 +9,7 @@ class PlayerTest {
     @Test
     void moneyTransactions() {
         //Arrange
-        Player player = new Player();
+        Player player = new Player("");
         player.setMoney(256);
 
         //Act

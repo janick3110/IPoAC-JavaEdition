@@ -26,7 +26,7 @@ public class CommandBuy extends CommandTemplate {
         input = input.toUpperCase();
 
         try {
-            player.buy(input);
+            gui.out(player.buy(input));
         } catch (OperationNotAllowedException e) {
             gui.out(e.getMessage());
         }

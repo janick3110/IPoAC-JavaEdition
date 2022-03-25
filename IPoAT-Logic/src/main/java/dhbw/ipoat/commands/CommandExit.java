@@ -11,7 +11,7 @@ public class CommandExit extends CommandTemplate{
     @Override
     public void execute(String input) {
         Savegame.save(player);
-
+        game.running(false);
         System.out.println("Thank you for playing IPoAT. See you next time!");
     }
 }

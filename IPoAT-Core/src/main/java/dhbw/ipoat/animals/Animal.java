@@ -27,7 +27,7 @@ public abstract class Animal extends Buyable {
 
     protected ArrayList<TransportDevice> equippedTransportDevices;
 
-
+    protected AnimalImplementation soundGenerator = new ConsoleSoundGenerator();
     // maybe add Animal Type
 
     protected Status status;
@@ -44,6 +44,7 @@ public abstract class Animal extends Buyable {
     public void addTransportationdevice(TransportDevice transportDevice) throws OperationNotAllowedException {
         checkSupportedDeviceType(transportDevice.getDeviceType());
         checkAge();
+        equippedTransportDevices.add(transportDevice);
     }
 
     private void checkSupportedDeviceType(TransportationDeviceType transportDeviceType) throws OperationNotAllowedException {
@@ -97,5 +98,13 @@ public abstract class Animal extends Buyable {
         this.breedingCoolDown = breedingCoolDown;
     }
 
+    public AnimalImplementation getSoundGenerator() {
+        return soundGenerator;
+    }
 
+    public void setSoundGenerator(AnimalImplementation soundGenerator) {
+        this.soundGenerator = soundGenerator;
+    }
+
+    public abstract String makeSound();
 }

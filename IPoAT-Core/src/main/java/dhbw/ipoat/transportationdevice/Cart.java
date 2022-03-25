@@ -6,6 +6,6 @@ public class Cart extends TransportDevice {
 
 
     public Cart(Player owner) {
-        super(TransportationDeviceType.Cart, 50, owner);
+        super(TransportationDeviceType.Cart, 50, owner, 500);
     }
 }

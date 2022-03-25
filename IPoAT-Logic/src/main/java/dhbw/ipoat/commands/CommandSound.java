@@ -1,5 +1,6 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Animal;
 
 public class CommandSound extends CommandTemplate{
@@ -10,11 +11,17 @@ public class CommandSound extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        Animal animal = player.getAnimalWithName(input.substring(6));
-
-        if (animal instanceof GrownAnimals){
-            GrownAnimals gAnimal = (GrownAnimals) animal;
-            gAnimal.MakeSound();
+        try{
+            Animal animal = player.getInventory().getAnimalsByName().get(input.split(" ")[1]);
+            if (animal == null){
+                throw new OperationNotAllowedException("Animal does not exist");
+            }
+            gui.out(animal.getSoundGenerator().MakeAnimalSound(animal.makeSound()));
+        } catch (OperationNotAllowedException e) {
+            gui.out("Animal does not exist");
         }
+
+
+
     }
 }

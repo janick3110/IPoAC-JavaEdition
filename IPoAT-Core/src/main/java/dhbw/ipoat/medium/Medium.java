@@ -8,9 +8,11 @@ import java.util.UUID;
 
 public abstract class Medium extends Buyable {
 
+    private double weight;
 
-    public Medium(int price, Player owner) {
+    public Medium(int price, Player owner, double weight) {
         super(price, owner);
+        this.weight = weight;
     }
 
     @Override
@@ -28,4 +30,9 @@ public abstract class Medium extends Buyable {
     public int calculateSellValue() {
         return (int) (price * .75f);
     }
+
+    public double getWeight() {
+        return weight;
+    }
+
 }

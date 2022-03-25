@@ -2,15 +2,24 @@ package dhbw.ipoat.transportationdevice;
 
 import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Buyable;
+import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.player.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class TransportDevice extends Buyable {
 
     TransportationDeviceType deviceType;
+    private double currentLoad;
+    private double maxLoad;
+    private List<Medium> media;
 
-    public TransportDevice(TransportationDeviceType type, int price, Player owner) {
+    public TransportDevice(TransportationDeviceType type, int price, Player owner, double maxLoad) {
         super(price, owner);
         this.deviceType = type;
+        this.maxLoad = maxLoad;
+        media = new ArrayList<>();
     }
 
     public TransportationDeviceType getDeviceType() {
@@ -28,4 +37,24 @@ public abstract class TransportDevice extends Buyable {
         return (int) (price * 0.85f);
     }
 
+    @Override
+    public void removeThisObject() {
+        owner.getInventory().getTransportDevices().remove(this);
+    }
+
+    public double getCurrentLoad() {
+        return currentLoad;
+    }
+
+    public void setCurrentLoad(double currentLoad) {
+        this.currentLoad = currentLoad;
+    }
+
+    public double getMaxLoad() {
+        return maxLoad;
+    }
+
+    public List<Medium> getMedia() {
+        return media;
+    }
 }

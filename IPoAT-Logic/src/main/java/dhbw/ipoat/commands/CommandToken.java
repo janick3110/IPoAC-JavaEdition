@@ -12,7 +12,6 @@ public enum CommandToken {
     LIST,
     EXIT,
     LOAD,
-    INVENTORY,
     REMOVE,
     PUFFER,
     BREED,

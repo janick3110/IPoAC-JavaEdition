@@ -1,5 +1,8 @@
 package dhbw.ipoat.computer;
 
+import dhbw.ipoat.animals.birds.Pigeon;
+import dhbw.ipoat.player.Player;
+import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,15 +12,16 @@ class ComputerTest {
     @Test
     void generateData() throws InterruptedException {
         //Arrange
-        Computer pcToTest = new Computer();
+        Player mockPlayer = new Player("");
+        Computer pcToTest = new Computer(mockPlayer);
 
 
         //Act
 
-        Thread.sleep(5000);
-        pcToTest.GenerateData();
+        Thread.sleep(10000);
+        pcToTest.generateData();
 
         //Assert
-        assertEquals(pcToTest.getPuffer(),1);
+        assertEquals(pcToTest.getData(),1);
     }
 }

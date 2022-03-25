@@ -10,4 +10,9 @@ public class Elephant extends Mammal{
     public Elephant(Player owner) {
         super(owner, 100);
     }
+
+    @Override
+    public String makeSound() {
+        return "Töröööööö!";
+    }
 }

@@ -9,4 +9,9 @@ public class Ox extends Mammal {
     public Ox(Player owner) {
         super(owner, 80);
     }
+
+    @Override
+    public String makeSound() {
+        return "Mooooooooh!";
+    }
 }

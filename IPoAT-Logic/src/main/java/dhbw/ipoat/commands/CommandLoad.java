@@ -1,5 +1,6 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.transportationdevice.TransportDevice;
 
@@ -11,15 +12,48 @@ public class CommandLoad extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        TransportDevice device = player.getTransportDeviceWithName(input.substring(5, 13));
-        Medium medium = player.getMediumWithName(input.substring(14));
+        String[] arguments = input.split(" ");
 
-        try {
-            device.putMedium(medium);
-        } catch (NullPointerException e) {
-            System.out.println("Medium or transport device not found. Please check input");
-        } catch (Exception e) {
-            System.out.println("Something went wrong. Please try again");
+        try{
+            TransportDevice device = getTransportDeviceWithName(arguments[1]);
+            Medium medium = getMediumWithName(arguments[2]);
+
+            checkAvailableSpace(device,medium);
+
+            device.getMedia().add(medium);
+
+            gui.out(medium.getName() + " was added successfully to " + device.getName());
+
+        } catch (OperationNotAllowedException e) {
+            gui.out(e.getMessage());
         }
+
+    }
+
+
+    private void checkAvailableSpace(TransportDevice device, Medium medium) throws OperationNotAllowedException {
+        if (device.getCurrentLoad() + medium.getWeight() > device.getMaxLoad()){
+            throw new OperationNotAllowedException("Transport device does not have any more space for this medium");
+        }
+    }
+
+    private TransportDevice getTransportDeviceWithName(String name) throws OperationNotAllowedException {
+        for (TransportDevice device:player.getInventory().getTransportDevices()
+             ) {
+            if (device.getName().equals(name)){
+                return device;
+            }
+        }
+        throw new OperationNotAllowedException("Transport device does not exist");
+    }
+
+    private Medium getMediumWithName(String name) throws OperationNotAllowedException {
+        for (Medium medium:player.getInventory().getMediums()
+             ) {
+            if (medium.getName().equals(name)){
+                return medium;
+            }
+        }
+        throw new OperationNotAllowedException("Medium does not exist");
     }
 }

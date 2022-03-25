@@ -43,8 +43,12 @@ public class Computer extends Buyable {
     }
 
     public float getData(){
+        return generatedData;
+    }
+
+    public void generateData(){
         float difference = Duration.between(timeOfBoot,Instant.now()).getSeconds();
-        return (dataPerSecond * difference) - copiedData;
+        generatedData = dataPerSecond * difference - copiedData;
     }
 
     public float copyData(){

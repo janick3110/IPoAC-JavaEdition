@@ -13,7 +13,7 @@ import java.util.Random;
 public class Game implements GameInterface {
 
 
-    private boolean running;
+    private boolean running = true;
 
     private final Player player;
     private int days;
@@ -34,6 +34,10 @@ public class Game implements GameInterface {
         gui.out("IP over Animal Transport - Tycoon");
         gui.out("Enter <HELP> for a list of available commands");
         gui.out("More information: https://github.com/janick3110/IPoAC-JavaEdition");
+
+        while (isRunning()){
+            run();
+        }
 
     }
 
@@ -89,5 +93,10 @@ public class Game implements GameInterface {
     @Override
     public int days() {
         return days;
+    }
+
+    @Override
+    public void running(boolean gameState){
+        running = gameState;
     }
 }

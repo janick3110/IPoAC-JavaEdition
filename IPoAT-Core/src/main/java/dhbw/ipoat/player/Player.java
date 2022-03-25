@@ -29,7 +29,7 @@ import java.util.function.Consumer;
 public class Player {
 
     private String playerName;
-    private int money;
+    private int money = 1000;
     private double sentData;
 
     PlayerInventory inventory = new PlayerInventory();
@@ -39,6 +39,7 @@ public class Player {
     public Player(String playerName) {
         this.playerName = playerName;
         initializeBuyableMap();
+        inventory.getComputers().add(new Computer(this));
 
     }
 
@@ -54,7 +55,8 @@ public class Player {
 
     public void checkMoney(int cost) throws OperationNotAllowedException {
         if(money < cost) {
-            throw new OperationNotAllowedException("You have not enough money");
+            int difference = cost - money;
+            throw new OperationNotAllowedException("You have not enough money. You're missing " + difference + " MU");
         }
     }
 
@@ -104,5 +106,7 @@ public class Player {
         return money;
     }
 
-
+    public double getSentData() {
+        return sentData;
+    }
 }

@@ -12,12 +12,12 @@ public class CommandPuffer extends CommandTemplate{
     @Override
     public void execute(String input) {
 
-        String pcName = input.split(" ")[1];
 
         try{
             for (Computer computer:player.getInventory().getComputers()
                  ) {
-                if (computer.getName().equals(pcName)){
+                if (computer.getName().equalsIgnoreCase(input)){
+                    computer.generateData();
                     gui.out(computer.getName() + " has generated " + computer.getData() + " MB");
                     return;
                 }

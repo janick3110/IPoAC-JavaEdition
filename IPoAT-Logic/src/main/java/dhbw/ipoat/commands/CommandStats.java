@@ -12,29 +12,11 @@ public class CommandStats extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        System.out.println("##############################STATS##############################");
-        System.out.println(player.getAmountDataTransmitted() + "GB of data transmitted");
-        int placesInBirdHouse = 0;
-        int placesInStall = 0;
-        int chargingStations = 0;
-        int animalCounter = 0;
-
-        for (Habitat h : player.getHabitatDict().values()
-        ) {
-            if (h instanceof BirdHouse) {
-                placesInBirdHouse += h.getAvaliableNests();
-                chargingStations += h.getAmountOfChargingStations();
-            } else if (h instanceof Stall) {
-                placesInStall += h.getAvaliableNests();
-            }
-            animalCounter += h.getAnimals().size();
-        }
-
-        System.out.println(placesInBirdHouse + " nests are available");
-        System.out.println(placesInStall + " boxes are available");
-        System.out.println(chargingStations + " charging stations are available");
-        System.out.println(animalCounter + " animal(s) exist");
-        System.out.println(player.getAvaliableMedia().size() + " storage media are/is available");
-        System.out.println("#################################################################");
+        gui.out("##############################STATS##############################");
+        gui.out("Data transmitted: " + player.getSentData() + " MB");
+        gui.out("Habitats: " + player.getInventory().getHabitats().size());
+        gui.out("Animals: " + player.getInventory().getAnimals().size());
+        gui.out("Mediums: " + player.getInventory().getMediums().size());
+        gui.out("Transport Devices: " + player.getInventory().getTransportDevices().size());
     }
 }

@@ -6,6 +6,6 @@ public class Bag extends TransportDevice {
 
 
     public Bag(Player owner) {
-        super(TransportationDeviceType.Bag, 30, owner);
+        super(TransportationDeviceType.Bag, 30, owner, .5d);
     }
 }

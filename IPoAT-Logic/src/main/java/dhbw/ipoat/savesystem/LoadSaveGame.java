@@ -54,43 +54,5 @@ public class LoadSaveGame {
 
     }
 
-    public static Player load(){
-        AnimalFactory animalFactory = new AnimalFactory();
-        Player player = new Player();
-        String jsonString = jsonString() ; //assign your JSON String here
-        JSONObject obj = new JSONObject(jsonString);
-        //String pageName = obj.getString("Money");
-        //System.out.println(pageName);
-
-        JSONArray arr = obj.getJSONArray("Habitats"); // notice that `"posts": [...]`
-        for (int i = 0; i < arr.length(); i++)
-        {
-            System.out.println(arr.get(i).toString());
-            JSONObject object = arr.getJSONObject(i);
-            Habitat habitat = new Habitat(object,player);
-            JSONArray animals = object.getJSONArray("Animals");
-            for (int j = 0; j < animals.length(); j++) {
-                JSONObject animal = animals.getJSONObject(j);
-                Animal animal1 = animalFactory.makeAnimal(animal,player);
-                habitat.addAnimalToHabitat(getAnimalFromType(animal1.getTypeOfAnimal(), player,animal));
-            }
-
-            player.getHabitatDict().put(habitat.getNameOfHabitat(),
-                    getHabitatFromType(habitat.getType(), player, animals.getJSONObject(i)));
-        }
-        return player;
-    }
-
-    private static Animal getAnimalFromType(String type, Player player, JSONObject object){
-        if (type.equals("PIGEON")){
-            return new Pigeon(object,player);
-        } else return null;
-    }
-
-    private static Habitat getHabitatFromType(String type, Player player, JSONObject object){
-        if (type.equals("BIRDHOUSE")){
-            return new BirdHouse(object, player);
-        } else return null;
-    }
 
 }

@@ -6,6 +6,7 @@ package dhbw.ipoat.employee;
 import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Buyable;
 import dhbw.ipoat.player.Player;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 
 public class Employee extends Buyable {
 
-    private static int counter = 0;
+    public static int counter = 0;
     private final int id;
     private Occupations status = Occupations.NONE;
 
@@ -40,6 +41,17 @@ public class Employee extends Buyable {
     @Override
     protected int calculateSellValue() {
         return 0;
+    }
+
+    @Override
+    public JSONObject generateJSONFromObject() {
+        JSONObject employee = new JSONObject();
+
+        employee.put("Name", name);
+        employee.put("ID", id);
+        employee.put("Status", status);
+
+        return employee;
     }
 
     public int getId() {

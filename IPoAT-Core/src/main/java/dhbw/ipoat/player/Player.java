@@ -19,6 +19,7 @@ import dhbw.ipoat.transportationdevice.Backpack;
 import dhbw.ipoat.transportationdevice.Bag;
 import dhbw.ipoat.transportationdevice.Cart;
 import dhbw.ipoat.transportationdevice.TransportDevice;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,5 +109,19 @@ public class Player {
 
     public double getSentData() {
         return sentData;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public JSONObject getJSONFromObject() {
+        JSONObject player = new JSONObject();
+
+        player.put("Name", playerName);
+        player.put("Money", money);
+
+
+        return player;
     }
 }

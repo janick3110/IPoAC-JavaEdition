@@ -5,6 +5,7 @@ import dhbw.ipoat.employee.Employee;
 import dhbw.ipoat.employee.Occupations;
 import dhbw.ipoat.player.Player;
 import dhbw.ipoat.transportationdevice.TransportationDeviceType;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -23,4 +24,5 @@ public abstract class Mammal extends Animal {
         this.rider = rider;
         rider.setStatus(Occupations.RIDING);
     }
+
 }

@@ -19,6 +19,8 @@ public class CommandRecruit extends CommandTemplate{
             player.checkMoney(employeeToRecruit.price);
             player.getInventory().getEmployees().add(employeeToRecruit);
             player.moneyTransactions(-employeeToRecruit.price);
+            gui.out("Employee " + employeeToRecruit.getName() + "has been recruited for "
+                    + employeeToRecruit.price + " MU");
         } catch (OperationNotAllowedException e) {
             //Employee.setCounter(Employee.getCounter() - 1);
             gui.out(e.getMessage());

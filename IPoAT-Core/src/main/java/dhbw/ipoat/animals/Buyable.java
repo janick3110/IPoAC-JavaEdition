@@ -2,6 +2,8 @@ package dhbw.ipoat.animals;
 
 import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.player.Player;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -30,4 +32,6 @@ public abstract class Buyable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public abstract JSONObject generateJSONFromObject();
 }

@@ -10,6 +10,6 @@ public class CommandSave extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        Savegame.save(player);
+        Savegame.save(player, game);
     }
 }

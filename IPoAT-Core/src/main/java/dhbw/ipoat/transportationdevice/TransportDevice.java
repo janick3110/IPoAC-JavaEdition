@@ -4,6 +4,8 @@ import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Buyable;
 import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.player.Player;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,5 +58,25 @@ public abstract class TransportDevice extends Buyable {
 
     public List<Medium> getMedia() {
         return media;
+    }
+
+    public JSONObject generateJSONFromObject(){
+        JSONObject device = new JSONObject();
+
+        device.put("Type", deviceType);
+        device.put("currentLoad", currentLoad);
+        device.put("mediaInDevice", listOfMedia());
+        return device;
+    }
+
+    private JSONArray listOfMedia(){
+        JSONArray array = new JSONArray();
+
+        for (Medium media:owner.getInventory().getMediums()
+             ) {
+            array.put(media.generateJSONFromObject());
+        }
+
+        return array;
     }
 }

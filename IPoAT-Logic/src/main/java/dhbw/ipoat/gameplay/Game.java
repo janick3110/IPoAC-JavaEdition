@@ -7,6 +7,7 @@ import dhbw.ipoat.commands.GUI;
 import dhbw.ipoat.events.Event;
 import dhbw.ipoat.player.Player;
 import dhbw.ipoat.savesystem.Savegame;
+import org.json.JSONObject;
 
 import java.util.Random;
 
@@ -61,7 +62,7 @@ public class Game implements GameInterface {
             event.doSomethingGoodOrBad(random.nextInt(100));
 
             if (Savegame.autosave) {
-                Savegame.save(player);
+                Savegame.save(player, this);
             }
 
         } catch (IllegalArgumentException e) {
@@ -98,5 +99,13 @@ public class Game implements GameInterface {
     @Override
     public void running(boolean gameState){
         running = gameState;
+    }
+
+    public JSONObject getJSONFromGame(){
+        JSONObject gameJSON = new JSONObject();
+
+        gameJSON.put("Days", days);
+
+        return gameJSON;
     }
 }

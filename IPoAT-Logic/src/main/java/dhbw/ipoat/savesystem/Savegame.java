@@ -1,17 +1,22 @@
 package dhbw.ipoat.savesystem;
 
 
+import dhbw.ipoat.GameInterface;
 import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.computer.Computer;
 import dhbw.ipoat.employee.Employee;
 import dhbw.ipoat.encrypt.Encryption;
+import dhbw.ipoat.gameplay.Game;
 import dhbw.ipoat.habitat.Habitat;
+import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.player.Player;
+import dhbw.ipoat.transportationdevice.TransportDevice;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -22,11 +27,9 @@ public abstract class Savegame {
     public final static boolean bypassEncryption = true;
     public static Boolean autosave = true;
 
-    public static void save(Player player){
+    public static void save(Player player, GameInterface game){
         System.out.println("Saving game...");
-        JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("Player", "Janick");
-
+        writeToFile(generateJSONFile(player, game));
     }
 
 
@@ -37,9 +40,9 @@ public abstract class Savegame {
 
             String txt;
             if (bypassEncryption){
-                txt = save.toString();
+                txt = save.toString(4);
             } else {
-                txt = Encryption.doEncryption(save.toString(),new Random().nextInt(2147483647));
+                txt = Encryption.doEncryption(save.toString(),new Random().nextInt());
             }
 
             myWriter.write(txt);
@@ -52,4 +55,46 @@ public abstract class Savegame {
         }
     }
 
+
+    private static JSONObject generateJSONFile(Player player, GameInterface game){
+        JSONObject savegame = new JSONObject();
+
+
+
+
+
+        JSONObject inventory = new JSONObject();
+
+
+        for (Employee employee:player.getInventory().getEmployees()){
+            inventory.put("Employee", employee.generateJSONFromObject());
+        }
+        savegame.put("CounterForEmployees", Employee.counter);
+
+        for (Habitat habitat: player.getInventory().getHabitats()){
+            inventory.put("Habitats", habitat.generateJSONFromObject());
+        }
+
+        for (Medium medium: player.getInventory().getMediums()){
+            inventory.put("Media", medium.generateJSONFromObject());
+        }
+
+        for (Computer computer: player.getInventory().getComputers()){
+            inventory.put("Computers", computer.generateJSONFromObject());
+        }
+
+        for (TransportDevice device: player.getInventory().getTransportDevices()){
+            inventory.put("Transportation", device.generateJSONFromObject());
+        }
+
+        for (Animal animal: player.getInventory().getAnimals()){
+            inventory.put("Animals", animal.generateJSONFromObject());
+        }
+
+        savegame.put("Inventory", inventory);
+        savegame.put("Player", player.getJSONFromObject());
+        savegame.put("Game", game.getJSONFromGame());
+        savegame.put("Savegamename", player.getPlayerName() + "-" + Instant.now().toString());
+        return savegame;
+    }
 }

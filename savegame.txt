@@ -1,1 +1,22 @@
-{"Computers":[{"PCName":"PC-b991b13c","Puffer":0}],"Money":1000,"Habitats":[{"Type":"BIRDHOUSE","Animals":[],"dailyCost":10,"costForBuying":1000,"avaliableNests":10,"costForNewNest":250,"maxCapacity":8,"ID":"c5d7b808"}],"Days":0,"Employees":[],"Data":0}
+{
+    "Player": {
+        "Money": 719,
+        "Name": "Janick"
+    },
+    "CounterForEmployees": 0,
+    "Game": {"Days": 0},
+    "Savegamename": "Janick-2022-03-25T12:43:15.372561900Z",
+    "Inventory": {
+        "Computers": {
+            "currentPuffer": 0,
+            "Name": "Computer-0",
+            "CopiedData": 0
+        },
+        "Animals": {
+            "BreedingCooldown": 0,
+            "SendingProgress": 0,
+            "equippedTransportDevices": [],
+            "CurrentAge": 0
+        }
+    }
+}

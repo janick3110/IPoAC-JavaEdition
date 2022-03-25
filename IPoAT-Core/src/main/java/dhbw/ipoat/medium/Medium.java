@@ -3,6 +3,7 @@ package dhbw.ipoat.medium;
 import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Buyable;
 import dhbw.ipoat.player.Player;
+import org.json.JSONObject;
 
 import java.util.UUID;
 
@@ -31,8 +32,14 @@ public abstract class Medium extends Buyable {
         return (int) (price * .75f);
     }
 
+    @Override
+    public JSONObject generateJSONFromObject() {
+        return null;
+    }
+
     public double getWeight() {
         return weight;
     }
+
 
 }

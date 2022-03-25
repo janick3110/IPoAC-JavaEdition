@@ -4,6 +4,8 @@ import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Buyable;
 import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.player.Player;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -42,6 +44,17 @@ public class Computer extends Buyable {
         return (int) (price * .5f);
     }
 
+    @Override
+    public JSONObject generateJSONFromObject() {
+        JSONObject computer = new JSONObject();
+
+        computer.put("Name", name);
+        computer.put("CopiedData", copiedData);
+        computer.put("currentPuffer", generatedData);
+
+        return computer;
+    }
+
     public float getData(){
         return generatedData;
     }
@@ -53,6 +66,7 @@ public class Computer extends Buyable {
 
     public float copyData(){
         copiedData += getData();
+        generatedData = 0;
         return copiedData;
     }
 

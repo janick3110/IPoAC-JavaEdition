@@ -5,6 +5,8 @@ import dhbw.ipoat.habitat.HabitatTypes;
 import dhbw.ipoat.player.Player;
 import dhbw.ipoat.transportationdevice.TransportDevice;
 import dhbw.ipoat.transportationdevice.TransportationDeviceType;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.management.BadAttributeValueExpException;
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public abstract class Animal extends Buyable {
     public Animal(Player owner, int price, int lifeExpectancy) {
         super(price, owner);
         this.lifeExpectancy = lifeExpectancy;
+        equippedTransportDevices = new ArrayList<>();
     }
 
     public void addTransportationdevice(TransportDevice transportDevice) throws OperationNotAllowedException {
@@ -123,5 +126,35 @@ public abstract class Animal extends Buyable {
         owner.getInventory().getAnimals().remove(this);
         owner.getInventory().getAnimalsByName().remove(this.name);
         return "The " + getClass().getSimpleName() + " " + name + " has died";
+    }
+
+    /**
+     *
+     * protected UUID uuid;
+     *
+
+     */
+    public JSONObject generateJSONFromObject(){
+        JSONObject animal = new JSONObject();
+
+        animal.put("Name", name);
+        animal.put("CurrentAge", currentAge);
+        animal.put("SendingProgress", sendingProgress);
+        animal.put("BreedingCooldown", breedingCoolDown);
+        animal.put("equippedTransportDevices", addTransportDevices());
+        animal.put("Status",status);
+        animal.put("Gender", gender);
+
+        return animal;
+    }
+
+    private JSONArray addTransportDevices(){
+        JSONArray array = new JSONArray();
+        for (TransportDevice device:equippedTransportDevices
+             ) {
+            array.put(device.generateJSONFromObject());
+        }
+
+        return array;
     }
 }

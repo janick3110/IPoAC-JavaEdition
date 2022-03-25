@@ -7845,12 +7845,6 @@ Thalia
 Thane
 Thang
 Thanh
-Thanh-Ha
-Thanh-Hoa
-Thanh-Hung
-Thanh-Quoc
-Thanh-Son
-Thanh-Tinh
 Thanos
 Thayne
 The
@@ -7923,6 +7917,7 @@ Timm
 Timmi
 Timmie
 Timmy
+Timo
 Timothea
 Timothy
 Tin
@@ -7933,7 +7928,6 @@ Ting
 Tini
 Tino
 Tiny
-Tiong-Hoe
 Tiphani
 Tiphanie
 Tiphany

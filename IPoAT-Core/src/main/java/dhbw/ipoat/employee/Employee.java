@@ -7,8 +7,11 @@ import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Buyable;
 import dhbw.ipoat.player.Player;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Employee extends Buyable {
 
@@ -16,11 +19,11 @@ public class Employee extends Buyable {
     private final int id;
     private Occupations status = Occupations.NONE;
 
-    public Employee(Player owner) {
+    public Employee(Player owner) throws FileNotFoundException {
         super(1000, owner);
         id = counter;
         counter++;
-        name = EmployeeNames.values()[new Random().nextInt(EmployeeNames.values().length)].toString() ;
+        name = giveEmployeeName();
     }
 
     @Override
@@ -53,5 +56,24 @@ public class Employee extends Buyable {
 
     public void setStatus(Occupations status) {
         this.status = status;
+    }
+
+    private String giveEmployeeName() throws FileNotFoundException {
+        ArrayList<String> names = readFileLines();
+        return names.get(new Random().nextInt(names.size()));
+    }
+
+    private ArrayList<String> readFileLines() throws FileNotFoundException {
+        Scanner sc = null;
+        ArrayList<String> names = new ArrayList<>();
+        File file = new File("names.txt"); // java.io.File
+        sc = new Scanner(file);     // java.util.Scanner
+        String line;
+        while (sc.hasNextLine()) {
+            line = sc.nextLine();
+            names.add(line);
+        }
+        sc.close();
+        return names;
     }
 }

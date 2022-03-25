@@ -27,6 +27,7 @@ public abstract class Buyable {
 
     protected abstract int calculateSellValue();
 
-
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }

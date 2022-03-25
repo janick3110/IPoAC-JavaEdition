@@ -1,6 +1,11 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Animal;
+import dhbw.ipoat.habitat.Habitat;
+import dhbw.ipoat.habitat.HabitatTypes;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class CommandBreed extends CommandTemplate{
 
@@ -11,26 +16,70 @@ public class CommandBreed extends CommandTemplate{
     @Override
     public void execute(String input) {
 
-        String[] parents = input.split("\\|");
+        String[] parents = input.split(" ");
 
-        Animal parent1 = player.getAnimalWithName(parents[0]);
-        Animal parent2 = player.getAnimalWithName(parents[1]);
+        Animal parentOne = player.getInventory().getAnimalsByName().get(parents[1]);
+        Animal parentTwo = player.getInventory().getAnimalsByName().get(parents[2]);
 
-        if (parent1.isGender() != parent2.isGender()) {
-            if (parent1.getBreedingCooldown() == 0 && parent2.getBreedingCooldown() == 0) {
-                System.out.println("New animal was created");
-                resetBreedingCooldown(parent1);
-                resetBreedingCooldown(parent2);
 
-                Animal baby = new BabyAnimal(parent1);
+        try{
+            preCheck(parentOne,parentTwo);
+            parentOne.setBreedingCoolDown(10);
+            parentTwo.setBreedingCoolDown(10);
+            //TODO: implementing Baby and adding to Habitat
 
-                player.addAnimalToHabitat(baby);
-                System.out.println("Congratulations on your new baby "+ baby.getTypeOfAnimal() + " " + baby.getName());
-            }
+            Animal baby = parentOne.getClass().getDeclaredConstructor().newInstance();
+            baby.setName("Baby-" + gui.in());
+
+            //create new Baby
+            //Add animal to habitat
+
+        }
+        catch (OperationNotAllowedException e ) {
+            gui.out(e.getMessage());
+        }catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e){
+            gui.out("Failed to create a new instance: \n" + e.getMessage());
         }
     }
 
-    private void resetBreedingCooldown(Animal animal) {
-        animal.setBreedingCooldown((int) (animal.getMaxAge() * 0.05f));
+
+
+    private void checkGender(Animal father, Animal mother) throws OperationNotAllowedException {
+        if (!father.getGender().equals(mother.getGender())){
+            throw new OperationNotAllowedException("Two animals of the same gender can't breed");
+        }
+    }
+
+    private void checkCooldown(Animal animal) throws OperationNotAllowedException {
+        if (animal.getBreedingCoolDown() > 0){
+            throw new OperationNotAllowedException(animal.getName() + " can't breed because the cooldown is not 0");
+        }
+    }
+
+    private void checkForAvailableSpace(HabitatTypes types) throws OperationNotAllowedException {
+        for (Habitat habitat: player.getInventory().getHabitats()
+             ) {
+            if (habitat.getAnimalCapacity() > 0 && habitat.getType().equals(types)){
+                return;
+            }
+        }
+        throw new OperationNotAllowedException("No avaliable spaces for new animal");
+    }
+
+    private void checkForNullPointer(Animal parentOne, Animal parentTwo) throws OperationNotAllowedException {
+        if (parentOne == null){
+            throw new OperationNotAllowedException("Animal 1 does not exist");
+        }
+        if (parentTwo == null){
+            throw new OperationNotAllowedException("Animal 2 does not exist");
+        }
+    }
+
+    private void preCheck(Animal parentOne, Animal parentTwo) throws OperationNotAllowedException {
+        checkForNullPointer(parentOne,parentTwo);
+        checkGender(parentOne,parentTwo);
+        checkCooldown(parentOne);
+        checkCooldown(parentTwo);
+        checkForAvailableSpace(parentOne.getHabitatType());
     }
 }

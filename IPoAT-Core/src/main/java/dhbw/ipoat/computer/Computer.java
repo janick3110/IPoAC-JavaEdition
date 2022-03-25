@@ -13,8 +13,17 @@ import java.util.UUID;
 
 public class Computer extends Buyable {
 
+    private static int counter;
+    private float generatedData;
+    private float copiedData;
+    private Instant timeOfBoot;
+    private final float dataPerSecond = 0.1f;
+
     public Computer(Player owner) {
         super(250, owner);
+        timeOfBoot = Instant.now();
+        name = "Computer-" + counter;
+        counter++;
     }
 
     @Override
@@ -32,4 +41,15 @@ public class Computer extends Buyable {
     protected int calculateSellValue() {
         return (int) (price * .5f);
     }
+
+    public float getData(){
+        float difference = Duration.between(timeOfBoot,Instant.now()).getSeconds();
+        return (dataPerSecond * difference) - copiedData;
+    }
+
+    public float copyData(){
+        copiedData += getData();
+        return copiedData;
+    }
+
 }

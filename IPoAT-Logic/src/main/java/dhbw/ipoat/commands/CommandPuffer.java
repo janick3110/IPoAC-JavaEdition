@@ -1,5 +1,6 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.computer.Computer;
 
 public class CommandPuffer extends CommandTemplate{
@@ -10,12 +11,20 @@ public class CommandPuffer extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        try {
-            Computer pc = player.getComputerDict().get(input.substring(7, 18));
-            System.out.println(pc.getNameOfPc() + " has generated " + pc.getPuffer() + " GB of Data since "
-                    + pc.getPcStartTime().toString());
-        } catch (Exception e) {
-            System.out.println("PC not found. Please check input");
+
+        String pcName = input.split(" ")[1];
+
+        try{
+            for (Computer computer:player.getInventory().getComputers()
+                 ) {
+                if (computer.getName().equals(pcName)){
+                    gui.out(computer.getName() + " has generated " + computer.getData() + " MB");
+                    return;
+                }
+            }
+            throw new OperationNotAllowedException("PC does not exist");
+        } catch (OperationNotAllowedException e) {
+            gui.out(e.getMessage());
         }
     }
 }

@@ -14,9 +14,10 @@ public class Employee extends Buyable {
 
     private static int counter = 0;
     private final int id;
+    private Occupations status = Occupations.NONE;
 
-    public Employee(int price, Player owner) {
-        super(price, owner);
+    public Employee(Player owner) {
+        super(1000, owner);
         id = counter;
         counter++;
         name = EmployeeNames.values()[new Random().nextInt(EmployeeNames.values().length)].toString() ;
@@ -40,5 +41,17 @@ public class Employee extends Buyable {
 
     public int getId() {
         return id;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Employee.counter = counter;
+    }
+
+    public void setStatus(Occupations status) {
+        this.status = status;
     }
 }

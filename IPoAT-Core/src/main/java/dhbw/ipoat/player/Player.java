@@ -60,7 +60,7 @@ public class Player {
 
     private String buyThisObject(Buyable item) {
         try{
-            item.buy();
+            item.buyThisObject();
             moneyTransactions(-item.price);
             return "New " + item.getClass().getSimpleName() + " was bought for " + item.price + "MU. "
                     + "The new balance is now " + getMoney() + " MU";

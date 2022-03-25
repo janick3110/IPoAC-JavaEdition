@@ -1,5 +1,6 @@
 package dhbw.ipoat.commands;
 
+import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.employee.Employee;
 
 public class CommandRecruit extends CommandTemplate{
@@ -10,10 +11,14 @@ public class CommandRecruit extends CommandTemplate{
 
     @Override
     public void execute(String input) {
-        if (player.getMoney() + Employee.getRecruitmentFee() >= 0 ) {
-            Employee employee = new Employee();
-            player.getEmployeeDict().put(employee.getEmployeeID(),employee);
-            player.moneyTransactions(Employee.getRecruitmentFee());
-        } else System.out.println("Not enough money for a new employee");
+        try {
+            Employee employeeToRecruit = new Employee(player);
+            player.checkMoney(employeeToRecruit.price);
+            player.getInventory().getEmployees().add(employeeToRecruit);
+            player.moneyTransactions(-employeeToRecruit.price);
+        } catch (OperationNotAllowedException e) {
+            //Employee.setCounter(Employee.getCounter() - 1);
+            gui.out(e.getMessage());
+        }
     }
 }

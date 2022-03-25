@@ -88,4 +88,14 @@ public abstract class Animal extends Buyable {
     public int calculateSellValue(){
         return (int) Math.round(price* (1 - currentAge/lifeExpectancy));
     }
+
+    public double getBreedingCoolDown() {
+        return breedingCoolDown;
+    }
+
+    public void setBreedingCoolDown(double breedingCoolDown) {
+        this.breedingCoolDown = breedingCoolDown;
+    }
+
+
 }

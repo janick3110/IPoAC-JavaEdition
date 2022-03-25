@@ -6,17 +6,15 @@ import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.computer.Computer;
 import dhbw.ipoat.employee.Employee;
 import dhbw.ipoat.encrypt.Encryption;
-import dhbw.ipoat.gameplay.Game;
 import dhbw.ipoat.habitat.Habitat;
 import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.player.Player;
 import dhbw.ipoat.transportationdevice.TransportDevice;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -58,7 +56,7 @@ public abstract class Savegame {
 
     private static JSONObject generateJSONFile(Player player, GameInterface game){
         JSONObject savegame = new JSONObject();
-
+        savegame.put("Savegamename", player.getPlayerName() + "-" + getDate());
 
 
 
@@ -87,14 +85,19 @@ public abstract class Savegame {
             inventory.put("Transportation", device.generateJSONFromObject());
         }
 
-        for (Animal animal: player.getInventory().getAnimals()){
+        for (Animal animal : player.getInventory().getAnimals()) {
             inventory.put("Animals", animal.generateJSONFromObject());
         }
 
         savegame.put("Inventory", inventory);
         savegame.put("Player", player.getJSONFromObject());
         savegame.put("Game", game.getJSONFromGame());
-        savegame.put("Savegamename", player.getPlayerName() + "-" + Instant.now().toString());
+
         return savegame;
+    }
+
+    private static String getDate() {
+        return LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonth().getValue() + "-" + LocalDateTime.now().getDayOfMonth();
+
     }
 }

@@ -8,9 +8,7 @@ import dhbw.ipoat.transportationdevice.TransportationDeviceType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.management.BadAttributeValueExpException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.UUID;
 
 
@@ -45,6 +43,7 @@ public abstract class Animal extends Buyable {
         this.lifeExpectancy = lifeExpectancy;
         equippedTransportDevices = new ArrayList<>();
     }
+
 
     public void addTransportationdevice(TransportDevice transportDevice) throws OperationNotAllowedException {
         checkSupportedDeviceType(transportDevice.getDeviceType());

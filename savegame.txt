@@ -1,22 +1,14 @@
 {
     "Player": {
-        "Money": 719,
+        "Money": 1000,
         "Name": "Janick"
     },
     "CounterForEmployees": 0,
     "Game": {"Days": 0},
-    "Savegamename": "Janick-2022-03-25T12:43:15.372561900Z",
-    "Inventory": {
-        "Computers": {
-            "currentPuffer": 0,
-            "Name": "Computer-0",
-            "CopiedData": 0
-        },
-        "Animals": {
-            "BreedingCooldown": 0,
-            "SendingProgress": 0,
-            "equippedTransportDevices": [],
-            "CurrentAge": 0
-        }
-    }
+    "Savegamename": "Janick-2022-3-25",
+    "Inventory": {"Computers": {
+        "currentPuffer": 0,
+        "Name": "Computer-0",
+        "CopiedData": 0
+    }}
 }

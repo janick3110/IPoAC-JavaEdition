@@ -14,6 +14,16 @@ public class CommandNextDay extends CommandTemplate{
     @Override
     public void execute(String input) {
         gui.out("Rise and shine! Today is day " + game.days());
+
+        for (Animal animal:player.getInventory().getAnimals()
+             ) {
+            String output = animal.increaseAge();
+            if (output != null){
+                gui.out(output);
+                break;
+            }
+        }
+
         //TODO: Fortschritt von Tieren
         //TODO: Tiere altern bzw. werden erwachsen
     }

@@ -8,7 +8,7 @@ public class Elephant extends Mammal{
 
 
     public Elephant(Player owner) {
-        super(owner, 100);
+        super(owner, 100, 365);
     }
 
     @Override

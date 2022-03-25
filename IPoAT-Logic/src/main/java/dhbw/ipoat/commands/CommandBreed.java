@@ -16,10 +16,10 @@ public class CommandBreed extends CommandTemplate{
     @Override
     public void execute(String input) {
 
-        String[] parents = input.split(" ");
+        String[] arguments = input.split(" ");
 
-        Animal parentOne = player.getInventory().getAnimalsByName().get(parents[1]);
-        Animal parentTwo = player.getInventory().getAnimalsByName().get(parents[2]);
+        Animal parentOne = player.getInventory().getAnimalsByName().get(arguments[1]);
+        Animal parentTwo = player.getInventory().getAnimalsByName().get(arguments[2]);
 
 
         try{
@@ -29,8 +29,8 @@ public class CommandBreed extends CommandTemplate{
             //TODO: implementing Baby and adding to Habitat
 
             Animal baby = parentOne.getClass().getDeclaredConstructor().newInstance();
-            baby.setName("Baby-" + gui.in());
-
+            baby.setName("Baby-" + arguments[3]);
+            gui.out("Congratulations! " + baby.getName() + " was born today");
             //create new Baby
             //Add animal to habitat
 

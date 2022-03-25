@@ -8,6 +8,7 @@ import dhbw.ipoat.transportationdevice.TransportationDeviceType;
 
 import javax.management.BadAttributeValueExpException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.UUID;
 
 
@@ -37,8 +38,9 @@ public abstract class Animal extends Buyable {
 
     protected ArrayList<TransportationDeviceType> allowedTransportationDevices;
 
-    public Animal(Player owner, int price) {
+    public Animal(Player owner, int price, int lifeExpectancy) {
         super(price, owner);
+        this.lifeExpectancy = lifeExpectancy;
     }
 
     public void addTransportationdevice(TransportDevice transportDevice) throws OperationNotAllowedException {
@@ -107,4 +109,19 @@ public abstract class Animal extends Buyable {
     }
 
     public abstract String makeSound();
+
+    public String increaseAge(){
+        currentAge++;
+
+        if (currentAge/lifeExpectancy - 1 > Math.random()){
+            return killAnimal();
+        }
+        return null;
+    }
+
+    public String killAnimal(){
+        owner.getInventory().getAnimals().remove(this);
+        owner.getInventory().getAnimalsByName().remove(this.name);
+        return "The " + getClass().getSimpleName() + " " + name + " has died";
+    }
 }

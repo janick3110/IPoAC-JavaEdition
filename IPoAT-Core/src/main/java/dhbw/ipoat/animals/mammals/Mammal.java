@@ -12,8 +12,8 @@ public abstract class Mammal extends Animal {
 
     protected Employee rider;
 
-    public Mammal(Player owner, int price) {
-        super(owner, price);
+    public Mammal(Player owner, int price, int lifeExpectancy) {
+        super(owner, price, lifeExpectancy);
         allowedTransportationDevices = new ArrayList<>();
         allowedTransportationDevices.add(TransportationDeviceType.Backpack);
         allowedTransportationDevices.add(TransportationDeviceType.Cart);

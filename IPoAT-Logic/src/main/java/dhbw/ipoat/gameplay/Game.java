@@ -17,11 +17,11 @@ public class Game implements GameInterface {
     private boolean running = true;
 
     private final Player player;
-    private int days;
-    private GUI gui;
+    private final int days;
+    private final GUI gui;
 
-    private CommandMap commandMap;
-    private Event event;
+    private final CommandMap commandMap;
+    private final Event event;
 
     public Game(GUI gui) {
         days = 0;

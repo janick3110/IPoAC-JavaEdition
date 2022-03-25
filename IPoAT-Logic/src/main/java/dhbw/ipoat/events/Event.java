@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Event {
 
-    private Player player;
+    private final Player player;
 
     public Event(Player player) {
         this.player = player;

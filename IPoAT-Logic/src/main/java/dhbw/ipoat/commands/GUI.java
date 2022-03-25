@@ -2,11 +2,11 @@ package dhbw.ipoat.commands;
 
 public interface GUI {
 
-    public String in();
+    String in();
 
-    public String in(String Question);
+    String in(String Question);
 
-    public void out(String output);
+    void out(String output);
 
-    public void debug(String message);
+    void debug(String message);
 }

@@ -1,40 +1,20 @@
 package dhbw.ipoat.commands;
 
 import dhbw.ipoat.GameInterface;
-import dhbw.ipoat.animals.*;
-import dhbw.ipoat.animals.birds.Bird;
-import dhbw.ipoat.animals.birds.Pigeon;
-import dhbw.ipoat.animals.mammals.Elephant;
-import dhbw.ipoat.animals.mammals.Mammal;
-import dhbw.ipoat.animals.mammals.Ox;
-import dhbw.ipoat.computer.Computer;
-import dhbw.ipoat.employee.Employee;
-import dhbw.ipoat.habitat.BirdHouse;
-import dhbw.ipoat.habitat.Habitat;
-import dhbw.ipoat.habitat.Stall;
-import dhbw.ipoat.medium.FloppyDisk;
-import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.player.Player;
-import dhbw.ipoat.savesystem.Savegame;
-import dhbw.ipoat.transportationdevice.Bag;
-import dhbw.ipoat.transportationdevice.Cart;
-import dhbw.ipoat.transportationdevice.TransportDevice;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 
 public class CommandMap {
 
     public GUI gui;
 
-    private Map<CommandToken, CommandTemplate> commands = new HashMap<>();
+    private final Map<CommandToken, CommandTemplate> commands = new HashMap<>();
 
     private final Player player;
-    private Boolean autosave = true;
+    private final Boolean autosave = true;
 
     public enum outputPossibilities{
         CONSOLE,

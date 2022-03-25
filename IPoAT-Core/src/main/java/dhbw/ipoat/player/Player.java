@@ -1,41 +1,32 @@
 package dhbw.ipoat.player;
 
 import dhbw.ipoat.OperationNotAllowedException;
-import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.animals.Buyable;
-import dhbw.ipoat.animals.birds.Bird;
 import dhbw.ipoat.animals.birds.Pigeon;
 import dhbw.ipoat.animals.mammals.Elephant;
 import dhbw.ipoat.animals.mammals.Horse;
 import dhbw.ipoat.animals.mammals.Ox;
 import dhbw.ipoat.computer.Computer;
-import dhbw.ipoat.employee.Employee;
 import dhbw.ipoat.habitat.BirdHouse;
-import dhbw.ipoat.habitat.Habitat;
 import dhbw.ipoat.habitat.Stall;
 import dhbw.ipoat.medium.FloppyDisk;
-import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.transportationdevice.Backpack;
 import dhbw.ipoat.transportationdevice.Bag;
 import dhbw.ipoat.transportationdevice.Cart;
-import dhbw.ipoat.transportationdevice.TransportDevice;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.function.Consumer;
 
 public class Player {
 
-    private String playerName;
+    private final String playerName;
     private int money = 1000;
     private double sentData;
 
     PlayerInventory inventory = new PlayerInventory();
 
-    private HashMap<String, Callable<String>> buyableMap = new HashMap<>();
+    private final HashMap<String, Callable<String>> buyableMap = new HashMap<>();
 
     public Player(String playerName) {
         this.playerName = playerName;

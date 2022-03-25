@@ -14,8 +14,8 @@ public abstract class TransportDevice extends Buyable {
 
     TransportationDeviceType deviceType;
     private double currentLoad;
-    private double maxLoad;
-    private List<Medium> media;
+    private final double maxLoad;
+    private final List<Medium> media;
 
     public TransportDevice(TransportationDeviceType type, int price, Player owner, double maxLoad) {
         super(price, owner);

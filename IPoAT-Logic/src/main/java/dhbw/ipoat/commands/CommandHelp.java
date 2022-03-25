@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CommandHelp extends CommandTemplate{
 
-    private List<String> helpDescriptions = new ArrayList<>();
+    private final List<String> helpDescriptions = new ArrayList<>();
 
     public CommandHelp() {
         super();

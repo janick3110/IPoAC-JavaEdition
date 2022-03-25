@@ -1,7 +1,6 @@
 package dhbw.ipoat.player;
 
 import dhbw.ipoat.animals.Animal;
-import dhbw.ipoat.animals.Buyable;
 import dhbw.ipoat.computer.Computer;
 import dhbw.ipoat.employee.Employee;
 import dhbw.ipoat.habitat.Habitat;
@@ -14,14 +13,14 @@ import java.util.HashMap;
 public class PlayerInventory {
 
 
-    private ArrayList<Habitat> habitats = new ArrayList<>();
-    private ArrayList<TransportDevice> transportDevices = new ArrayList<>();
-    private ArrayList<Medium> mediums = new ArrayList<>();
-    private ArrayList<Animal> animals = new ArrayList<>();
-    private ArrayList<Employee> employees = new ArrayList<>();
-    private ArrayList<Computer> computers = new ArrayList<>();
+    private final ArrayList<Habitat> habitats = new ArrayList<>();
+    private final ArrayList<TransportDevice> transportDevices = new ArrayList<>();
+    private final ArrayList<Medium> mediums = new ArrayList<>();
+    private final ArrayList<Animal> animals = new ArrayList<>();
+    private final ArrayList<Employee> employees = new ArrayList<>();
+    private final ArrayList<Computer> computers = new ArrayList<>();
 
-    private HashMap<String, Animal> animalsByName = new HashMap<>();
+    private final HashMap<String, Animal> animalsByName = new HashMap<>();
 
     public void putIn(Animal animal) {
         animals.add(animal);

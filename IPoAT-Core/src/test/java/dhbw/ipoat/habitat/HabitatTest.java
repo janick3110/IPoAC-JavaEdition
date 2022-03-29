@@ -1,26 +1,23 @@
 package dhbw.ipoat.habitat;
 
 import dhbw.ipoat.OperationNotAllowedException;
-import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.animals.birds.Pigeon;
 import dhbw.ipoat.player.Player;
-import org.easymock.EasyMock;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class HabitatTest {
 
     @Test
     public void addAnimal() {
 
-        Pigeon pigeon = EasyMock.createNiceMock(Pigeon.class);
-        EasyMock.expect(pigeon.getHabitatType()).andReturn(HabitatTypes.BIRDHOUSE);
+        Pigeon pigeon = Mockito.mock(Pigeon.class);
+        Mockito.when(pigeon.getHabitatType()).thenReturn(HabitatTypes.BIRDHOUSE);
 
-
-        Player player = EasyMock.createMock(Player.class);
-
-        EasyMock.replay();
+        Player player = Mockito.mock(Player.class);
 
         BirdHouse birdHouse = new BirdHouse(player);
 
@@ -28,15 +25,14 @@ public class HabitatTest {
 
             birdHouse.addAnimal(pigeon);
 
-        }catch (OperationNotAllowedException e) {
+        } catch (OperationNotAllowedException e) {
 
             System.out.println(e.getMessage());
-            assertTrue(false);
+            fail();
         }
 
         assertEquals(birdHouse.getAnimals().size(), 1);
-
-
+        Mockito.verify(pigeon);
 
     }
 }

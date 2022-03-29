@@ -13,9 +13,9 @@ public abstract class Habitat extends Buyable {
 
     public static int counter = 0;
 
-    public final String name;
+    public String name;
 
-    protected final HabitatTypes type;
+    protected HabitatTypes type;
 
     protected int dailyCost;
     protected int upgradeCost;

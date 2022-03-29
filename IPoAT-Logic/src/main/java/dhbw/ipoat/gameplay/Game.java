@@ -1,10 +1,11 @@
 package dhbw.ipoat.gameplay;
 
+import dhbw.ipoat.ActionTemplate;
 import dhbw.ipoat.GameInterface;
 import dhbw.ipoat.commands.CommandMap;
 import dhbw.ipoat.commands.CommandToken;
 import dhbw.ipoat.commands.GUI;
-import dhbw.ipoat.events.Event;
+import dhbw.ipoat.events.EventMap;
 import dhbw.ipoat.player.Player;
 import dhbw.ipoat.savesystem.Savegame;
 import org.json.JSONObject;
@@ -21,22 +22,24 @@ public class Game implements GameInterface {
     private final GUI gui;
 
     private final CommandMap commandMap;
-    private final Event event;
+    private final EventMap eventMap;
 
     public Game(GUI gui) {
         days = 0;
         this.gui = gui;
         this.player = new Player(gui.in("Enter Player Name"));
 
-        commandMap = new CommandMap(player, gui, this);
-        event = new Event(player);
+
+        commandMap = new CommandMap();
+        eventMap = new EventMap();
+        ActionTemplate.initializationOfActions(player, gui, this);
 
 
         gui.out("IP over Animal Transport - Tycoon");
         gui.out("Enter <HELP> for a list of available commands");
         gui.out("More information: https://github.com/janick3110/IPoAC-JavaEdition");
 
-        while (isRunning()){
+        while (isRunning()) {
             run();
         }
 
@@ -57,9 +60,8 @@ public class Game implements GameInterface {
                 commandMap.execute(availableCommands, argument[1] + " " + argument[2]);
             }
 
-            //Do Events
             Random random = new Random();
-            event.doSomethingGoodOrBad(random.nextInt(100));
+            //event.doSomethingGoodOrBad(random.nextInt(100));
 
             if (Savegame.autosave) {
                 Savegame.save(player, this);

@@ -1,8 +1,5 @@
 package dhbw.ipoat.commands;
 
-import dhbw.ipoat.GameInterface;
-import dhbw.ipoat.player.Player;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,25 +10,16 @@ public class CommandMap {
 
     private final Map<CommandToken, CommandTemplate> commands = new HashMap<>();
 
-    private final Player player;
     private final Boolean autosave = true;
 
     public enum outputPossibilities{
         CONSOLE,
         SPEAKER
     }
+
     public static outputPossibilities mode = outputPossibilities.CONSOLE;
 
-
-
-    public CommandMap(Player player, GUI gui, GameInterface game) {
-        this.gui = gui;
-        this.player = player;
-
-        CommandTemplate.setPlayer(player);
-        CommandTemplate.setGui(gui);
-        CommandTemplate.setGameInterface(game);
-
+    public CommandMap() {
         initializeMap();
     }
 

@@ -3,12 +3,11 @@ package dhbw.ipoat.habitat;
 import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.animals.Buyable;
-import dhbw.ipoat.animals.birds.Bird;
 import dhbw.ipoat.player.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class Habitat extends Buyable {
 
@@ -68,7 +67,7 @@ public class Habitat extends Buyable {
 
     @Override
     protected void removeThisObject() {
-        owner.getInventory().getEmployees().remove(this);
+        owner.getInventory().getHabitats().remove(this);
     }
 
     @Override
@@ -117,5 +116,9 @@ public class Habitat extends Buyable {
 
     public ArrayList<Animal> getAnimals() {
         return animals;
+    }
+
+    public void setAnimalCapacity(int animalCapacity) {
+        this.animalCapacity = animalCapacity;
     }
 }

@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Habitat extends Buyable {
+public abstract class Habitat extends Buyable {
 
     public static int counter = 0;
 

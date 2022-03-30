@@ -29,7 +29,7 @@ public abstract class Habitat extends Buyable {
         super(purchasePrice, owner);
         this.type = type;
 
-        name = type.toString() + "-" + counter++;
+        name = type.toString().toUpperCase() + "-" + counter++;
 
         this.animalCapacity = animalCapacity;
         this.dailyCost = dailyCost;

@@ -3,6 +3,7 @@ package dhbw.ipoat.commands;
 import dhbw.ipoat.OperationNotAllowedException;
 import dhbw.ipoat.animals.Animal;
 import dhbw.ipoat.animals.Buyable;
+import dhbw.ipoat.computer.Computer;
 import dhbw.ipoat.habitat.Habitat;
 import dhbw.ipoat.medium.Medium;
 import dhbw.ipoat.transportationdevice.TransportDevice;
@@ -18,7 +19,7 @@ public class CommandSellObject extends CommandTemplate{
     @Override
     public void execute(String input) {
         try {
-            String[] arguments = input.split("");
+            String[] arguments = input.split(" ");
             int moneyGained = 0;
             if (arguments[1].equalsIgnoreCase("animal")) {
                 Animal animalToSell = player.getInventory().getAnimalsByName().get(arguments[2]);
@@ -38,9 +39,13 @@ public class CommandSellObject extends CommandTemplate{
                 moneyGained = device.calculateSellValue();
             }
             else if (arguments[1].equalsIgnoreCase("medium")) {
-                Medium medium = giveBuyableObject(player.getInventory().getMediums(),arguments[2]);
-                player.getInventory().getTransportDevices().remove(medium);
+                Medium medium = giveBuyableObject(player.getInventory().getMediums(), arguments[2]);
+                player.getInventory().getMediums().remove(medium);
                 moneyGained = medium.calculateSellValue();
+            } else if (arguments[1].equalsIgnoreCase("computer")) {
+                Computer computer = giveBuyableObject(player.getInventory().getComputers(), arguments[2]);
+                player.getInventory().getComputers().remove(computer);
+                moneyGained = computer.calculateSellValue();
             }
             player.moneyTransactions(moneyGained);
         } catch (OperationNotAllowedException e) {

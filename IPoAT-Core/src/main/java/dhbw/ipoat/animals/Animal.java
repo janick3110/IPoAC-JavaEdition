@@ -147,15 +147,17 @@ public abstract class Animal extends Buyable {
         return animal;
     }
 
-    private JSONArray addTransportDevices(){
+    private JSONArray addTransportDevices() {
         JSONArray array = new JSONArray();
-        for (TransportDevice device:equippedTransportDevices
-             ) {
+        for (TransportDevice device : equippedTransportDevices
+        ) {
             array.put(device.generateJSONFromObject());
         }
 
         return array;
     }
 
-
+    public double getCurrentAge() {
+        return currentAge;
+    }
 }

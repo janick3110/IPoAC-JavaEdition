@@ -10,7 +10,7 @@ public class CommandBuy extends CommandTemplate {
 
     @Override
     public void execute(String input) {
-        input = input.toUpperCase();
+        input = input.toUpperCase().split(" ")[1];
 
         try {
             gui.out(player.buy(input));

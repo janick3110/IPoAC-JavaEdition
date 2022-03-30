@@ -16,7 +16,7 @@ public class CommandPuffer extends CommandTemplate{
         try{
             for (Computer computer:player.getInventory().getComputers()
                  ) {
-                if (computer.getName().equalsIgnoreCase(input)){
+                if (computer.getName().equalsIgnoreCase(input.split(" ")[1])) {
                     computer.generateData();
                     gui.out(computer.getName() + " has generated " + computer.getData() + " MB");
                     return;

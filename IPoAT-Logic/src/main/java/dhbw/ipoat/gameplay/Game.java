@@ -10,8 +10,6 @@ import dhbw.ipoat.player.Player;
 import dhbw.ipoat.savesystem.Savegame;
 import org.json.JSONObject;
 
-import java.util.Random;
-
 public class Game implements GameInterface {
 
 
@@ -60,9 +58,7 @@ public class Game implements GameInterface {
             } else if (argument.length == 3) {
                 commandMap.execute(availableCommands, argument[1] + " " + argument[2]);
             }
-
-            Random random = new Random();
-            //event.doSomethingGoodOrBad(random.nextInt(100));
+            eventMap.execute();
 
             if (Savegame.autosave) {
                 Savegame.save(player, this);

@@ -80,6 +80,8 @@ public class Player {
         buyableMap.put("BAG", () -> buyThisObject(new Bag(this)));
         buyableMap.put("CART", () -> buyThisObject(new Cart(this)));
 
+        buyableMap.put("COMPUTER", () -> buyThisObject(new Computer(this)));
+
     }
 
     public void setMoney(int money){

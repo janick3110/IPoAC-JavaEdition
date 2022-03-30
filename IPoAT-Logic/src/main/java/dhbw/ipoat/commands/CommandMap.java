@@ -8,7 +8,7 @@ public class CommandMap {
 
     public GUI gui;
 
-    private final Map<CommandToken, CommandTemplate> commands = new HashMap<>();
+    private static final Map<CommandToken, CommandTemplate> commands = new HashMap<>();
 
     private final Boolean autosave = true;
 
@@ -19,19 +19,15 @@ public class CommandMap {
 
     public static outputPossibilities mode = outputPossibilities.CONSOLE;
 
-    public CommandMap() {
-        initializeMap();
-    }
-
     public void execute(CommandToken commandToken, String input) {
         commands.get(commandToken).execute(input);
     }
 
-    private void initializeMap() {
+    public static void initializeMap() {
         commands.put(CommandToken.PUT, new CommandPut());
         commands.put(CommandToken.BUY, new CommandBuy());
         commands.put(CommandToken.UPGRADE, new CommandUpgrade());
-        commands.put(CommandToken.NEXT, new CommandNextDay()) ;
+        commands.put(CommandToken.NEXT, new CommandNextDay());
         commands.put(CommandToken.SEND, new CommandSend());
         commands.put(CommandToken.STATS, new CommandStats());
         commands.put(CommandToken.HELP, new CommandHelp());

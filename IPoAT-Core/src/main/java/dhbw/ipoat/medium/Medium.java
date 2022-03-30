@@ -7,11 +7,16 @@ import org.json.JSONObject;
 
 public abstract class Medium extends Buyable {
 
+    private static int counter;
+    private final MediaTypes types;
     private final double weight;
 
-    public Medium(int price, Player owner, double weight) {
+    public Medium(int price, Player owner, double weight, MediaTypes types) {
         super(price, owner);
+        this.types = types;
         this.weight = weight;
+        name = types.toString().toUpperCase() + "-" + counter;
+        counter++;
     }
 
     @Override

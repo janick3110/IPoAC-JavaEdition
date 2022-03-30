@@ -1,14 +1,14 @@
 {
     "Player": {
         "Money": 1000,
-        "Name": "Janick"
+        "Name": "exit"
     },
     "CounterForEmployees": 0,
     "Game": {"Days": 0},
-    "Savegamename": "Janick-2022-3-25",
+    "Savegamename": "exit-2022-3-30",
     "Inventory": {"Computers": {
         "currentPuffer": 0,
-        "Name": "Computer-0",
+        "Name": "COMPUTER-0",
         "CopiedData": 0
     }}
 }

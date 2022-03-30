@@ -13,13 +13,13 @@ public class Computer extends Buyable {
     private static int counter;
     private float generatedData;
     private float copiedData;
-    private final Instant timeOfBoot;
+    private Instant timeOfBoot;
     private final float dataPerSecond = 0.1f;
 
     public Computer(Player owner) {
         super(250, owner);
         timeOfBoot = Instant.now();
-        name = "Computer-" + counter;
+        name = "COMPUTER-" + counter;
         counter++;
     }
 
@@ -35,7 +35,7 @@ public class Computer extends Buyable {
     }
 
     @Override
-    protected int calculateSellValue() {
+    public int calculateSellValue() {
         return (int) (price * .5f);
     }
 
@@ -51,17 +51,19 @@ public class Computer extends Buyable {
     }
 
     public float getData(){
+        generateData();
         return generatedData;
     }
 
     public void generateData(){
         float difference = Duration.between(timeOfBoot,Instant.now()).getSeconds();
-        generatedData = dataPerSecond * difference - copiedData;
+        generatedData = dataPerSecond * difference;
     }
 
     public float copyData(){
         copiedData += getData();
         generatedData = 0;
+        timeOfBoot = Instant.now();
         return copiedData;
     }
 

@@ -1,9 +1,6 @@
 package dhbw.ipoat.commands;
 
 import dhbw.ipoat.animals.Animal;
-import dhbw.ipoat.habitat.Habitat;
-
-import java.util.List;
 
 public class CommandNextDay extends CommandTemplate{
 
@@ -13,6 +10,7 @@ public class CommandNextDay extends CommandTemplate{
 
     @Override
     public void execute(String input) {
+        game.days();
         gui.out("Rise and shine! Today is day " + game.days());
 
         for (Animal animal:player.getInventory().getAnimals()
@@ -25,7 +23,6 @@ public class CommandNextDay extends CommandTemplate{
         }
 
         //TODO: Fortschritt von Tieren
-        //TODO: Tiere altern bzw. werden erwachsen
     }
 
 

@@ -115,7 +115,7 @@ public abstract class Animal extends Buyable {
     public String increaseAge(){
         currentAge++;
 
-        if (currentAge/lifeExpectancy - 1 > Math.random()){
+        if (currentAge > lifeExpectancy) {
             return killAnimal();
         }
         return null;

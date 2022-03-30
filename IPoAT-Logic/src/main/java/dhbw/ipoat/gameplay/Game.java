@@ -18,7 +18,7 @@ public class Game implements GameInterface {
     private boolean running = true;
 
     private final Player player;
-    private final int days;
+    private int days;
     private final GUI gui;
 
     private final CommandMap commandMap;
@@ -30,9 +30,10 @@ public class Game implements GameInterface {
         this.player = new Player(gui.in("Enter Player Name"));
 
 
+        ActionTemplate.initializationOfActions(player, gui, this);
         commandMap = new CommandMap();
         eventMap = new EventMap();
-        ActionTemplate.initializationOfActions(player, gui, this);
+
 
 
         gui.out("IP over Animal Transport - Tycoon");
@@ -103,11 +104,16 @@ public class Game implements GameInterface {
         running = gameState;
     }
 
-    public JSONObject getJSONFromGame(){
+    public JSONObject getJSONFromGame() {
         JSONObject gameJSON = new JSONObject();
 
         gameJSON.put("Days", days);
 
         return gameJSON;
+    }
+
+    @Override
+    public void nextDay() {
+        days++;
     }
 }

@@ -18,7 +18,7 @@ public class CommandSound extends CommandTemplate{
             }
             gui.out(animal.getSoundGenerator().MakeAnimalSound(animal.makeSound()));
         } catch (OperationNotAllowedException e) {
-            gui.out("Animal does not exist");
+            gui.out(e.getMessage());
         }
 
 

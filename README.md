@@ -2,12 +2,12 @@
 
 This is a game, where the player can play as a tycoon, who transmitts data over animals. This is a reference to the so
 called IPoAC-protocol after [RFC1149](https://datatracker.ietf.org/doc/html/rfc1149). Currently, there are existing two
-types of animals: birds and mammals (which are reduced to animals which have hooves). The progress and future ideas can
-be seen under [this](https://trello.com/b/5Aa7svzA/ipoat) website, where we show what we're currently doing. It may not be
-always the latest version, but it should give you some ideas on what we're currently working.
+types of animals: birds and mammals. It may not be always the latest version, but it should give you some ideas on what
+we're currently working.
 
 The game is a sole command-based game. The player has to enter his commandMap, which are explained down below. There is
-also a HELP-command in-game to explain the commandMap. All commandMap are case-insensitive, but names have to be correct.
+also a HELP-command in-game to explain the commandMap. All commandMap are case-insensitive, but names have to be
+correct.
 
 ## Game Principle
 

@@ -13,6 +13,7 @@ import java.util.List;
 public abstract class TransportDevice extends Buyable {
 
     TransportationDeviceType deviceType;
+    private static int counter;
     private double currentLoad;
     private final double maxLoad;
     private final List<Medium> media;
@@ -22,6 +23,8 @@ public abstract class TransportDevice extends Buyable {
         this.deviceType = type;
         this.maxLoad = maxLoad;
         media = new ArrayList<>();
+        name = deviceType.toString().toUpperCase() + "-" + counter;
+        counter++;
     }
 
     public TransportationDeviceType getDeviceType() {
